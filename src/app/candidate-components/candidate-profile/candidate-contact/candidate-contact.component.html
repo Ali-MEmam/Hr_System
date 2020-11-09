@@ -1,0 +1,122 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                            start contact section                        -->
+<!-- ----------------------------------------------------------------------- -->
+<div class="profile" *ngIf="profileData">
+  <section class="profile__salary-info">
+    <div class="profile__summury-info__Edit col-3 ml-auto">
+      <div class="Edit-icon-wrapper">
+        <span (click)="open(EditMode)" title="" class="profile__summury-info__Edit-link job-is ft">
+          <i class="la la-pencil"></i>
+        </span>
+      </div>
+    </div>
+    <!-- start content -->
+    <div class="edu-history-sec row content">
+      <div class="job-overview style2 row">
+        <ul class="row contact-link">
+          <li>
+            <img src="../../../../assets/img/icons/city.svg" alt="" />
+            <span>{{ profileData.country }}</span>
+          </li>
+          <li>
+            <img src="../../../../assets/img/icons/global.svg" alt="" />
+            <span>{{ profileData.city }}</span>
+          </li>
+          <li>
+            <img src="../../../../assets/img/icons/call.svg" alt="" />
+            <span>{{ profileData.phone_number }}</span>
+          </li>
+          <li>
+            <img src="../../../../assets/img/icons/email.svg" alt="" />
+            <span>{{ profileData.email }}</span>
+          </li>
+          <!-- <li><i class="la la-globe"></i>
+                    <h3>Website</h3><span>{{profileData.website}}</span>
+                  </li> -->
+          <li>
+            <img src="../../../../assets/img/icons/location-pointer.svg" alt="" />
+            <span>{{ profileData.address }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- start content -->
+  </section>
+</div>
+<!---------------------- end salary info section -------------------->
+
+<!-----------------------------------------Start add more Modal------------------------------------>
+<div class="card-content">
+  <div class="card-body p-1">
+    <ng-template #EditMode let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Contact Information</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <section id="filter" >
+        <div class="modal-body">
+          <div class="row content">
+            <div class="col-12">
+              <form (ngSubmit)="onSubmitContact(form)" [formGroup]="contactForm" class="form content">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>Country</p> 
+                      <select class="form-control" formControlName="country"    (change)="onChangeCountry($event.target.value , selectValue)" [(ngModel)]="profileData.country">
+                        <option  *ngFor="let country of countryInfo; let i = index" value="{{i}}" #selectValue>{{country.CountryName}}</option>
+                      </select>  
+                    </div>
+                  </div>       
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>City</p>
+                      <select class="form-control" formControlName="city"  (change)="onChangeState($event.target.value)">
+                        <option *ngIf="stateInfo == ''" value="-1">--Select State--</option>
+                        <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">{{state.StateName}}</option>
+                      </select>  
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>Phone Number</p>
+                      <input type="text" formControlName="phone_number" [(ngModel)]="profileData.phone_number" />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>E-mail</p>
+                      <input type="email" formControlName="email" [(ngModel)]="profileData.email" />
+                    </div>
+                  </div>
+                  <!-- <div class="col-lg-6">
+                    <span class="pf-title">Website</span>
+                    <div class="pf-field">
+                      <input type="text" formControlName="website" [(ngModel)]="profileData.website">
+                    </div>
+                  </div> -->
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <p>Address</p>
+                      <input type="text" formControlName="address" [(ngModel)]="profileData.address" />
+                    </div>
+                  </div>
+                </div>
+                <div class="pt-4 modal-btn-wrapper">
+                  <button type="button" class="btn close backBtn" aria-label="Close" (click)="d('Cross click')">
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn saveBtn" [disabled]="contactForm.invalid">
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-template>
+  </div>
+</div>
+<!-----------------------------------------End add more Modal------------------------------------>

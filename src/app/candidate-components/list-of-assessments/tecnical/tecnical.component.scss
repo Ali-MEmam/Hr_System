@@ -1,0 +1,87 @@
+@import '../../../../general';
+@import '../../../../variables';
+.coverletter-sec  form button{
+    border-color: #009DA0 !important
+}
+
+.coverletter-sec  form button:hover{
+    background-color: #009DA0 !important;
+}
+.btn-style.btn-edited{
+    background: #ffffff;
+    border: 2px solid #009DA0;
+    color: #009DA0;
+    font-family: Open Sans;
+    font-size: 14px;
+    padding: 5px 25px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.btn-style.btn-edited:hover{
+    background-color: #009DA0 !important;
+    color: white;
+
+
+}
+
+
+.ui-progressbar-large {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+ }
+ .result {
+    font-size: 35px;
+    text-align: center;
+    top: 33%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    position: absolute;
+ }
+ 
+ @media all and (-tizen-geometric-shape: circle) {
+    .result {
+       top: 50%;
+       margin: 0;
+    }
+    .ui-footer {
+       display: none;
+    }
+ }
+ .widget{
+     float: none;
+   }
+ ::ng-deep svg{
+    float: none;
+    border-radius: 50%;
+    padding: 1%;
+    box-sizing: border-box;
+    border: none;
+    height: 200px;
+    width: auto;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+ }
+ 
+ 
+   .chart-title{
+     text-align: center !important;
+     color: $orange;
+     position: relative;
+     float: none;
+     font-weight: normal !important;
+     text-transform: capitalize;
+     font-size: 12px !important;
+   }
+
+   .back-btn{
+    padding-top: 35px;
+}
+.back-btn i{
+    background-color: #f9b537;
+    padding: 2px;
+    border-radius: 50%;
+    color: white;
+    font-size: 40px;
+}

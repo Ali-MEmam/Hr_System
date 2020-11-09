@@ -1,0 +1,64 @@
+<section id="filter" class="mb-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body p-0">
+                        <!-- -------------------------- Data Table Start --------------------------- -->
+                        <ngx-datatable #table class="material" [columns]="columns" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [rows]="rows">
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+                            <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                                [resizeable]="false">
+                            </ngx-datatable-column>
+                            <!-- <ngx-datatable-column name="Actions" sortable="false" prop="id"> -->
+                                <!-- <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    <a class="link" (click)="showLogeDetails(row)" (click)="open(viewLog)">
+                                        <span class="action-icon">
+                                            <img src="../../../../assets/img/actions/view.svg">
+                                        </span>
+                                    </a>
+                                </ng-template> -->
+                            <!-- </ngx-datatable-column> -->
+                        </ngx-datatable>
+                        <!-- --------------------------- Data Table End ---------------------------- -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #viewLog let-c="close" let-d="dismiss">
+            <div class="modal-header d-flex">
+                <h4 class="modal-title">Log Activity Details</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <section id="filter">
+                <div class="modal-body container">
+                    <ul class="d-flex contact-link row">
+                        <li class="col-sm-12 d-flex align-items-baseline">
+                            <h5 class="mb-0">Member:</h5>
+                            <span>{{ logDetails.username }}</span>
+                        </li>
+                        <li class="col-sm-12 d-flex align-items-baseline">
+                            <h5 class="mb-0">Description:</h5>
+                            <span>{{ logDetails.description }}</span>
+                        </li>
+                        <li class="col-sm-12 d-flex align-items-baseline">
+                            <h5 class="mb-0">Date:</h5>
+                            <span>{{ logDetails.created }}</span>
+                        </li>
+                        <li class="col-sm-12 d-flex align-items-baseline">
+                            <h5 class="mb-0">Time:</h5>
+                            <span>{{ logDetails.time }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>

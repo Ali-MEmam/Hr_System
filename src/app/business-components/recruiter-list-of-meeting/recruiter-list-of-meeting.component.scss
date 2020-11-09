@@ -1,0 +1,48 @@
+table {
+    width: 100%;
+  }
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  /* Structure */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+
+.filter{
+  &__by-name{
+    &__input{
+      display: inline-block;
+      width: 40%;
+
+    }
+    &__label{
+      margin-right: 3px;
+    }
+    &__icon{
+      position: absolute;
+      top: 42%;
+      left: 92%;
+      font-size: 14px;
+    }
+  }
+  &__by-type{
+
+    &__label{
+      margin-right: 3px;
+    }
+    &__input{
+      display: inline-block;
+      width:40%;
+    }
+  }
+}
+.success{
+  color: #009DA0 !important;
+}

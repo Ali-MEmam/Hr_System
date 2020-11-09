@@ -1,0 +1,128 @@
+@import '../../../variables';
+@import '../../../general';
+
+.manage-jobs-sec>h3 {
+  float      : left;
+  width      : 100%;
+  font-family: Quicksand;
+  font-size  : 20px;
+  font-weight: bold;
+  color      : #202020;
+}
+
+.p-category {
+  height: auto;
+}
+
+.active-link-dashboard {
+  .img-wrapper {
+    border: solid 4px $orange;
+  }
+}
+
+.dashboard-items {
+  display        : flex;
+  justify-content: space-between;
+  flex-wrap      : wrap;
+
+
+  .p-category {
+    text-align : center;
+    margin-left: 0 !important;
+    width      : 20%;
+
+    &:hover {
+      background-color   : transparent;
+      margin             : 0 !important;
+      box-shadow         : none;
+      // width           : 100%;
+
+      .img-wrapper {
+        border    : solid 4px $orange;
+        transition: 0.2s ease-in-out;
+      }
+    }
+
+    &>a {
+      border          : 0px !important;
+      background-color: transparent;
+      box-shadow      : none !important;
+
+      span {
+        font-family   : 'SegoeUI';
+        font-size     : 15px;
+        font-weight   : 600;
+        font-stretch  : normal;
+        font-style    : normal;
+        line-height   : 1.33;
+        letter-spacing: normal;
+        text-align    : center;
+        color         : $dusk;
+      }
+
+      .img-wrapper {
+        background-color: white;
+        border-radius   : 50%;
+        border-color    : $orange;
+        box-shadow      : 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+        display         : flex;
+        align-items     : center;
+        justify-content : center;
+        width           : 145px;
+        height          : 145px;
+        margin          : 0 auto;
+        transition      : 0.3s ease-in-out;
+
+        img {
+          width: 65px;
+        }
+      }
+    }
+
+    @media(min-width: 1200px) {
+      width: 20%;
+
+    }
+
+    @media(max-width: 1200px) {
+      width : 28%;
+      margin: 0 1%;
+
+    }
+
+    @media(max-width: 768px) {
+      width: 48%;
+
+      .img-wrapper {
+        width : 130px !important;
+        height: 130px !important;
+
+        img {
+          width: 60px !important;
+
+        }
+      }
+    }
+
+    @media(max-width: 520px) {
+      width: 48%;
+
+      .img-wrapper {
+        width : 110px !important;
+        height: 110px !important;
+
+        img {
+          width: 50px !important;
+
+        }
+      }
+    }
+  }
+}
+
+.main-panel {
+  max-height: 100%;
+  height: calc(100% - 200px);
+  min-height: calc(100% - 200px);
+  width: 100%;
+}

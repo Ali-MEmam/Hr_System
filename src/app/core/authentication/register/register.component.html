@@ -1,0 +1,303 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Login Component End                           -->
+<!-- ----------------------------------------------------------------------- -->
+<app-spinner *ngIf="isLoading"></app-spinner>
+<!--Login Page Starts-->
+<section id="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 d-flex flex-column">
+        <div class="logo-wrapper">
+          <img src="../../../../assets/img/logos/logo.svg" alt="" />
+        </div>
+        <div class="content-wrapper">
+          <h1>Welcome to
+            <span>master HR </span>
+          </h1>
+          <p>
+            Lorem ipsum dolor sit
+            <br /> amet consectetur adipisicing elit.
+          </p>
+        </div>
+        <div class="d-block">
+          <div class="card-content text-center">
+            <div class="select-user-tabs mb-3">
+              <span (click)="userCandiate(candiate, employer)" #candiate class="active">Candidate</span>
+              <span (click)="userEmployer(employer, candiate)" #employer>Employer</span>
+            </div>
+
+            <!--------------------------        candidate  ----------------------------->
+            <div *ngIf="type == 'candidate'" class="card-body login-img">
+              <!-- <h4 class="card-title mb-2">Login</h4> -->
+
+              <!-- <p class="card-text mb-2">
+                Create New Account As
+                <span class="highlight-text">Candidate</span>
+              </p> -->
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+                <!-- ------------------------------ Username ------------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerForm.get('username').errors && registerForm.get('username').touched }">
+                  <p>
+                    User Name
+                  </p>
+                  <div *ngIf="registerForm.get('username').errors && registerForm.get('username').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="text" placeholder="Username" formControlName="username"
+                    id="username" autocomplete="off" />
+                </div>
+                <!-- -------------------------------- Email -------------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}">
+                  <p>
+                    Email
+                  </p>
+                  <div *ngIf="registerForm.get('email').errors && registerForm.get('email').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input name= "registerFormEmail" class="form-control" type="email" placeholder="Email" formControlName="email" id="email"
+                    autocomplete="off" (change)=checkEmail($event) />
+                </div>
+                <div *ngIf="registerForm.get('email').value === this.userEmail" class="help-block">
+                  This Email Is Already Exist</div>
+
+                <!-- ------------------------------ Passowrd ------------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerForm.get('password').errors && registerForm.get('password').touched }">
+                  <p>
+                    Password
+                  </p>
+                  <div *ngIf="registerForm.get('password').errors && registerForm.get('password').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="password" placeholder="Password" formControlName="password" id="pwd"
+                    autocomplete="off" [type]="fieldTextType ? 'text' : 'password'" />
+                  <span>
+                    <i class="fa" [ngClass]="{
+                        'fa-eye-slash': !fieldTextType,
+                        'fa-eye': fieldTextType
+                      }" (click)="toggleFieldTextType()"></i>
+                  </span>
+                </div>
+                <div *ngIf="registerForm.get('password').value.length < 4 && registerForm.get('password').touched"
+                  class="help-block">password should be morethan 4 character</div>
+
+                <!-- -------------------------- Reapeat Password --------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched }">
+                  <p>
+                    Confirm Password
+                  </p>
+                  <div *ngIf="registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="password" placeholder="Confirm Password"
+                    formControlName="confirmPassword" id="confirmpwd" autocomplete="off"
+                    [type]="repeatFieldTextType ? 'text' : 'password'" />
+                  <span>
+                    <i class="fa" [ngClass]="{
+                        'fa-eye-slash': !repeatFieldTextType,
+                        'fa-eye': repeatFieldTextType
+                      }" (click)="toggleRepeatFieldTextType()"></i>
+                  </span>
+
+                </div>
+                <div *ngIf="registerForm.get('confirmPassword').value  != registerForm.get('password').value "
+                  class="help-block">
+                  password not match</div>
+                <!-- -------------------------------- Phone -------------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerForm.get('phoneNumber').errors && registerForm.get('phoneNumber').touched }">
+                  <p>
+                    Phone Number
+                  </p>
+                  <div *ngIf="registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched"
+                    class="required-error">
+                    *Required</div>
+                  <ngx-intl-tel-input formControlName="phoneNumber" [inputId]="'phoneNumber'"
+                    [cssClass]="'form-control phoneNumber'" [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Morocco" [maxLength]="15"
+                    [tooltipField]="TooltipLabel.Name" [phoneValidation]="false" [separateDialCode]="separateDialCode"
+                    name="phoneNumber" id="phoneNumber">
+                  </ngx-intl-tel-input>
+                </div>
+                <!-- ----------------------------- Remember Me ----------------------------- -->
+                <p class="remember-label mt-2">
+                  <input class="form-control" type="checkbox" name="customCheckboxInline1" id="cb1" />
+                  <label for="cb1">I accept the terms & conditions.</label>
+                </p>
+                <!-- ----------------------------- Form Action ----------------------------- -->
+                <div class="fg-actions">
+                  <div class="recover-pass">
+                    <button class="btn btn-primary d-block w-100">
+                      <a type="submit" class="text-decoration-none text-white">Regesiter</a>
+                    </button>
+                  </div>
+                </div>
+                <div class="fg-actions text-center">
+                  <p>
+                    You Already Have an Account?
+                    <a [routerLink]="['']"
+                      class="text-decoration-none link-text">Login</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+
+            <!--------------------------        recruiter  ----------------------------->
+            <div *ngIf="type == 'recruiter'" class="card-body login-img">
+              <!-- <h4 class="card-title mb-2">Login</h4> -->
+
+              <!-- <p class="card-text mb-2">
+                Create New Account As
+                <span class="highlight-text">Recruiter</span>
+              </p> -->
+              <form [formGroup]="registerFormRecruiter" (ngSubmit)="onSubmitRecruiter(registerFormRecruiter)">
+                <!-- ------------------------------ company ------------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerFormRecruiter.get('company').errors && registerFormRecruiter.get('company').touched }">
+                  <p>
+                    Company Name
+                  </p>
+                  <div
+                    *ngIf="registerFormRecruiter.get('company').errors && registerFormRecruiter.get('company').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="text" placeholder="Company" formControlName="company" id="company"
+                    autocomplete="off" />
+                </div>
+                <!-- -------------------------------- Email -------------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerFormRecruiter.get('email').errors && registerFormRecruiter.get('email').touched }">
+                  <p>
+                    Email
+                  </p>
+                  <div *ngIf="registerFormRecruiter.get('email').errors && registerFormRecruiter.get('email').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input name= "registerFormRecruiterEmail" class="form-control" type="email" placeholder="Email" formControlName="email" id="email"
+                    autocomplete="off" (change)=checkEmail($event) />
+                </div>
+                <div  *ngIf="registerFormRecruiter.get('email').value === this.userEmail" class="help-block">
+                  This Email Is Already Exist</div>
+                <!-- ------------------------------ Passowrd ------------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerFormRecruiter.get('password').errors && registerFormRecruiter.get('password').touched }">
+                  <p>
+                    Password
+                  </p>
+                  <div
+                    *ngIf="registerFormRecruiter.get('password').errors && registerFormRecruiter.get('password').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="password" placeholder="Password" formControlName="password" id="pwd"
+                    autocomplete="off" [type]="recruiterFieldTextType ? 'text' : 'password'" pattern="/(?=.*[!@#$%^&*]){8,}$/"/>
+                  <span>
+                    <i class="fa" [ngClass]="{
+                        'fa-eye-slash': !recruiterFieldTextType,
+                        'fa-eye': recruiterFieldTextType
+                      }" (click)="recruiterToggleFieldTextType()"></i>
+                  </span>
+                </div>
+                <div
+                  *ngIf="registerFormRecruiter.get('password').value.length < 4 && registerFormRecruiter.get('password').touched"
+                  class="help-block">password should be morethan 4 character</div>
+
+                <!-- -------------------------- Reapeat Password --------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': registerFormRecruiter.get('confirmPassword').errors && registerFormRecruiter.get('confirmPassword').touched }">
+                  <p>
+                    Confirm Password
+                  </p>
+                  <div
+                    *ngIf="registerFormRecruiter.get('confirmPassword').errors && registerFormRecruiter.get('confirmPassword').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="password" placeholder="Confirm Password"
+                    formControlName="confirmPassword" id="confirmpwd" autocomplete="off"
+                    [type]="recruiterRepeatFieldTextType ? 'text' : 'password'" />
+                  <span>
+                    <i class="fa" [ngClass]="{
+                        'fa-eye-slash': !recruiterRepeatFieldTextType,
+                        'fa-eye': recruiterRepeatFieldTextType
+                      }" (click)="recruiterToggleRepeatFieldTextType()"></i>
+                  </span>
+                </div>
+                <div
+                  *ngIf="registerFormRecruiter.get('confirmPassword').value  != registerFormRecruiter.get('password').value "
+                  class="help-block">
+                  password not match</div>
+                <!-- -------------------------------- Phone -------------------------------- -->
+                <!-- <div class="form-group" [ngClass]="{'is-invalid': registerFormRecruiter.get('phoneNumber').errors && registerFormRecruiter.get('phoneNumber').touched }">
+                  <p>
+                    Phone Number
+                  </p>
+                  <div *ngIf="registerFormRecruiter.get('phoneNumber').errors && registerFormRecruiter.get('phoneNumber').touched" class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                    placeholder="Phone Number" formControlName="phoneNumber" id="phoneNumber" autocomplete="off" ng2TelInput
+                  />
+                </div> -->
+                <!-- <div class="form-group" [ngClass]="{'is-invalid': registerFormRecruiter.get('address').errors && registerFormRecruiter.get('address').touched }">
+                  <p>
+                    address
+                  </p>
+                  <div *ngIf="registerFormRecruiter.get('address').errors && registerFormRecruiter.get('address').touched" class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                    placeholder="address" formControlName="address" id="address" autocomplete="off" />
+                </div> -->
+
+                <!-- <div class="form-group" [ngClass]="{'is-invalid': registerFormRecruiter.get('website').errors && registerFormRecruiter.get('website').touched }">
+                  <p>
+                    website
+                  </p>
+                  <div *ngIf="registerFormRecruiter.get('website').errors && registerFormRecruiter.get('website').touched" class="required-error">
+                    *Required</div>
+                  <input class="form-control" type="text" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                    placeholder="website" formControlName="website" id="website" autocomplete="off" />
+                </div> -->
+
+                <!-- ----------------------------- Remember Me ----------------------------- -->
+                <p class="remember-label mt-2">
+                  <input class="form-control" type="checkbox" name="customCheckboxInline1" id="cb1" />
+                  <label for="cb1">I accept the terms & conditions.</label>
+                </p>
+                <!-- ----------------------------- Form Action ----------------------------- -->
+                <div class="fg-actions">
+                  <div class="recover-pass">
+                    <button class="btn btn-primary d-block w-100">
+                      <a type="submit" class="text-decoration-none text-white">Regesiter</a>
+                    </button>
+                  </div>
+                </div>
+                <div class="fg-actions text-center">
+                  <p>
+                    You Already Have an Account?
+                    <a [routerLink]="['']" class="text-decoration-none link-text">Login</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7" *ngIf="type == 'candidate'">
+        <div class="img-wrapper">
+          <img src="../../../../assets/img/login/Business deal-rafiki.svg" alt="" class="w-100" />
+        </div>
+      </div>
+      <div class="col-lg-7" *ngIf="type == 'recruiter'">
+        <div class="img-wrapper">
+          <img src="../../../../assets/img/Data points-rafiki.svg" alt="" class="w-100" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Login Page Ends-->
+
+<app-spinner *ngIf="isLoading"></app-spinner>

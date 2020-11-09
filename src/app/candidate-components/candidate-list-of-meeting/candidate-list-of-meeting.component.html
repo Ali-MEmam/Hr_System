@@ -1,0 +1,83 @@
+<div class="row no-gutters">
+    <div class="col-lg-12 col-md-12 mb-5">
+        <div class="padding-left">
+            <div class="manage-jobs-sec">
+                <div class="border-title">
+                    <div class="container">
+                        <h3>List Of Meetings</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-wrapper">
+            <div class="container">
+                <!-- display data depends on if there is data or no -->
+                <div *ngIf="tests.length > 0; then meetingList; else noMeetingList"></div>
+                <!-- if there is data -->
+                <ng-template #meetingList>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td>Recruiter</td>
+                                    <td>Screening ID</td>
+                                    <td>Type of Meeting</td>
+                                    <td>Date</td>
+                                    <td>Status</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="tests.length > 0">
+                                <tr *ngFor="let test of tests">
+                                    <td>
+                                        <h3>
+                                            <span>{{ test.recrutier_name }}</span>
+                                        </h3>
+                                    </td>
+                                    <td>
+                                        <h3>
+                                            <a title="">{{ test.screening_id }}</a>
+                                        </h3>
+                                    </td>
+                                    <td>
+                                        <h3>
+                                            <a title="">{{ test.type }}</a>
+                                        </h3>
+                                    </td>
+                                    <td>
+                                        <h3>
+                                            <span>{{ test.created }}</span>
+                                        </h3>
+                                    </td>
+                                    <td>
+                                        <h3>
+                                            <span [ngClass]="test.status">{{ test.status }}</span>
+                                        </h3>
+                                    </td>
+                                    <td class="table-list-title" *ngIf="test.status === 'available'">
+                                        <h3>
+                                            <a class="start-btn" routerLink="meet-bot">Start</a>
+                                        </h3>
+                                    </td>
+                                    <td class="table-list-title" *ngIf="test.status === 'done'">
+                                        <h3>
+                                            <a class="history-btn" routerLink="meeting-history">History</a>
+                                        </h3>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </ng-template>
+            <!-- if there is no data to show -->
+            <ng-template #noMeetingList class="col-12">
+                <p class="no-data-view">there is no list of meeting yet</p>
+            </ng-template>
+        </div>
+    </div>
+    <!-- </div> -->
+</div>
+<app-spinner *ngIf="!tests"></app-spinner>
+<!-- <app-footer></app-footer> -->

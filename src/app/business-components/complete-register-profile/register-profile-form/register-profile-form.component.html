@@ -1,0 +1,182 @@
+<section class="profile">
+    <div class="row candidate no-gutters">
+        <div class="border-title">
+            <div class="container">
+                <h3>Company Profile</h3>
+            </div>
+        </div>
+        <div class="col-lg-11 mx-auto">
+            <form (ngSubmit)="onSubmitCompliteProfile()" [formGroup]="myProfileForm" class="form content">
+                <div class="profile-form-edit">
+                    <div class="row">
+                        <div class="col-lg-12 logo-wrapper">
+                            <div class="personal-deatils">
+                                <label class="hoverable">
+                                    <img [src]="croppedImage ?  croppedImage : '../../../../../assets/img/user-placeholder.png'"
+                                        alt="" class="w-100 img-fluid" #profileImage>
+                                    <div class="hover-text" data-toggle="modal" data-target="#profileImageCropper">
+                                        upload logo</div>
+                                    <div class="background"></div>
+                                </label>
+                                <br />
+                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profileImageCropper">
+                                                            Choose file
+                                                          </button> -->
+                                <div class="modal fade" id="profileImageCropper" tabindex="-1" role="dialog"
+                                    aria-labelledby="profileImageCropper" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">update your logo
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                                    [maintainAspectRatio]="true" [aspectRatio]="2 / 2"
+                                                    [resizeToWidth]="500" [roundCropper]="true" [cropper]="cropper"
+                                                    format="png" (imageCropped)="imageCropped($event)"
+                                                    (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+                                                    (loadImageFailed)="loadImageFailed()">
+                                                </image-cropper>
+
+                                                <input id="fileInput" type='file' (change)="fileChangeEvent($event)"
+                                                    formControlName="profile_image">
+                                                <label for="fileInput"> choose new picture
+                                                </label>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                                    save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('username').errors && myProfileForm.get('username').touched }">
+                                <p>Company Name</p>
+                                <div *ngIf="myProfileForm.get('username').errors && myProfileForm.get('username').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input class="form-control" formControlName="username" type="text" id="username"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('email').errors && myProfileForm.get('email').touched }">
+                                <p>Email</p>
+                                <div *ngIf="myProfileForm.get('email').errors && myProfileForm.get('email').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input class="form-control" formControlName="email" type="text" id="email"/>
+                            </div>
+                        </div>
+                        <!-- ------------------------------country------------------------------- -->
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('country').errors && myProfileForm.get('country').touched }">
+                                <p>Country</p>
+                                <div *ngIf="myProfileForm.get('country').errors && myProfileForm.get('country').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <select class="form-control" formControlName="country"
+                                    (change)="onChangeCountry($event.target.value , selectValue)">
+                                    <option *ngFor="let country of countryInfo; let i = index" value="{{i}}"
+                                        #selectValue>{{country.CountryName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- ------------------------------city------------------------------- -->
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('city').errors && myProfileForm.get('city').touched }">
+                                <p>City</p>
+                                <div *ngIf="myProfileForm.get('city').errors && myProfileForm.get('city').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <select class="form-control" formControlName="city"
+                                    (change)="onChangeState($event.target.value)">
+                                    <option *ngIf="stateInfo == ['']" value="-1">--Select State--</option>
+                                    <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">
+                                        {{state.StateName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('address').errors && myProfileForm.get('address').touched }">
+                                <p>Address</p>
+                                <div *ngIf="myProfileForm.get('address').errors && myProfileForm.get('address').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input type="text" formControlName="address" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('phoneNumber').errors && myProfileForm.get('phoneNumber').touched }">
+                                <p>Phone</p>
+                                <div *ngIf="myProfileForm.get('phoneNumber').errors && myProfileForm.get('phoneNumber').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <ngx-intl-tel-input formControlName="phoneNumber" [inputId]="'phoneNumber'"
+                                    [cssClass]="'form-control phoneNumber'" [preferredCountries]="preferredCountries"
+                                    [enableAutoCountrySelect]="false" [enablePlaceholder]="true"
+                                    [searchCountryFlag]="true"
+                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                    [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Morocco"
+                                    [maxLength]="15" [tooltipField]="TooltipLabel.Name" [phoneValidation]="false"
+                                    [separateDialCode]="separateDialCode" name="phoneNumber" id="phoneNumber">
+                                </ngx-intl-tel-input>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('website').errors && myProfileForm.get('website').touched }">
+                                <p>Website</p>
+                                <div *ngIf="myProfileForm.get('website').errors && myProfileForm.get('website').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input type="text" formControlName="website" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('facebook').errors && myProfileForm.get('facebook').touched }">
+                                <p>Facebook</p>
+                                <div *ngIf="myProfileForm.get('facebook').errors && myProfileForm.get('facebook').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input type="text" formControlName="facebook" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': myProfileForm.get('linkedin').errors && myProfileForm.get('linkedin').touched }">
+                                <p>Linkedin</p>
+                                <div *ngIf="myProfileForm.get('linkedin').errors && myProfileForm.get('linkedin').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input type="text" formControlName="linkedin" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4 modal-btn-wrapper">
+                    <button type="submit" class="btn saveBtn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- </div> -->
+<!-- <app-spinner *ngIf="!profileData"></app-spinner> -->
+<!-- <app-footer></app-footer> -->

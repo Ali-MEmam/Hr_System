@@ -1,0 +1,88 @@
+<!---------------- Portfolio Section ---------------->
+<div class="border-title">
+    <h3>Portfolio</h3>
+    <a *ngIf="portfolioClicked==false" (click)="onAddPortfolio()" title=""><i
+            class="la la-plus"></i> Add Portfolio</a>
+</div>
+<div *ngIf="portfolioClicked == false">
+    <div class="mini-portfolio">
+        <div class="mp-row">
+            <div *ngFor="let portfolio of portfolio" class="mp-col file-upload-container">
+                <div class="mportolio">
+                    <img *ngIf="!testing"
+                        src="https://cdn4.iconfinder.com/data/icons/file-extension-names-vol-8/512/24-512.png"
+                        alt="" />
+                    <img *ngIf="testing"
+                        src="https://cdn4.iconfinder.com/data/icons/file-extension-names-vol-8/512/24-512.png">
+                </div>
+                <ul class="action_job">
+                    <li><span class="edit-popup">Edit</span><a href="#" title=""><i class="la la-pencil"></i></a>
+                    </li>
+                    <li><span class="delete-popup">Delete</span><a (click)="onDeletePortfolio(portfolio.id)"
+                            title=""><i class="la la-trash-o"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="portfolioClicked == true">
+    <form [formGroup]="portfolioUpdateForm" (ngSubmit)="onSubmitPortfolio(portfolioUpdateForm)">
+        <!-- start adding -->
+        <p class="p-4">
+            Max file size is 1MB, Minimum dimension: 270x210 And
+            Suitable files are .jpg & .png
+        </p>
+
+        <div class="resumeadd-form  border-Space" formArrayName="portfolios"
+            *ngFor="let port of portfolioUpdateForm.get('portfolios').controls ;let i = index">
+            <div class="row" [formGroupName]="i">
+                <div class="col-lg-12">
+                    <div class="upload-portfolio">
+                        <div class="uploadbox">
+                            <label *ngIf="!portfolioUpdateForm.value.portfolio"
+                                for="file-upload" class="custom-file-upload">
+                                <i *ngIf="!testing" class="la la-cloud-upload"></i>
+                                <span *ngIf="!testing">Upload Portfolio</span>
+                                <img *ngIf="testing" class="pdf-img img-fluid mx-auto mt-0"
+                                    src="https://cdn4.iconfinder.com/data/icons/file-extension-names-vol-8/512/24-512.png"
+                                    alt="kisspng-pdf-computer-icons-download-pdf-5b3643b91e7405-3244798015302829371247" />
+                            </label>
+                            <input id="file-upload" formControlName="portfolio" type="file"
+                                (change)="readUrlNew($event)" />
+                            <a href="{{testing}}" *ngIf="portfolioUpdateForm.value.portfolios"
+                                download>
+
+                            </a>
+                        </div>
+                        <div class="uploadfield">
+                            <span class="pf-title">Title</span>
+                            <div class="pf-field">
+                                <input placeholder="Tooms.." type="text"
+                                    formControlName="title" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-4 custumPadding">
+            <div class="">
+              <button class="btn saveBtn" [disabled]="portfolioUpdateForm.invalid" type="submit">Save</button>
+            </div>
+            <div>
+              <button type="button" class="btn cancelBtn" class="btn cancelBtn" (click)="cancelAddPortfolio()">Cancel</button>
+            </div>
+        </div>
+
+
+      <!--   <div class="resumeadd-form">
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="btn-style btn-edited"
+                        [disabled]="portfolioUpdateForm.invalid" type="submit">Save</button>
+                </div>
+            </div>
+        </div> -->
+        <!-- end adding -->
+    </form>
+</div>

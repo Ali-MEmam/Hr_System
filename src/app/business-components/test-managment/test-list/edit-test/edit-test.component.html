@@ -1,0 +1,135 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                                    HR  test                             -->
+<!-- ----------------------------------------------------------------------- -->
+<section id="basic-form-layouts">
+
+    <div class="row text-left">
+        <div class="col-sm-12">
+            <div class="content-header">show Test</div>
+        </div>
+    </div>
+    <div class="row text-left">
+        <div class="col-md-12">
+<div class="card">
+    <div class="card-content">
+        <div class="col-md-12 col-lg-12 pt-5">
+
+            <p><span class="font-weight-bold pr-2">Type</span> {{ data.type }}</p>
+            <p>
+              <span class="font-weight-bold pr-2">recruiter name</span>
+              {{ data.recrutier_name }}
+            </p>
+            <p><span class="font-weight-bold pr-2">date</span> {{ data.created }}</p>
+          
+            <h4 class="mt-5 font-weight-bold subtitle mb-3">test questions</h4>
+          
+            <ul *ngFor="let item of questionsData; let i = index">
+                <div class="delete-more">
+                    <a (click)="deleteQuestionEditView(i)">
+                        <i class="la la-close"></i>
+                    </a>
+                  </div>  
+              <li class="title bold-500">{{ item.question }}</li>
+              <div *ngIf="item.answer.length > 0; else showMsg">
+                <li class="text" *ngFor="let answer of item.answer; let j = index">
+                  {{ j + 1 }} - {{ answer }}
+                </li>
+              </div>
+              <ng-template #showMsg>
+                <p class="errormsg">
+                  NO Answer found
+                </p>
+              </ng-template>
+              <li *ngIf="item.correct_answer.length > 0">
+                <p class="subtitle bold-500">correct Answer</p>
+                <div *ngFor="let correctAns of item.correct_answer; let j = index">
+                  <p class="text">
+                    <i class="ng-tns-c111-0 ft-check"></i>{{ correctAns }}
+                  </p>
+                </div>
+              </li>
+            </ul>
+            <!--Prevent panel toggle ends-->
+          </div>
+          <!-- <app-spinner *ngIf="!data"></app-spinner> -->
+    </div>
+</div>
+<div class="card">
+    <div class="card-content">
+        <div class="px-3">
+            <!-- ----------------------------- Form Start ------------------------------ -->
+            <form class="form" [formGroup]="questionsForm"
+                (ngSubmit)="onSubmitQuestionsForm(questionsForm)">
+                <h4 class="form-section">HR-Test</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="userinput1">Test Name</label>
+                            <input formControlName="testName" type="text" id="userinput1"
+                                class="form-control border-primary" name="name">
+                        </div>
+                    </div>
+                </div>
+                <div formArrayName="questions"
+                    *ngFor="let question of questionsForm.get('questions')['controls']; let i = index"
+                    class="form-body">
+                    <!-- ----------------------------- name ------------------------------ -->
+
+                    <div [formGroupName]="i">
+                        <div class="row">
+                            <!-- ----------------------------- Question ------------------------------ -->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="userinput1">Question {{i+1}}</label>
+                                    <input formControlName="question" type="text" id="userinput1"
+                                        class="form-control border-primary" name="name">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ----------------------------- Answer ------------------------------ -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="userinput3">Answer {{i+1}}</label>
+                                    <textarea formControlName="answer" id="userinput3" rows="3"
+                                        class="form-control border-primary" name="username"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions" style="border: none; padding: 0; margin-top: 0px;">
+                            <button *ngIf="questionsForm.value.questions.length >= 2 " type="button"
+                                (click)="deleteQuestion(i)"
+                                class="btn btn-raised btn-warning mr-1">
+                                <i class="ft-x"></i>
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions" style="border: none; padding: 0; margin-top: 0px;">
+                    <button (click)="addNewQuestion()" [disabled]="questionsForm.invalid" type="button"
+                        class="btn btn-raised btn-primary">
+                        <i class="fa fa-check-square-o"></i> Add Question
+                    </button>
+                </div>
+                <!-- ---------------------------- Form Buttons ----------------------------- -->
+                <div class="form-actions left">
+                    <button (click)="backClicked()" type="button" class="btn btn-raised btn-warning mr-1">
+                        <i class="ft-x"></i> Cancel
+                    </button>
+                    <button [disabled]="questionsForm.invalid" type="submit"
+                        class="btn btn-raised btn-primary">
+                        <i class="fa fa-check-square-o"></i> Save
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+</section>
+<!-- ----------------------------------------------------------------------- -->
+<!--                                  HR test       End                      -->
+<!-- ----------------------------------------------------------------------- -->

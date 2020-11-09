@@ -1,0 +1,93 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                     List Profiles Componenet Start                      -->
+<!-- ----------------------------------------------------------------------- -->
+<section id="filter" class="mb-3">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card container">
+        <div class="card-header text-center">
+          <span style="color: #12ca05; font-size: 60px;">
+            <i class="far fa-check-circle"></i>
+          </span>
+          <p class="card-title mt-2">Screening is finishing successfully!</p>
+        </div>
+        <div class="card-content">
+          <div class="pt-2">
+            <!-- -------------------------- Data Table Start --------------------------- -->
+            <p class="text-left">List of selected candidates</p>
+            <ngx-datatable #table class=" p-0 col-lg-12 material " [columns]="columns" [columnMode]="'force'"
+              [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]="rows">
+              <ngx-datatable-row-detail class="col-lg-12"></ngx-datatable-row-detail>
+              <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                [resizeable]="false">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Actions" sortable="false" prop="id">
+                <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+                  <a data-original-title="" title="" (click)="seeDetails(value)">
+                    <span class="action-icon">
+                      <img src="../../../../assets/img/actions/view.svg">
+                    </span>
+                  </a>
+                  <a data-original-title="" title="" (click)="sendInvitaion(value)" (click)="open(test)">
+                    <span class="action-icon">
+                      <img src="../../../../assets/img/actions/stack.svg">
+                    </span>
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <!-- --------------------------- Data Table End ---------------------------- -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ----------------------------------------------------------------------- -->
+<!--                       List Profile Componenet End                       -->
+<!-- ----------------------------------------------------------------------- -->
+
+
+
+
+
+<!--Modal with Default options starts-->
+<div class="card-content">
+  <div class="card-body">
+    <ng-template #test let-c="close" let-d="dismiss">
+      <div class="modal-header mx-3">
+        <h4 class="modal-title">Assign Test</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <span class="border-bottom border-grey mx-3"></span>
+      <section id="filter" class="mb-3">
+        <div class="modal-body">
+          <div class="row m-auto">
+            <div class="col-sm-12">
+              <form [formGroup]="assignTasks" (ngSubmit)="onAssignSubmit(assignTasks,test.type)">
+                <div class="row m-auto pb-2">
+                  <div class="col-lg-6 testInfo assign-test card" *ngFor="let test of tests">
+                    <input type="checkbox" value="test.id" class="assign-test_type-checkbox" formControlName="test.type"
+                      #test.type>
+                    <label class="assign-test_type-label"> {{test.type}} </label>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-raised btn-secondary mr-1" (click)="c('Close click')">
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn btn-info btn-raised ml-2" [disabled]="assignTasks.invalid">
+                    Confirm
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-template>
+  </div>
+</div>
+<!--Modal with Default options ends-->

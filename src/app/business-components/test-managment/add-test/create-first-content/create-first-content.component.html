@@ -1,0 +1,130 @@
+<div class="addTest-wrapper">
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- ---------------------------------------------------------------------- -->
+            <!--                             ADD TEST HEADER                            -->
+            <!-- ---------------------------------------------------------------------- -->
+            <div class=" addTest-wrapper-header row py-2">
+                <div class="col-lg-12 d-flex justify-content-between p-0">
+                    <div class="addTest-wrapper-header-title col-lg-6 d-flex align-items-center">
+                        <span class="back" (click)="goback()">
+                            <i class="fas fa-chevron-circle-left"></i>
+                        </span>
+                        <h2>Create New Test</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- ---------------------------------------------------------------------- -->
+            <!--                             ADD TEST TABS                              -->
+            <!-- ---------------------------------------------------------------------- -->
+            <ul class="nav nav-pills">
+                <li class="mat-test active"><a [routerLink]='["/pages","recruiter","test-managment","FirstContent-test"]'>First Contact</a></li>
+                <li class="mat-test "><a [routerLink]='["/pages","recruiter","test-managment","Hr-test"]'>HR Test</a></li>
+                <li class="mat-test"><a [routerLink]='["/pages","recruiter","test-managment","tecnical-test"]'>Technical Test</a></li>
+            </ul>
+            <div class="tab-content">
+                <!-- ---------------------------------------------------------------------- -->
+                <!--                              First Contant                             -->
+                <!-- ---------------------------------------------------------------------- -->
+                <div id="first" class="tab-pane in active">
+                    <div class="row mt-2">
+                        <div class="col-lg-12">
+                            <section id="basic-form-layouts">
+                                <div class="row text-left">
+                                    <div class="col-md-12 mx-auto">
+                                        <!-- ----------------------------- Form Start ------------------------------ -->
+                                        <form class="form" [formGroup]="questionsFirstForm"
+                                            (ngSubmit)="onSubmitFirstContentQuestionsForm(questionsFirstForm)">
+                                            <h4 class="form-section">
+                                                <div class="form-group">
+                                                    <p for="Title">Test Title</p>
+                                                    <input formControlName="testName" type="text" id="Title"
+                                                        class="form-control border-primary" name="name">
+                                                </div>
+                                            </h4>
+                                            <div class="form-group ">
+                                                <p for="userinput1">Question</p>
+                                                <textarea formControlName="question" type="text" id="userinput1"
+                                                    class="form-control border-primary" name="name"></textarea>
+                                            </div>
+                                            <div *ngIf="!editMode">
+                                                <button [disabled]="questionsFirstForm.invalid" type="submit"
+                                                    class="btn btnAdd">
+                                                    + Add Question
+                                                </button>
+                                            </div>
+                                            <!-- ---------------------------- Form Buttons ----------------------------- -->
+                                            <div *ngIf="!editMode" class="float-right">
+                                                <button (click)="goback()" type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button (click)="onSaveFirstContent()"
+                                                    [disabled]="!listOfHRQuestions[0]" type="button"
+                                                    class="btn saveBtn">
+                                                    Save
+                                                </button>
+                                            </div>
+                                            <div *ngIf="editMode" class="float-right d-flex justify-content-center">
+                                                <button (click)="cancelEditFirstContent(questionsFirstForm)"
+                                                    type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button [disabled]="questionsFirstForm.invalid" type="button"
+                                                    class="btn saveBtn"
+                                                    (click)="saveEditFirstContent(questionsFirstForm)">>
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+        <!-- ----------------------------------------------------------------------- -->
+        <!--                              List Of Question                           -->
+        <!-- ----------------------------------------------------------------------- -->
+        <div class="col-lg-6">
+            <section class="listOfQuestion-wrapper" >
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{test_Name ? test_Name : "First Contact Test"}}</h4>
+                    </div>
+                    <div class="card-content">
+                        <!-- -------------------------- Data Table Start --------------------------- -->
+                        <ngx-datatable #table class='material' [columns]="columns" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5"
+                            [rows]='FirstContentrows'>
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                            <ngx-datatable-column [width]="500" *ngFor="let col of columns" [name]="col.name"
+                                [prop]="col.prop">
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column [width]="100" name="Actions" sortable="false" prop="id">
+                                <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+                                    <a class="success p-0" data-original-title="" title=""
+                                        (click)="editQuestionFirstContent(value)">
+                                        <span class="action-icon">
+                                            <i class="fa fa-pencil-alt text-white" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    <a class="danger p-0" data-original-title="" title=""
+                                        (click)="deleteQuestionFirstContent(value)">
+                                        <span class="action-icon">
+                                            <i class="ft-x text-white"></i>
+                                        </span>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                        <!-- --------------------------- Data Table End --------------------------- -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

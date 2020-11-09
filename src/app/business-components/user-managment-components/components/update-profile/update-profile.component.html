@@ -1,0 +1,228 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                   Create New Profile Component Start                    -->
+<!-- ----------------------------------------------------------------------- -->
+
+<section id="horizontal-form-layouts" *ngIf="!isLoading">
+    <div class="row text-left">
+        <div class="col-sm-12">
+            <h4>Edit Profile</h4>
+        </div>
+    </div>
+    <form [formGroup]="editProfileForm" (ngSubmit)="onSubmitProfile(editProfileForm)">
+        <div class="row pt-2">
+            <div class="col-lg-12">
+                <!-- ------------------------------title------------------------------- -->
+                <div class="col-lg-6">
+                    <div class="form-group"
+                        [ngClass]="{'is-invalid': editProfileForm.get('title').errors && editProfileForm.get('title').touched }">
+                        <span class="pf-title m-0">Profile Title
+                            <span class="danger">*</span>
+                        </span>
+                        <div *ngIf="editProfileForm.get('title').errors && editProfileForm.get('title').touched"
+                            class="required-error">
+                            *Required</div>
+                        <div class="pf-field">
+                            <input type="text" formControlName="title" id="title" autocomplete="off" name="title" />
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------Roles------------------------------- -->
+                <div name="roles" id="roles" class="col-lg-6" *ngIf="rolesArr">
+
+                    <!-- <div formGroupName="roles" name="roles" id="roles" class="col-lg-6"> -->
+                    <h4>Select Profile Roles</h4>
+                    <!-- ------------------------------Department------------------------------- -->
+                    <div class="col-lg-12 p-0">
+                        <div class="form-group" id="headingDepartment">
+                           <div class="" data-toggle="collapse" data-target="#Department" aria-expanded="false"
+                                aria-controls="Department">Department
+                                <span>
+                                    <i class="down fas fa-angle-down"></i>
+                                    <i class="up fas fa-angle-up"></i>
+                                </span>
+                       </div>
+                        </div>
+                        <div id="Department" class="collapse" aria-labelledby="headingDepartment" data-parent="#roles">
+                            <div class="card-body">
+                                <div class="card-body py-0">
+                                    <div *ngFor="let role of editProfileForm.controls.roles.controls; let i=index;"
+                                        class="flex-container  align-center multi-checkbox">
+                                        <div *ngIf="rolesArr[i].group == 'departments'">
+                                            <mat-checkbox [formControl]="role" [checked]='rolesArr[i].check'
+                                                (change)="getSelectedRoles(rolesArr[i]);">
+                                                {{rolesArr[i].name}}
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- -----------------------------Attachment------------------------------- -->
+                    <div class="col-lg-12 p-0">
+                        <div class="form-group" id="headingAttachment">
+                           <div class="collapsed" data-toggle="collapse" data-target="#Attachment"
+                                aria-expanded="false" aria-controls="Attachment">Attachment
+                                <span>
+                                    <i class="down fas fa-angle-down"></i>
+                                    <i class="up fas fa-angle-up"></i>
+                                </span>
+                       </div>
+                        </div>
+                        <div id="Attachment" class="collapse" aria-labelledby="headingAttachment" data-parent="#roles">
+                            <div class="card-body">
+                                <div class="card-body py-0">
+                                    <div *ngFor="let role of editProfileForm.controls.roles.controls; let i=index;"
+                                        class="flex-container  align-center multi-checkbox">
+                                        <div *ngIf="rolesArr[i].group == 'attachments'">
+                                            <mat-checkbox [formControl]="role" [checked]='rolesArr[i].check'
+                                                (change)="getSelectedRoles(rolesArr[i]);">
+                                                {{rolesArr[i].name}}
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ------------------------------Note------------------------------- -->
+                    <div class="col-lg-12 p-0">
+                        <div class="form-group" id="headingNote">
+                           <div class="collapsed" data-toggle="collapse" data-target="#Note" aria-expanded="false"
+                                aria-controls="Note">Note
+                                <span>
+                                    <i class="down fas fa-angle-down"></i>
+                                    <i class="up fas fa-angle-up"></i>
+                                </span>
+                       </div>
+                        </div>
+                        <div id="Note" class="collapse" aria-labelledby="headingNote" data-parent="#roles">
+                            <div class="card-body">
+                                <div class="card-body py-0">
+                                    <div *ngFor="let role of editProfileForm.controls.roles.controls; let i=index;"
+                                        class="flex-container  align-center multi-checkbox">
+                                        <div *ngIf="rolesArr[i].group == 'notes'">
+                                            <mat-checkbox [formControl]="role" [checked]='rolesArr[i].check'
+                                                (change)="getSelectedRoles(rolesArr[i]);">
+                                                {{rolesArr[i].name}}
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ------------------------------Job Criteria------------------------------- -->
+                    <div class="col-lg-12 p-0">
+                        <div class="form-group" id="headingCriteria">
+                           <div class="collapsed" data-toggle="collapse" data-target="#Criteria"
+                                aria-expanded="false" aria-controls="Criteria">Job
+                                <span>
+                                    <i class="down fas fa-angle-down"></i>
+                                    <i class="up fas fa-angle-up"></i>
+                                </span>
+                       </div>
+                        </div>
+                        <div id="Criteria" class="collapse" aria-labelledby="headingCriteria" data-parent="#roles">
+                            <div class="card-body">
+                                <div class="card-body py-0">
+                                    <div *ngFor="let role of editProfileForm.controls.roles.controls; let i=index;"
+                                        class="flex-container  align-center multi-checkbox">
+                                        <div *ngIf="rolesArr[i].group == 'criteria'">
+                                            <mat-checkbox [formControl]="role" [checked]='rolesArr[i].check'
+                                                (change)="getSelectedRoles(rolesArr[i]);">
+                                                {{rolesArr[i].name}}
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ------------------------------Screening------------------------------- -->
+                    <div class="col-lg-12 p-0">
+                        <div class="form-group" id="headingScreening">
+                           <div class="collapsed" data-toggle="collapse" data-target="#Screening"
+                                aria-expanded="false" aria-controls="Screening">Screening
+                                <span>
+                                    <i class="down fas fa-angle-down"></i>
+                                    <i class="up fas fa-angle-up"></i>
+                                </span>
+                       </div>
+                        </div>
+                        <div id="Screening" class="collapse" aria-labelledby="headingScreening" data-parent="#roles">
+                            <div class="card-body">
+                                <div class="card-body py-0">
+                                    <div *ngFor="let role of editProfileForm.controls.roles.controls; let i=index;"
+                                        class="flex-container  align-center multi-checkbox">
+                                        <div *ngIf="rolesArr[i].group == 'screening'">
+                                            <mat-checkbox [formControl]="role" [checked]='rolesArr[i].check'
+                                                (change)="getSelectedRoles(rolesArr[i]);">
+                                                {{rolesArr[i].name}}
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ------------------------------Tasks------------------------------- -->
+                    <div class="col-lg-12 p-0">
+                        <div class="form-group" id="headingTasks">
+                           <div class="collapsed" data-toggle="collapse" data-target="#Tasks" aria-expanded="false"
+                                aria-controls="Tasks">Tasks
+                                <span>
+                                    <i class="down fas fa-angle-down"></i>
+                                    <i class="up fas fa-angle-up"></i>
+                                </span>
+                       </div>
+                        </div>
+                        <div id="Tasks" class="collapse" aria-labelledby="headingTasks" data-parent="#roles">
+                            <div class="card-body">
+                                <div class="card-body py-0">
+                                    <div *ngFor="let role of editProfileForm.controls.roles.controls; let i=index;"
+                                        class="flex-container  align-center multi-checkbox">
+                                        <div *ngIf="rolesArr[i].group == 'tasks'">
+                                            <mat-checkbox [formControl]="role" [checked]='rolesArr[i].check'
+                                                (change)="getSelectedRoles(rolesArr[i]);">
+                                                {{rolesArr[i].name}}
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ------------------------------Description------------------------------- -->
+                <div class="col-lg-6">
+                    <div class="form-group"
+                        [ngClass]="{'is-invalid': editProfileForm.get('description').errors && editProfileForm.get('description').touched }">
+                        <span class="pf-title m-0">Description
+                            <span class="danger">*</span>
+                        </span>
+                        <div *ngIf="editProfileForm.get('description').errors && editProfileForm.get('description').touched"
+                            class="required-error">
+                            *Required</div>
+                        <div class="pf-field">
+                            <textarea formControlName="description" name="description" id="description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4 modal-btn-wrapper">
+                   <button type="button" class="btn close backBtn"
+                        [routerLink]="['/pages', 'recruiter', 'user-managment', 'list-profils' ]"
+                        routerLinkActive="active">Cancel</button>
+                   <button type="submit" class="btn saveBtn" [disabled]="editProfileForm.invalid">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                    Create New Profile Component End                     -->
+<!-- ----------------------------------------------------------------------- -->
+
+<app-spinner *ngIf="isLoading"></app-spinner>

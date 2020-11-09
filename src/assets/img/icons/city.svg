@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:#27bfc0}
+        </style>
+    </defs>
+    <g id="prefix__city">
+        <path id="prefix__Path_328" d="M210.875 210.625h3.525v4.722h-3.525z" class="prefix__cls-1" data-name="Path 328" transform="translate(-202.638 -202.397)"/>
+        <path id="prefix__Path_329" d="M63.775 215.347v-4.722H60.25v4.781a2.936 2.936 0 0 1 .586-.059z" class="prefix__cls-1" data-name="Path 329" transform="translate(-57.896 -202.397)"/>
+        <path id="prefix__Path_330" d="M361.5 215.347h2.939a2.938 2.938 0 0 1 .586.059v-4.781H361.5z" class="prefix__cls-1" data-name="Path 330" transform="translate(-347.379 -202.397)"/>
+        <path id="prefix__Path_331" d="M47.187 7.056a.586.586 0 0 0 .586-.586v-.786a.586.586 0 0 0-.278-.5L39.258.088a.586.586 0 0 0-.617 0L30.4 5.186a.586.586 0 0 0-.278.5v.784a.586.586 0 0 0 .586.586zm-8.238-4.312a1.763 1.763 0 1 1-1.763 1.763 1.765 1.765 0 0 1 1.763-1.763z" class="prefix__cls-1" data-name="Path 331" transform="translate(-28.949)"/>
+        <circle id="prefix__Ellipse_20" cx=".591" cy=".591" r=".591" class="prefix__cls-1" data-name="Ellipse 20" transform="translate(9.409 3.916)"/>
+        <path id="prefix__Path_332" d="M47.186 363.463a2.938 2.938 0 0 1 .586.059v-.259a1.765 1.765 0 0 0-1.763-1.763H31.888a1.765 1.765 0 0 0-1.763 1.763v.259a2.936 2.936 0 0 1 .586-.059z" class="prefix__cls-1" data-name="Path 332" transform="translate(-28.948 -347.379)"/>
+        <path id="prefix__Path_333" d="M18.237 441.75H1.763A1.765 1.765 0 0 0 0 443.513v.4a.586.586 0 0 0 .586.586h18.828a.586.586 0 0 0 .586-.586v-.4a1.765 1.765 0 0 0-1.763-1.763z" class="prefix__cls-1" data-name="Path 333" transform="translate(0 -424.494)"/>
+    </g>
+</svg>

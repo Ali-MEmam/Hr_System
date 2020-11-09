@@ -1,0 +1,63 @@
+
+<!-- <app-spinner *ngIf="!data"></app-spinner> -->
+<section id="filter" class="mb-3">
+  <div class="row text-left">
+      <div class="col-12">
+          <div class="content-header">Test Details</div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12">
+          <div class="card">
+              <div class="card-content">
+                  <div class="card-body">
+                    <div class="col-md-12 col-lg-12 pt-2">
+                      <p><span class="font-weight-bold pr-2">Test Name</span> {{ data.test }}</p>
+                      <p><span class="font-weight-bold pr-2">Type</span> {{ data.type }}</p>
+                      <p>
+                        <span class="font-weight-bold pr-2">recruiter name</span>
+                        {{ data.recrutier_name }}
+                      </p>
+                      <p><span class="font-weight-bold pr-2">date</span> {{ data.created }}</p>
+                      <h4 class="mt-5 font-weight-bold subtitle mb-3">test questions</h4>
+                    
+                      <ul *ngFor="let item of questionsForm; let i = index">
+                        <li class="title bold-500">{{ item.question }}</li>
+                        <div *ngIf="item.answer.length > 0; else showMsg">
+                          <li class="text" *ngFor="let answer of item.answer; let j = index">
+                            {{ j + 1 }} - {{ answer }}
+                          </li>
+                        </div>
+                        <ng-template #showMsg>
+                          <p class="errormsg">
+                            NO Answer found
+                          </p>
+                        </ng-template>
+                        <li *ngIf="item.correct_answer.length > 0">
+                          <p class="subtitle bold-500">correct Answer</p>
+                          <div *ngFor="let correctAns of item.correct_answer; let j = index">
+                            <p class="text">
+                              <i class="ng-tns-c111-0 ft-check"></i>{{ correctAns }}
+                            </p>
+                          </div>
+                        </li>
+                      </ul>
+                      <div class="form-actions">
+                        <!-- <button type="button" (click)=goback() class="btn btn-raised btn-warning " >
+                               Go Back
+                            </button> -->
+                        <button
+                          class="card-title goback mr-1 mt-5 btn btn-primary btn-raised my-1"
+                          (click)="goback()"
+                        >
+                          <i class="ft-chevrons-left mr-1"></i>Go Back
+                        </button>
+                      </div>
+                      <!--Prevent panel toggle ends-->
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

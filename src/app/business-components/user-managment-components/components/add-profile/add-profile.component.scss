@@ -1,0 +1,67 @@
+@import "./../../../../../variables";
+@import "../../../../../general";
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background{
+    background-color: $tealish ;
+ }
+
+ ::ng-deep .mat-checkbox-frame{
+   border-width: 1px !important;
+ }
+ .card{
+    box-shadow:none;
+ }
+label{
+   border: 0px !important;
+   margin-bottom: 0 !important;
+   background-color: #fff;
+   padding: 0px;
+   margin: 0 4px;
+   transition: 0.2s ease-in-out;
+   height: 30px;
+   font-size: 13px;
+   width: 100%;
+}
+
+.form-group{
+   cursor: pointer;
+   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
+
+   button{
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      &:focus{
+         outline: none;
+      }
+   }
+   input{
+      height: 22px;
+   }
+}
+.modal-btn-wrapper{
+   justify-content: flex-end;
+   .close{
+       margin-right: 15px;
+   }
+}
+
+.form-group{
+   display: block !important;
+   position: relative !important;
+   overflow: auto !important;
+ }
+
+.up{
+   display:none;
+   &::before:focus{
+      display:block;
+   }
+}
+.down{
+   display:block;
+   &::before:focus{
+      display:none;
+   }
+}

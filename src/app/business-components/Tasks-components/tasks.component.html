@@ -1,0 +1,701 @@
+<section id="filter" class="mb-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="border-title">
+                <div class="container">
+                    <h3>Tasks</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-header row">
+                    <!-- filter -->
+                    <div class="col-6 filter">
+                        <!-- filter -->
+                        <div class="filter__by-name">
+                            <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                                (keyup)="updateFilter($event)" />
+                            <div class="filter__by-name__icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 ml-auto d-flex justify-content-end mb-2">
+
+                        <button class=" btn btnAdd mr-2">
+                            <a (click)="open(TaskAdd)" (click)="clearData()">
+                                + Create Task</a>
+                        </button>
+                    </div>
+                </div>
+
+                <!--------------------------------------------------------------------------->
+                <!--                           Fillter Buttons                             -->
+                <!------------------------------------------------------------------------ -->
+
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class="mb-3">
+                    <mat-button-toggle value="email" (click)="checkTasksInfo('email')" aria-pressed="true">
+                        <img src="../../../assets/img/task/email.svg">
+                        Mail
+                        <span class="numTypes">{{numEmail.length}}</span>
+                    </mat-button-toggle>
+                    <mat-button-toggle value="call" (click)="checkTasksInfo('call')">
+                        <img src="../../../assets/img/task/call.svg">
+                        Call
+                        <span class="numTypes">{{numCall.length}}</span>
+                    </mat-button-toggle>
+                    <mat-button-toggle value="meeting" (click)="checkTasksInfo('meeting')">
+                        <img src="../../../assets/img/task/meeting.svg">
+                        Meeting
+                        <span class="numTypes">{{numMeeting.length}}</span>
+                    </mat-button-toggle>
+                    <mat-button-toggle value="interview" (click)="checkTasksInfo('interview')">
+                        <img src="../../../assets/img/task/interview.svg">
+                        Interview
+                        <span class="numTypes">{{numInterview.length}}</span>
+                    </mat-button-toggle>
+                    <mat-button-toggle value="other" (click)="checkTasksInfo('other')">
+                        <img src="../../../assets/img/task/lamp.svg">
+                        Other
+                        <span class="numTypes">{{numOther.length}}</span>
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
+
+                <!--------------------------------------------------------------------------->
+                <!--                           Data Table Start                            -->
+                <!------------------------------------------------------------------------ -->
+
+                <div class="table-responsive">
+                    <ngx-datatable #table class="material" [columns]="columns" [columnMode]="'force'"
+                        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [rows]="rows">
+                        <ngx-datatable-row-detail></ngx-datatable-row-detail>
+                        <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                            [resizeable]="false">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Actions" sortable="false" prop="id">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <a title=" Open Task Details" class="link" (click)=viewtaskDetails(row)
+                                    (click)=open(taskview)>
+                                    <span class="action-icon">
+                                        <img src="../../../../assets/img/actions/view.svg">
+                                    </span>
+                                </a>
+                                <a title="Edit Task" class="link" (click)="open(TaskEdit)" (click)="EditTaskVal(row)">
+                                    <span class="action-icon">
+                                        <i class="fa fa-pencil-alt text-white font-small-2" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                                <a title=" Delete Task" class="link" (click)="deleteTask(row)">
+                                    <span class="action-icon">
+                                        <i class="ft-x text-white"></i>
+                                    </span>
+                                </a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+
+                <!--------------------------------------------------------------------------->
+                <!--                           Data Table End                              -->
+                <!------------------------------------------------------------------------ -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--------------------------------------------------------------------------->
+<!--                            Create Task                                -->
+<!------------------------------------------------------------------------ -->
+
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #TaskAdd let-c="close" let-d="dismiss">
+            <div class="modal-header d-flex justify-content-center">
+                <h3 class="modal-type">Create New Task</h3>
+            </div>
+            <section id="filter" class="mb-1">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form [formGroup]="addTask" (ngSubmit)="onSubmit(addTask)">
+                                <div class="row">
+                                    <!-- -------------------------------Task-Type------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="d-flex align-items-baseline">
+                                            <p class="form-control-label"
+                                                [ngClass]="{'is-invalid-input':addTask.get('type').errors && addTask.get('type').touched}">
+                                                Task type</p>
+                                            <div *ngIf="addTask.get('type').errors && addTask.get('type').touched"
+                                                class="required-error-input">
+                                                *
+                                            </div>
+                                            <div class="d-flex justify-content-between" style="width: 85%;">
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type" id="Email"
+                                                        name="type" value="Email" (change)='getType($event.target.id)'>
+                                                    <p for="Email">Email</p><br>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type" id="Call"
+                                                        name="type" value="Call" (change)='getType($event.target.id)'>
+                                                    <p for="Call">Call</p><br>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type" id="Meeting"
+                                                        name="type" value="Meeting"
+                                                        (change)='getType($event.target.id)'>
+                                                    <p for="Meeting">Meeting</p>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type"
+                                                        id="Interview" name="type" value="Interview"
+                                                        (change)='getType($event.target.id)'>
+                                                    <p for="Interview">Interview</p>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type" id="other"
+                                                        name="type" value="other" (change)='getType($event.target.id)'>
+                                                    <p for="other">Other</p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Title------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid':addTask.get('title').errors && addTask.get('title').touched}">
+                                            <p class="orm-controlf-label">Task Title</p>
+                                            <div *ngIf="addTask.get('title').errors && addTask.get('title').touched"
+                                                class="required-error">
+                                                *Required
+                                            </div>
+                                            <input type="text" formControlName="title" name="title" />
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Description------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid':addTask.get('description').errors && addTask.get('description').touched}">
+                                            <p class="form-control-label">Description</p>
+                                            <div *ngIf="addTask.get('description').errors && addTask.get('description').touched"
+                                                class="required-error">
+                                                *Required
+                                            </div>
+                                            <textarea type="text" formControlName="description"
+                                                name="description"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-RelatedTo------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="d-flex align-items-baseline">
+                                            <p class="form-control-label"
+                                                [ngClass]="{'is-invalid-input':addTask.get('related_to').errors && addTask.get('related_to').touched}">
+                                                Related To</p>
+                                            <div *ngIf="addTask.get('related_to').errors && addTask.get('related_to').touched"
+                                                class="required-error-input">
+                                                *
+                                            </div>
+                                            <div class="d-flex justify-content-between" style="width: 30%;">
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="related_to"
+                                                        id="job" name="related_to" value="job">
+                                                    <p for="job">Job</p><br>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="related_to"
+                                                        id="Candidate" name="related_to" value="Candidate">
+                                                    <p for="Candidate">Candidate</p><br>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Date-time-duration------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid':addTask.get('date').errors && addTask.get('date').touched}">
+                                                    <p class="form-control-label">Date</p>
+                                                    <div *ngIf="addTask.get('date').errors && addTask.get('date').touched"
+                                                        class="required-error">
+                                                        *Required
+                                                    </div>
+                                                    <div class="input-group mb-0">
+                                                        <input class="form-control" placeholder="select Date"
+                                                            formControlName="date" name="date" [value]="date"
+                                                            ngbDatepicker #date="ngbDatepicker">
+                                                        <div class="input-group-append">
+                                                            <button class="btn calendar p-0" (click)="date.toggle()"
+                                                                type="button">
+                                                                <img src="../../../assets/img/task/calendar.svg">
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div></div>
+                                            <div class="col-lg-9">
+                                                <div class="form-group task-time">
+                                                    <p class="form-control-label">Time</p>
+                                                    <div class="picker"
+                                                        [ngClass]="{'is-invalid':addTask.get('timeFrom').errors && addTask.get('timeFrom').touched}">
+                                                        <div *ngIf="addTask.get('timeFrom').errors && addTask.get('timeFrom').touched"
+                                                            class="required-error">
+                                                            *Required
+                                                        </div>
+                                                        <ngb-timepicker formControlName="timeFrom"></ngb-timepicker>
+
+                                                    </div>
+                                                    <div class="divided">|</div>
+                                                    <div class="picker"
+                                                        [ngClass]="{'is-invalid':addTask.get('timeTo').errors && addTask.get('timeTo').touched}">
+                                                        <div *ngIf="addTask.get('timeTo').errors && addTask.get('timeTo').touched"
+                                                            class="required-error">
+                                                            *Required
+                                                        </div>
+                                                        <ngb-timepicker formControlName="timeTo"></ngb-timepicker>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Assign-To------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid':addTask.get('assign_to').errors && addTask.get('assign_to').touched}">
+                                            <p class="form-control-label">Assign To</p>
+                                            <div *ngIf="addTask.get('assign_to').errors && addTask.get('assign_to').touched"
+                                                class="required-error">
+                                                *Required
+                                            </div>
+                                            <!-- <mat-form-field class="example-chip-list">
+                                                <mat-chip-list #chipList aria-label="Fruit selection">
+                                                    <mat-chip *ngFor="let userassign of assignTo"
+                                                        [selectable]="selectable" [removable]="removable"
+                                                        (removed)="remove(userassign)">
+                                                        {{userassign}}
+                                                        <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
+                                                    </mat-chip>
+                                                    <input #assignInput [formControl]="assign_to"
+                                                        [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                        (matChipInputTokenEnd)="add($event)">
+                                                </mat-chip-list>
+                                                <mat-autocomplete #auto="matAutocomplete"
+                                                    (optionSelected)="selected($event)">
+                                                    <mat-option *ngFor="let user of filteredUsers" [value]="user">
+                                                        {{user}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field> -->
+                                            <mat-form-field class="example-chip-list">
+                                                <mat-chip-list #chipList aria-label="Fruit selection">
+                                                    <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
+                                                        [removable]="removable" (removed)="remove(fruit)">
+                                                        {{fruit}}
+                                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                                    </mat-chip>
+                                                    <input placeholder="New fruit..." #fruitInput
+                                                        [formControl]="fruitCtrl" [matAutocomplete]="auto"
+                                                        [matChipInputFor]="chipList"
+                                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                        (matChipInputTokenEnd)="add($event)">
+                                                </mat-chip-list>
+                                                <mat-autocomplete #auto="matAutocomplete"
+                                                    (optionSelected)="selected($event)">
+                                                    <mat-option *ngFor="let fruit of filteredFruits | async"
+                                                        [value]="fruit">
+                                                        {{fruit}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                            <!-- <mat-form-field class="example-chip-list">
+                                                <mat-chip-list #chipList aria-label="assign_to selection">
+                                                    <mat-chip *ngFor="let assign_to of assignTo"
+                                                        [selectable]="selectable" [removable]="removable"
+                                                        (removed)="remove(assign_to)">
+                                                        {{assign_to}}
+                                                        <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
+                                                    </mat-chip>
+                                                    <input formControlName="assign_to" [matChipInputFor]="chipList"
+                                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                        [matChipInputAddOnBlur]="addOnBlur"
+                                                        (matChipInputTokenEnd)="add($event)">
+                                                </mat-chip-list>
+                                            </mat-form-field> -->
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Importance-Url------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="form-group "
+                                                    [ngClass]="{'is-invalid':addTask.get('importance').errors && addTask.get('importance').touched}">
+                                                    <p class="form-control-label">Importance</p>
+                                                    <div *ngIf="addTask.get('importance').errors && addTask.get('importance').touched"
+                                                        class="required-error">
+                                                        *Required
+                                                    </div>
+                                                    <select formControlName="importance"
+                                                        class="custom-select d-block w-100" id="importance">
+                                                        <option selected disabled></option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div></div>
+                                            <div class="col-lg-9" *ngIf="this.showUrl">
+                                                <div class=" form-group " [ngClass]=" {'is-invalid':addTask.get('url').errors &&
+                                                addTask.get('url').touched}">
+                                                    <p class="form-control-label">Meeting URL</p>
+                                                    <div *ngIf="addTask.get('url').errors && addTask.get('url').touched"
+                                                        class="required-error">
+                                                        *Required
+                                                    </div>
+                                                    <input type="text" formControlName="url" name="url" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-1" style="text-align: end;">
+                                    <button type="button" class="btn btn-raised btn-secondary mb-0"
+                                        (click)="d('Cross click')">
+                                        Close
+                                    </button>
+                                    <button type="submit" class="btn btn-info btn-raised ml-3 mb-0"
+                                        [disabled]="addTask.invalid">
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>
+
+<!--------------------------------------------------------------------------->
+<!--                             Edit Task                                 -->
+<!------------------------------------------------------------------------ -->
+
+
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #TaskEdit let-c="close" let-d="dismiss">
+            <div class="modal-header d-flex justify-content-center">
+                <h3 class="modal-type">Edit Task</h3>
+            </div>
+            <section id="filter" class="mb-1">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form [formGroup]="editTask" (ngSubmit)="onSubmitEdit(editTask)">
+                                <div class="row">
+                                    <!-- ------------------------------Task-Type------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="d-flex align-items-baseline">
+                                            <p class="form-control-label"
+                                                [ngClass]="{'is-invalid-input':editTask.get('type').errors && editTask.get('type').touched}">
+                                                Task type</p>
+                                            <div *ngIf="editTask.get('type').errors && editTask.get('type').touched"
+                                                class="required-error-input">
+                                                *
+                                            </div>
+                                            <div class="d-flex justify-content-between" style="width: 85%;">
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type" id="Email"
+                                                        name="type" value="Email" (change)='getType($event.target.id)'>
+                                                    <p for="Email">Email</p><br>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type" id="Call"
+                                                        name="type" value="Call" (change)='getType($event.target.id)'>
+                                                    <p for="Call">Call</p><br>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type" id="Meeting"
+                                                        name="type" value="Meeting"
+                                                        (change)='getType($event.target.id)'>
+                                                    <p for="Meeting">Meeting</p>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type"
+                                                        id="Interview" name="type" value="Interview"
+                                                        (change)='getType($event.target.id)'>
+                                                    <p for="Interview">Interview</p>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="type" id="other"
+                                                        name="type" value="other" (change)='getType($event.target.id)'>
+                                                    <p for="other">Other</p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Title------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid':editTask.get('title').errors && editTask.get('title').touched}">
+                                            <p class="orm-controlf-label">Task Title</p>
+                                            <div *ngIf="editTask.get('title').errors && editTask.get('title').touched"
+                                                class="required-error">
+                                                *Required
+                                            </div>
+                                            <input type="text" formControlName="title" name="title" />
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Description------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid':editTask.get('description').errors && editTask.get('description').touched}">
+                                            <p class="form-control-label">Description</p>
+                                            <div *ngIf="editTask.get('description').errors && editTask.get('description').touched"
+                                                class="required-error">
+                                                *Required
+                                            </div>
+                                            <textarea type="text" formControlName="description"
+                                                name="description"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-RelatedTo------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="d-flex align-items-baseline">
+                                            <p class="form-control-label"
+                                                [ngClass]="{'is-invalid-input':editTask.get('related_to').errors && editTask.get('related_to').touched}">
+                                                Related To</p>
+                                            <div *ngIf="editTask.get('related_to').errors && editTask.get('related_to').touched"
+                                                class="required-error-input">
+                                                *
+                                            </div>
+                                            <div class="d-flex justify-content-between" style="width: 30%;">
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="related_to"
+                                                        id="job" name="related_to" value="job">
+                                                    <p for="job">Job</p><br>
+                                                </span>
+                                                <span class="task-radio">
+                                                    <input class="mx-2" type="radio" formControlName="related_to"
+                                                        id="Candidate" name="related_to" value="Candidate">
+                                                    <p for="Candidate">Candidate</p><br>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Date-time-duration------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid':editTask.get('date').errors && editTask.get('date').touched}">
+                                                    <p class="form-control-label">Date</p>
+                                                    <div *ngIf="editTask.get('date').errors && editTask.get('date').touched"
+                                                        class="required-error">
+                                                        *Required
+                                                    </div>
+                                                    <div class="input-group mb-0">
+                                                        <input class="form-control" placeholder="select Date"
+                                                            formControlName="date" name="date" [value]="date"
+                                                            ngbDatepicker #date="ngbDatepicker">
+                                                        <div class="input-group-append">
+                                                            <button class="btn calendar p-0" (click)="date.toggle()"
+                                                                type="button">
+                                                                <img src="../../../assets/img/task/calendar.svg">
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div></div>
+                                            <div class="col-lg-9">
+                                                <div class="form-group task-time">
+                                                    <p class="form-control-label">Time</p>
+                                                    <div class="picker"
+                                                        [ngClass]="{'is-invalid':editTask.get('timeFrom').errors && editTask.get('timeFrom').touched}">
+                                                        <div *ngIf="editTask.get('timeFrom').errors && editTask.get('timeFrom').touched"
+                                                            class="required-error">
+                                                            *Required
+                                                        </div>
+                                                        <ngb-timepicker formControlName="timeFrom"></ngb-timepicker>
+                                                    </div>
+                                                    <div class="divided">|</div>
+                                                    <div class="picker"
+                                                        [ngClass]="{'is-invalid':editTask.get('timeTo').errors && editTask.get('timeTo').touched}">
+                                                        <div *ngIf="editTask.get('timeTo').errors && editTask.get('timeTo').touched"
+                                                            class="required-error">
+                                                            *Required
+                                                        </div>
+                                                        <ngb-timepicker formControlName="timeTo"></ngb-timepicker>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Assign-To------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid':editTask.get('assign_to').errors && editTask.get('assign_to').touched}">
+                                            <p class="form-control-label">Assign To</p>
+                                            <div *ngIf="editTask.get('assign_to').errors && editTask.get('assign_to').touched"
+                                                class="required-error">
+                                                *Required
+                                            </div>
+                                            <mat-form-field formControlName="assign_to" class="example-chip-list">
+                                                <mat-chip-list #chipList aria-label="assign_to selection">
+                                                    <mat-chip *ngFor="let assign_to of assignTo"
+                                                        [selectable]="selectable" [removable]="removable"
+                                                        (removed)="remove(assign_to)">
+                                                        {{assign_to}}
+                                                        <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
+                                                    </mat-chip>
+                                                    <input [matChipInputFor]="chipList"
+                                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                        [matChipInputAddOnBlur]="addOnBlur"
+                                                        (matChipInputTokenEnd)="add($event)">
+                                                </mat-chip-list>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Task-Importance-Url------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="form-group "
+                                                    [ngClass]="{'is-invalid':editTask.get('importance').errors && editTask.get('importance').touched}">
+                                                    <p class="form-control-label">Importance</p>
+                                                    <div *ngIf="editTask.get('importance').errors && editTask.get('importance').touched"
+                                                        class="required-error">
+                                                        *Required
+                                                    </div>
+                                                    <select formControlName="importance"
+                                                        class="custom-select d-block w-100" id="importance">
+                                                        <option selected disabled></option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div></div>
+                                            <div class="col-lg-9" *ngIf="this.showUrl">
+                                                <div class="form-group "
+                                                    [ngClass]="{'is-invalid':editTask.get('url').errors && editTask.get('url').touched}">
+                                                    <p class="form-control-label">Meeting URL</p>
+                                                    <div *ngIf="editTask.get('url').errors && editTask.get('url').touched"
+                                                        class="required-error">
+                                                        *Required
+                                                    </div>
+                                                    <input type="text" formControlName="url" name="url" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-1" style="text-align: end;">
+                                    <button type="button" class="btn btn-raised btn-secondary mb-0"
+                                        (click)="d('Cross click')">
+                                        Close
+                                    </button>
+                                    <button type="submit" class="btn btn-info btn-raised ml-3 mb-0"
+                                        [disabled]="editTask.invalid">
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>
+
+<!--------------------------------------------------------------------------->
+<!--                             Task View                                 -->
+<!------------------------------------------------------------------------ -->
+
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #taskview let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h3>{{taskDetails.title ? taskDetails.title : "Task Details"}}</h3>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <section id="filter">
+                <div class="modal-body container">
+                    <div class="row pb-4">
+                        <div class="col-lg-9">
+                            <div class="item-wrapper">
+                                <h5 class="subTitle">Task Type:</h5>
+                                <img src="../../../assets/img/task/meeting.svg">
+                                <span>{{ taskDetails.type_task }}</span>
+                            </div>
+                            <div class="item-wrapper d-block">
+                                <h5 class="subTitle">Description:</h5>
+                                <span>{{ taskDetails.description }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="item-wrapper date-info">
+                                    <!-- <h5 class="subTitle">date:</h5> -->
+                                    <img src="../../../assets/img/task/calendar.svg">
+                                    <span>{{ taskDetails.date["day"]}} - {{ taskDetails.date["month"]}} -
+                                        {{ taskDetails.date["year"]}}</span>
+                                </div>
+                                <div class="item-wrapper date-info">
+                                    <!-- <h5 class="subTitle">time:</h5> -->
+                                    <img src="../../../assets/img/task/clock.svg">
+                                    <span>{{ taskDetails.time_from["hour"]}} - {{ taskDetails.time_from["minute"]}}
+                                    </span>
+                                </div>
+                                <div class="item-wrapper date-info">
+                                    <!-- <h5 class="subTitle">dura:</h5> -->
+                                    <img src="../../../assets/img/task/stopwatch fill.svg">
+                                    <span>{{ taskDetails.time_to["hour"]}} - {{ taskDetails.time_to["minute"]}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="item-wrapper">
+                                <span>
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </span>
+                                <h5 class="subTitle">Importance:</h5>
+                                <span>{{ taskDetails.importance }}</span>
+                            </div>
+                            <div class="item-wrapper">
+                                <img src="../../../assets/img/task/user - filled.svg">
+                                <h5 class="subTitle">Created By :</h5>
+                                <span>{{ taskDetails.username }}</span>
+                            </div>
+                            <div class="item-wrapper" *ngIf="this.showUrl">
+                                <img src="../../../assets/img/task/url.svg">
+                                <h5 class="subTitle">Meeting URL :</h5>
+                                <!-- <span>{{ taskDetails.url }}</span> -->
+                                <a href="{{ taskDetails.links }}" class="task-url btn"> Start Meeting </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="item-wrapper-list">
+                                <h5 class="subTitle">Assign To:</h5>
+                                <ul>
+                                    <li *ngFor="let item of taskDetails.assign_to">{{item}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>

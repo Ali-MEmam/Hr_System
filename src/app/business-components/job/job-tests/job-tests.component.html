@@ -1,0 +1,49 @@
+
+                <div class="table-header row">
+                    <!-- filter -->
+                    <div class="col-6 filter">
+                        <!-- filter -->
+                        <div class="filter__by-name">
+                            <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                                (keyup)="updateFilter($event)" />
+                            <div class="filter__by-name__icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 ml-auto d-flex justify-content-end mb-2">
+                        <button class="btn btnAdd"  [routerLink]="['/pages', 'recruiter', 'hrtest']">+ Create Test</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <!-- -------------------------- Data Table Start --------------------------- -->
+                    <ngx-datatable #table class='material' [columns]="columns" [columnMode]="'force'"
+                    [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5"
+                    [rows]='displayedRows'>
+                    <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                    <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop">
+                    </ngx-datatable-column>
+                        <ngx-datatable-column name="Actions" sortable="false" prop="id">
+
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <!-- <a class="link" (click)=viewJobDetails(value)>
+                                        <span class="action-icon">
+                                            <img src="../../../../assets/img/actions/view.svg">
+                                        </span>
+                                    </a>
+                                    <a class="link">
+                                        <span class="action-icon">
+                                            <i class="fa fa-pencil-alt text-white font-small-2" aria-hidden="true"></i>
+                                        </span>
+                                    </a> -->
+                                <a class="link" (click)="removetest(value)">
+                                    <span class="action-icon">
+                                        <i class="ft-x text-white"></i>
+                                    </span>
+                                </a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                    <!-- --------------------------- Data Table End ---------------------------- -->
+                </div>

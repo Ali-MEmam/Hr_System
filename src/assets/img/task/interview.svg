@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="interview" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <style>
+            .cls-1{fill:#27bfc0}
+        </style>
+    </defs>
+    <g id="Group_1271" transform="translate(12.93 9.414)">
+        <g id="Group_1270">
+            <path id="Path_1834" d="M333.93 241a2.93 2.93 0 1 0 2.93 2.93 2.933 2.933 0 0 0-2.93-2.93z" class="cls-1" transform="translate(-331 -241)"/>
+        </g>
+    </g>
+    <g id="Group_1273" transform="translate(11.758 15.273)">
+        <g id="Group_1272">
+            <path id="Path_1835" d="M307.963 391a4.079 4.079 0 0 1-5.723 0 4.085 4.085 0 0 0-1.24 2.93v1.211a.586.586 0 0 0 .586.586h7.07a.586.586 0 0 0 .586-.586v-1.211a4.12 4.12 0 0 0-1.279-2.93z" class="cls-1" transform="translate(-301 -391)"/>
+        </g>
+    </g>
+    <g id="Group_1275" transform="translate(1.211)">
+        <g id="Group_1274">
+            <path id="Path_1836" d="M33.93 0A2.967 2.967 0 0 0 31 2.969a2.93 2.93 0 0 0 5.859 0A2.967 2.967 0 0 0 33.93 0z" class="cls-1" transform="translate(-31)"/>
+        </g>
+    </g>
+    <g id="Group_1277" transform="translate(0 5.898)">
+        <g id="Group_1276">
+            <path id="Path_1837" d="M7 151a4.079 4.079 0 0 1-5.723 0A4.12 4.12 0 0 0 0 153.93v1.17a.586.586 0 0 0 .586.586h7.07a.586.586 0 0 0 .586-.586v-1.17A4.085 4.085 0 0 0 7 151z" class="cls-1" transform="translate(0 -151)"/>
+        </g>
+    </g>
+    <g id="Group_1279" transform="translate(8.148 2.383)">
+        <g id="Group_1278">
+            <path id="Path_1838" d="M210.448 61a7.614 7.614 0 0 0-1.794.231c.01.119.036.234.036.355a4.1 4.1 0 0 1-.094.859 6.434 6.434 0 0 1 8.056 4.449 4.076 4.076 0 0 1 1.275.3A7.627 7.627 0 0 0 210.448 61z" class="cls-1" transform="translate(-208.596 -61)"/>
+        </g>
+    </g>
+    <g id="Group_1281" transform="translate(2.596 11.758)">
+        <g id="Group_1280">
+            <path id="Path_1839" d="M73.855 305.688A6.452 6.452 0 0 1 67.66 301h-1.209a7.625 7.625 0 0 0 7.4 5.859c.218 0 .433-.015.648-.033a5.194 5.194 0 0 1 .285-1.214 6.492 6.492 0 0 1-.929.076z" class="cls-1" transform="translate(-66.451 -301)"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,76 @@
+<div class="row cat-sec dashboard-items main-wrapper">
+    <div class="col-lg-8">
+        <section id="filter" class="mb-3">
+
+            <form [formGroup]="educationForm" (ngSubmit)="onSubmitEducation(educationForm)">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group"
+                            [ngClass]="{'is-invalid': educationForm.get('title').errors && educationForm.get('title').touched }">
+                            <p class="form-control-label">Title</p>
+                            <div *ngIf="educationForm.get('education').errors && educationForm.get('education').touched"
+                                class="required-error">
+                                *Required</div>
+                            <input type="text" formControlName="title" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group"
+                            [ngClass]="{'is-invalid': educationForm.get('fromDate').errors && educationForm.get('fromDate').touched }">
+                            <p class="form-control-label" >From Date</p>
+                            <div *ngIf="educationForm.get('fromDate').errors && educationForm.get('fromDate').touched"
+                                class="required-error">
+                                *Required</div>
+                            <input type="Date" class="dateInput" formControlName="toDate" />
+                            <i class="la la-calendar pick"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group"
+                            [ngClass]="{'is-invalid': educationForm.get('toDate').errors && educationForm.get('toDate').touched }">
+                            <p class="form-control-label" >To Date</p>
+                            <div *ngIf="educationForm.get('toDate').errors && educationForm.get('toDate').touched"
+                                class="required-error">
+                                *Required</div>
+                            <input type="Date" class="dateInput" formControlName="toDate" />
+                            <i class="la la-calendar pick"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group"
+                            [ngClass]="{'is-invalid': educationForm.get('institute').errors && educationForm.get('institute').touched }">
+                            <p class="form-control-label" >Institute</p>
+                            <div *ngIf="educationForm.get('institute').errors && educationForm.get('institute').touched"
+                                class="required-error">
+                                *Required</div>
+                            <input type="Date" class="dateInput" formControlName="institute" />
+                            <i class="la la-calendar pick"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group"
+                            [ngClass]="{'is-invalid': educationForm.get('description').errors && educationForm.get('description').touched }">
+                            <p class="form-control-label">Description</p>
+                            <div *ngIf="educationForm.get('description').errors && educationForm.get('description').touched"
+                                class="required-error">
+                                *Required</div>
+                            <textarea placeholder="your description" formControlName="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12 btns-action text-right pt-3">
+                        <!-- <button type="button" class="btn btns-action_backBtn btn-outline-primary">
+                      Back
+                    </button> -->
+                        <button class="btn btns-action_saveBtn" type="submit" [disabled]="educationForm.invalid">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- </div>
+          </div> -->
+        </section>
+
+    </div>
+
+</div>

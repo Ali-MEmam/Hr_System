@@ -1,0 +1,62 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                       Update Role Component Start                       -->
+<!-- ----------------------------------------------------------------------- -->
+<section id="horizontal-form-layouts">
+    <div class="row text-left">
+        <div class="col-sm-12">
+            <div class="content-header">Update rôle</div>
+        </div>
+    </div>
+    <div class="row text-left">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="px-3">
+<!-- ----------------------------- Form Start ------------------------------ -->
+                        <form class="form form-horizontal" [formGroup]="regularForm" (ngSubmit)="updateRole()" novalidate>
+                            <div class="form-body">
+                                <h4 class="form-section"><i class="ft-user"></i>Role Information</h4>
+<!-- -------------------------------- Title -------------------------------- -->
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="profilinput1">Title: </label>
+                                    <div class="col-md-9">
+                                        <input
+                                        type="text"
+                                        id="profilinput1"
+                                        class="form-control"
+                                        formControlName="title"
+                                        name="title"
+                                        required
+                                        >
+                                        <small class="form-text text-muted danger" *ngIf="!regularForm.get('title').valid && (regularForm.get('title').dirty || regularForm.get('title').touched)">Title Required</small>
+                                    </div>
+                                </div>
+<!-- ----------------------------- Description ----------------------------- -->
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="profilinput2">Description: </label>
+                                    <div class="col-md-9">
+                                        <textarea id="profilinput2" rows="5" class="form-control" formControlName="description" name="description"></textarea>
+                                        <small class="form-text text-muted danger" *ngIf="!regularForm.get('description').valid && (regularForm.get('description').dirty || regularForm.get('description').touched)">description Required</small>
+                                    </div>
+                                </div>
+<!-- ---------------------------- Form Actions ----------------------------- -->
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" (click)="goback()" class="btn btn-raised btn-warning mr-1">
+                                    <i class="ft-x"></i> Cancel
+                                </button>
+                                <button type="submit" class="btn btn-raised btn-primary" [disabled]='!regularForm.valid'>
+                                    <i class="fa fa-check-square-o" ></i> Save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                        Update Role Component End                        -->
+<!-- ----------------------------------------------------------------------- -->

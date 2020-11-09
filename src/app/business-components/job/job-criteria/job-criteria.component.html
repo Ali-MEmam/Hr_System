@@ -1,0 +1,211 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                           start criteria section                        -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div *ngIf="screeningObj">
+    <div *ngIf="!screeningObj" class="criteria-list_no-data">
+        <div class="criteria-list_no-data_icon mb-2">
+            <i class="fas fa-exclamation"></i>
+        </div>
+        <div class="criteria-list_no-data_paragraph mb-4">
+            <p>Theire is no criteria right now !</p>
+        </div>
+        <div class="criteria-list_no-data_create-new">
+            <button class="btn btn-secondary btn-block" (click)="open(createCriteria)">
+                Create New criteria
+            </button>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                           start criteria Details                        -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="note-list_with-data" *ngIf="screeningObj">
+        <div class="profile">
+            <section class="profile__salary-info">
+                <div class="profile__summury-info__Edit col-3 ml-auto">
+                    <div class="Edit-icon-wrapper">
+                        <span (click)="open(editCriteria)" title="" class="profile__summury-info__Edit-link job-is ft">
+                            <i class="la la-pencil"></i>
+                        </span>
+                    </div>
+                </div>
+                <!-- start content -->
+                <div class="edu-history-sec row content">
+                    <div class="job-overview style2 row">
+                        <ul class="row contact-link">
+                            <li>
+                                <div class="d-flex">
+                                    <img src="../../../../assets/img/job-criteria/education.svg" class="mb-3" alt="" />
+                                    <div>
+                                        <label>Education Degree</label>
+                                        <p class="mb-0">{{screeningObj.education}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex">
+                                    <img src="../../../../assets/img/job-criteria/translate.svg" class="mb-3" alt="" />
+                                    <div>
+                                        <label>Language</label>
+                                        <p class="mb-0">{{screeningObj.language}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex">
+                                    <img src="../../../../assets/img/job-criteria/premium-badge.svg" class="mb-3"
+                                        alt="" />
+                                    <div>
+                                        <label>Experience</label>
+                                        <p class="mb-0">{{screeningObj.experience}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex">
+                                    <img src="../../../../assets/img/job-criteria/star (1).svg" class="mb-3" alt="" />
+                                    <div>
+                                        <label>Skills</label>
+                                        <span class="d-flex m-0 skills-wrapper">
+                                            <p *ngFor="let skill of screeningObj.skill" class="mx-1 mb-0">
+                                                {{skill}}</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- start content -->
+            </section>
+        </div>
+    </div>
+
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                            Edit criteria  Details                       -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <div class="card-content">
+        <div class="card-body p-1">
+            <ng-template #editCriteria let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Criteria Detaills </h4>
+                    <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                </div>
+                <section id="filter">
+                    <div class="modal-body">
+                        <div class="row content">
+                            <div class="col-12">
+                                <form [formGroup]="criteriaEditForm" (ngSubmit)="onSubmitEdit(criteriaEditForm)">
+                                    <div class="row">
+                                        <!-- ------------------------------Education Degree------------------------------- -->
+                                        <div class="col-lg-12">
+                                            <div class="form-group"
+                                                [ngClass]="{'is-invalid': criteriaEditForm.get('education').errors && criteriaEditForm.get('education').touched }">
+                                                <p>Education Degree</p>
+                                                <div *ngIf="criteriaEditForm.get('education').errors && criteriaEditForm.get('education').touched"
+                                                    class="required-error">
+                                                    *Required</div>
+                                                <select formControlName="education" class="custom-select d-block w-100"
+                                                    id="educationcustomSelect">
+                                                    <option selected disabled>{{screeningObj.education}}</option>
+                                                    <option value="Associate degree">Associate
+                                                        degree</option>
+                                                    <option value="Bachelor's degree">
+                                                        Bachelor's degree</option>
+                                                    <option value="Master's degree">Master's
+                                                        degree</option>
+                                                    <option value="Doctoral degree">Doctoral
+                                                        degree</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- ------------------------------Experience------------------------------- -->
+                                        <div class="col-lg-6">
+                                            <div class="form-group"
+                                                [ngClass]="{'is-invalid': criteriaEditForm.get('experience').errors && criteriaEditForm.get('experience').touched }">
+                                                <p>Experience</p>
+                                                <div *ngIf="criteriaEditForm.get('experience').errors && criteriaEditForm.get('experience').touched"
+                                                    class="required-error">
+                                                    *Required</div>
+                                                <select formControlName="experience" class="custom-select d-block w-100"
+                                                    id="experiencecustomSelect">
+                                                    <option selected disabled>{{screeningObj.experience}}</option>
+                                                    <option value="0-2">0-2</option>
+                                                    <option value="2-5">2-5</option>
+                                                    <option value="5-10">5-10</option>
+                                                    <option value="greater than 10">greater
+                                                        than 10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- ------------------------------Language------------------------------- -->
+                                        <div class="col-lg-6">
+                                            <div class="form-group"
+                                                [ngClass]="{'is-invalid': criteriaEditForm.get('language').errors && criteriaEditForm.get('language').touched }">
+                                                <p>Language</p>
+                                                <div *ngIf="criteriaEditForm.get('language').errors && criteriaEditForm.get('language').touched"
+                                                    class="required-error">
+                                                    *Required</div>
+                                                <select formControlName="language" class="custom-select d-block w-100"
+                                                    id="languagecustomSelect">
+                                                    <option selected disabled>{{screeningObj.language}}</option>
+                                                    <option *ngFor="let language of languagesArray" [value]="language"
+                                                        class="form-dropdown__option" [selected]="selectedValue">
+                                                        {{ language.toUpperCase() }}
+
+                                                    </option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- ------------------------------Skills------------------------------- -->
+                                        <div class="col-lg-12">
+                                            <div class="form-group"
+                                                [ngClass]="{'is-invalid': criteriaEditForm.get('skill').errors && criteriaEditForm.get('skill').touched }">
+                                                <p>Skills</p>
+                                                <div *ngIf="criteriaEditForm.get('skill').errors && criteriaEditForm.get('skill').touched"
+                                                    class="required-error">
+                                                    *Required</div>
+                                                <mat-form-field formControlName="skill" class="example-chip-list" Required>
+                                                    <mat-chip-list #chipList aria-label="skill selection">
+                                                        <mat-chip *ngFor="let skill of skills" [selectable]="selectable"
+                                                            [removable]="removable" (removed)="remove(skill)">
+                                                            {{skill}}
+                                                            <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
+                                                        </mat-chip>
+                                                        <input
+                                                            [matChipInputFor]="chipList"
+                                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                            [matChipInputAddOnBlur]="addOnBlur"
+                                                            (matChipInputTokenEnd)="add($event)">
+                                                    </mat-chip-list>
+                                                </mat-form-field>
+                                                <!-- <div style="text-align:center;">
+                                                    <tag-input formControlName="skill" id="skill" autocomplete="off"
+                                                        name="skill" [(ngModel)]="skillData"></tag-input>
+                                                </div> -->
+                                                <!-- <input type="Select" formControlName="skill" id="skill"
+                                                    autocomplete="off" name="skill" [ngModel]="selectedSkill" /> -->
+                                            </div>
+                                            <div class="pt-4 modal-btn-wrapper">
+                                                <button type="button" class="btn close backBtn" aria-label="Close"
+                                                    (click)="d('Cross click')">Cancel</button>
+                                                <button type="submit" class="btn saveBtn"
+                                                    [disabled]="criteriaEditForm.invalid">Save</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </ng-template>
+        </div>
+    </div>
+</div>

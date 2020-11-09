@@ -1,0 +1,58 @@
+@import "../../../../variables";
+@import '../../../../general';
+
+.coverletter-sec  form button{
+    border-color: #009DA0 !important
+}
+
+.coverletter-sec  form button:hover{
+    background-color: #009DA0 !important;
+}
+
+.btn-style.btn-edited{
+    background: #ffffff;
+    border: 2px solid #009DA0;
+    color: #009DA0;
+    font-family: Open Sans;
+    font-size: 14px;
+    padding: 5px 25px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.btn-style.btn-edited:hover{
+    background-color: #009DA0 !important;
+    color: white;
+
+
+}
+h3{
+    font-size: 20px;
+    color: #0b1b46;
+    font-weight: 500;
+}
+
+
+p{
+    color: #707070;
+    font-size: 15px;
+}
+.list-wrapper{
+    margin-left: 25px;
+    @media(max-width:768px){
+        margin-left: 0px;  
+    }
+}
+.emply-list{
+    border: none;
+}
+.back-btn{
+    padding-top: 35px;
+}
+.back-btn i{
+    background-color: #f9b537;
+    padding: 2px;
+    border-radius: 50%;
+    color: white;
+    font-size: 40px;
+}

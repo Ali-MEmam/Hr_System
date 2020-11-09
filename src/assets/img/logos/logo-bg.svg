@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+    <g id="prefix__Group_980" data-name="Group 980" transform="translate(-80 -34)">
+        <rect id="prefix__Rectangle_69" width="36" height="36" fill="#fff" data-name="Rectangle 69" rx="10" transform="translate(80 34)"/>
+        <g id="prefix__Group_979" data-name="Group 979" transform="translate(-168.604 -78.52)">
+            <path id="prefix__Path_1198" fill="#27bfc0" d="M436.736 268.4v.064l-.056-.032-7.444 4.27v8.5l7.5-4.3 7.5 4.3v-8.5l-7.5-4.3" data-name="Path 1198" transform="translate(-162.632 -138.142)"/>
+            <path id="prefix__Path_1199" fill="#0b1b46" d="M259.129 268.572l-.088.05v-.028l-7.441 4.266v8.5l7.5-4.3 7.5 4.3v-8.5l-7.475-4.288" data-name="Path 1199" transform="translate(0 -138.297)"/>
+            <path id="prefix__Path_1200" fill="#e59a12" d="M347.205 117.52l-7.532 4.3v8.48l.063-.036.025.014 7.444-4.25 7.475 4.268.056-.032v-8.439l-7.532-4.3" data-name="Path 1200" transform="translate(-80.632)"/>
+            <path id="prefix__Path_1201" fill="#df4c37" d="M517.442 268.4l-.056.032.056.032v-.064" data-name="Path 1201" transform="translate(-243.337 -138.142)"/>
+            <path id="prefix__Path_1202" fill="#da4838" d="M339.737 268.4l-.063.036v.028l.088-.05-.025-.014" data-name="Path 1202" transform="translate(-80.632 -138.142)"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Lang._switch" width="30" height="30" data-name="Lang. switch" viewBox="0 0 30 30">
+    <defs>
+        <clipPath id="clip-path">
+            <circle id="Ellipse_49" cx="15" cy="15" r="15" fill="none" stroke="#707070" data-name="Ellipse 49" transform="translate(966.8 493.8)"/>
+        </clipPath>
+    </defs>
+    <g id="Mask_Group_5" clip-path="url(#clip-path)" data-name="Mask Group 5" transform="translate(-966.8 -493.8)">
+        <g id="Group_995" stroke="rgba(0,0,0,0)" data-name="Group 995" transform="translate(962.267 492.991)">
+            <path id="Rectangle_75" fill="#01209d" d="M0 0H13.018V31.682H0z" data-name="Rectangle 75"/>
+            <path id="Rectangle_76" fill="#fff" d="M0 0H13.018V31.682H0z" data-name="Rectangle 76" transform="translate(13.018)"/>
+            <path id="Rectangle_77" fill="#ec283c" d="M0 0H13.018V31.682H0z" data-name="Rectangle 77" transform="translate(26.036)"/>
+        </g>
+    </g>
+</svg>

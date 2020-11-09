@@ -1,0 +1,101 @@
+<!-----------------------------------------If There is no Category------------------------------------>
+<div *ngIf="this.categoryData.length == 0;" class="category-test-list_no-data">
+    <div class="category-test-list_no-data_icon">
+        <i class="fas fa-exclamation"></i>
+    </div>
+    <div class="category-test-list_no-data_paragraph">
+        <p>There is no Test right now please create a new one!</p>
+    </div>
+    <div class="category-test-list_no-data_create-new">
+        <button class="btn btn-secondary btn-block" [routerLink]="['/pages', 'recruiter', 'test-managment' ,'addtest']"
+            routerLinkActive="active">Create Test</button> </div>
+</div>
+
+<div class="category-test_with-data" *ngIf="this.categoryData.length != 0;">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row test-table">
+                <div class="col-lg-12">
+                    <div class="category-test-wrapper-header row py-3">
+                        <div class="col-lg-12 d-flex justify-content-between p-0">
+                            <div class="category-test-wrapper-header-title col-lg-6 d-flex align-items-center">
+                                <span class="back" (click)="goback()">
+                                    <i class="fas fa-chevron-circle-left"></i>
+                                </span>
+                                <h2>Category List</h2>
+                            </div>
+                            <div class="col-lg-6 d-flex justify-content-end filter">
+                                <!-- filter -->
+                                <div class="filter__by-name">
+                                    <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                                        (keyup)="updateFilter($event)" />
+                                    <div class="filter__by-name__icon">
+                                        <i class="fas fa-filter"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <!-- -------------------------- Data Table Start --------------------------- -->
+                        <ngx-datatable #table class="material" [columns]="columns" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [rows]="rows">
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+                            <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                                [resizeable]="false">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Actions" sortable="false" prop="id">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    <a title="view Category" class="link" (click)="showCategoryDetails(row)"
+                                        (click)=open(categoryview)>
+                                        <span class="action-icon">
+                                            <img src="../../../../assets/img/actions/view.svg">
+                                        </span>
+                                    </a>
+                                    <a title="Edit Category" class="link" (click)="EditCategoryVal(row.type)"
+                                        [routerLink]="['/pages', 'recruiter','test-managment','addtest']"
+                                        routerLinkActive="active">
+                                        <span class="action-icon">
+                                            <i class="fa fa-pencil-alt text-white font-small-2" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    <a title="Remove Category" class="link" (click)="deleteCategory(value)">
+                                        <span class="action-icon">
+                                            <i class="ft-x text-white"></i>
+                                        </span>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                        <!-- --------------------------- Data Table End ---------------------------- -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #categoryview let-c="close" let-d="dismiss">
+        <div class="card-content">
+            <div class="modal-header d-flex">
+                <!-- <h4 class="modal-title"> Profile Details</h4> -->
+                <section id="filter">
+                    <div class="modal-body container">
+                        <ul class="d-flex contact-link row m-0">
+                            <li class="col-sm-12 d-flex align-items-baseline">
+                                <h5 class="mb-0">Title:</h5>
+                                <span>{{ categoryDetails.title }}</span>
+                            </li>
+                            <li class="col-sm-12 d-flex align-items-baseline">
+                                <h5 class="mb-0">created Date:</h5>
+                                <span>{{ categoryDetails.created }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</div>

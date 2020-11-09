@@ -1,0 +1,600 @@
+<section class="profile">
+  <div class="row candidate no-gutters">
+    <div class="border-title">
+      <div class="container">
+        <h3>complete profile</h3>
+      </div>
+    </div>
+    <div class="tabs-wrapper">
+      <div class="container">
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+          <li class="nav-item" (click)="toggleActiveForm('info')">
+            <a
+              class="nav-link active"
+              id="pills-home-tab"
+              data-toggle="pill"
+              role="tab"
+              aria-controls="pills-home"
+              [ngClass]="{ active: activeFormType === 'info' }"
+              >personal information</a
+            >
+          </li>
+          <li class="nav-item" (click)="toggleActiveForm('social')">
+            <a
+              class="nav-link"
+              id="pills-socail-networks-tab"
+              data-toggle="pill"
+              role="tab"
+              aria-controls="pills-socail-networks"
+              [ngClass]="{ active: activeFormType === 'social' }"
+              >social networks
+            </a>
+          </li>
+          <li class="nav-item" (click)="toggleActiveForm('contact')">
+            <a
+              class="nav-link"
+              id="pills-contact-tab"
+              data-toggle="pill"
+              role="tab"
+              aria-controls="pills-contact"
+              [ngClass]="{ active: activeFormType === 'contact' }"
+              >Contact Information</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row cat-sec dashboard-items main-wrapper">
+      <div class="col-lg-8" *ngIf="candidateData">
+        <div class="tab-content row" id="pills-tabContent">
+          <div
+            *ngIf="activeFormType === 'info'"
+            class="tab-pane fade show active"
+            id="pills-home"
+          >
+            <section id="filter" class="mb-3">
+              <!-- <div class="card-body"> -->
+              <!-- Add new education -->
+              <!-- <div class="edu-history"> -->
+              <form
+                [formGroup]="personalInfo"
+                (ngSubmit)="onSubmitPersonalInfo(personalInfo)"
+              >
+                <div class="row">
+                  <!-- start image -->
+
+                  <div class="col-lg-3">
+                    <div class="personal-deatils">
+                      <label class="hoverable">
+                        <img
+                          [src]="
+                            croppedImage
+                              ? croppedImage
+                              : '../../../../assets/img/user-placeholder.png'
+                          "
+                          alt=""
+                          class="w-100 img-fluid"
+                          #profileImage
+                        />
+                        <div
+                          class="hover-text"
+                          data-toggle="modal"
+                          data-target="#profileImageCropper"
+                        >
+                          upload picture
+                        </div>
+                        <div class="background"></div>
+                      </label>
+                      <br />
+
+                      <div
+                        class="modal fade"
+                        id="profileImageCropper"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="profileImageCropper"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">
+                                update profile picture
+                              </h5>
+                              <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <div class="modal-body">
+                              <image-cropper
+                                [imageChangedEvent]="imageChangedEvent"
+                                [maintainAspectRatio]="true"
+                                [aspectRatio]="2 / 2"
+                                [resizeToWidth]="500"
+                                [roundCropper]="true"
+                                [cropper]="cropper"
+                                format="png"
+                                (imageCropped)="imageCropped($event)"
+                                (imageLoaded)="imageLoaded()"
+                                (cropperReady)="cropperReady()"
+                                (loadImageFailed)="loadImageFailed()"
+                              >
+                              </image-cropper>
+
+                              <input
+                                id="fileInput"
+                                type="file"
+                                (change)="fileChangeEvent($event)"
+                                formControlName="profile_image"
+                              />
+                              <label for="fileInput">
+                                choose new picture
+                              </label>
+                            </div>
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-dismiss="modal"
+                              >
+                                save changes
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end image -->
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'is-invalid':
+                          personalInfo.get('firstName').errors &&
+                          personalInfo.get('firstName').touched
+                      }"
+                    >
+                      <p class="form-control-label">
+                        First Name
+                      </p>
+                      <div
+                        *ngIf="
+                          personalInfo.get('firstName').errors &&
+                          personalInfo.get('firstName').touched
+                        "
+                        class="required-error"
+                      >
+                        *Required
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="firstName"
+                        [ngModel]="candidateData.username.split(' ')[0]"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'is-invalid':
+                          personalInfo.get('lastName').errors &&
+                          personalInfo.get('lastName').touched
+                      }"
+                    >
+                      <p class="form-control-label">Last Name</p>
+                      <div
+                        *ngIf="
+                          personalInfo.get('lastName').errors &&
+                          personalInfo.get('lastName').touched
+                        "
+                        class="required-error"
+                      >
+                        *Required
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="lastName"
+                        [ngModel]="candidateData.username.split(' ')[1]"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'is-invalid':
+                          personalInfo.get('jobTitle').errors &&
+                          personalInfo.get('jobTitle').touched
+                      }"
+                    >
+                      <p class="form-control-label">Title</p>
+                      <div
+                        *ngIf="
+                          personalInfo.get('jobTitle').errors &&
+                          personalInfo.get('jobTitle').touched
+                        "
+                        class="required-error"
+                      >
+                        *Required
+                      </div>
+                      <input type="text" formControlName="jobTitle" />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'is-invalid':
+                          personalInfo.get('birthDate').errors &&
+                          personalInfo.get('birthDate').touched
+                      }"
+                    >
+                      <p class="form-control-label" for="dateFrom">
+                        Birth date
+                      </p>
+                      <div
+                        *ngIf="
+                          personalInfo.get('birthDate').errors &&
+                          personalInfo.get('birthDate').touched
+                        "
+                        class="required-error"
+                      >
+                        *Required
+                      </div>
+                      <input
+                        type="Date"
+                        class="dateInput"
+                        formControlName="birthDate"
+                      />
+                      <i class="la la-calendar pick"></i>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'is-invalid':
+                          personalInfo.get('about').errors &&
+                          personalInfo.get('about').touched
+                      }"
+                    >
+                      <p class="form-control-label">About</p>
+                      <div
+                        *ngIf="
+                          personalInfo.get('about').errors &&
+                          personalInfo.get('about').touched
+                        "
+                        class="required-error"
+                      >
+                        *Required
+                      </div>
+                      <textarea
+                        placeholder="your description"
+                        formControlName="about"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'is-invalid':
+                          personalInfo.get('educationLevel').errors &&
+                          personalInfo.get('educationLevel').touched
+                      }"
+                    >
+                      <p class="form-control-label" for="dateFrom">Dergree</p>
+                      <div
+                        *ngIf="
+                          personalInfo.get('educationLevel').errors &&
+                          personalInfo.get('educationLevel').touched
+                        "
+                        class="required-error"
+                      >
+                        *Required
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="your degree"
+                        formControlName="educationLevel"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div
+                      class="form-group"
+                      [ngClass]="{
+                        'is-invalid':
+                          personalInfo.get('experience').errors &&
+                          personalInfo.get('experience').touched
+                      }"
+                    >
+                      <p class="form-control-label" for="dateFrom">
+                        Experience
+                      </p>
+                      <div
+                        *ngIf="
+                          personalInfo.get('experience').errors &&
+                          personalInfo.get('experience').touched
+                        "
+                        class="required-error"
+                      >
+                        *Required
+                      </div>
+
+                      <input
+                        type="text"
+                        placeholder="your Experience"
+                        formControlName="experience"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p class="form-control-label" for="dateFrom">
+                        salary from
+                      </p>
+                      <input
+                        type="number"
+                        placeholder="40"
+                        formControlName="expected_salary_min"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p class="form-control-label" for="dateFrom">salary to</p>
+                      <input
+                        type="number"
+                        placeholder="50"
+                        formControlName="expected_salary_max"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 btns-action text-right pt-3">
+                    <!-- <button type="button" class="btn btns-action_backBtn btn-outline-primary">
+                        Back
+                      </button> -->
+                    <button
+                      class="btn btns-action_saveBtn"
+                      type="submit"
+                      [disabled]="personalInfo.invalid"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <!-- </div>
+            </div> -->
+            </section>
+          </div>
+          <div
+            *ngIf="activeFormType === 'social'"
+            class="tab-pane fade show active"
+            id="pills-socail-networks"
+          >
+            <section id="filter" class="mb-3">
+              <div class="row">
+                <!-- Add new education -->
+                <div class="col-lg-12">
+                  <form
+                    (ngSubmit)="onSubmitSocialNetworks(form)"
+                    [formGroup]="socialNetworksForm"
+                    class="form content"
+                  >
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <p>Facebook</p>
+                          <input type="text" formControlName="facebook" />
+                          <i class="fa fa-facebook"></i>
+                        </div>
+                        <!-- <span class="error"  *ngIf="facebook.errors.required">*Required</span> -->
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <p>Linkedin</p>
+                          <input
+                            type="text"
+                            formControlName="linkedin"
+                            #linkedin
+                          />
+                          <i
+                            class="la la-linkedin"
+                            style="font-size: 25px;"
+                          ></i>
+                        </div>
+                        <!-- <span class="error" [hidden]="!linkedin.valid">*Required</span> -->
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <p>behance</p>
+                          <input type="text" formControlName="behance" />
+                          <i class="fa fa-behance"></i>
+                        </div>
+                        <!-- <span class="error"  *ngIf="facebook.errors.required">*Required</span> -->
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <p>github</p>
+                          <input type="text" formControlName="github" />
+                          <i class="la la-github" style="font-size: 25px;"></i>
+                        </div>
+                        <!-- <span class="error" [hidden]="!linkedin.valid">*Required</span> -->
+                      </div>
+                      <div class="btns-action text-right pt-3 w-100">
+                        <button
+                          type="button"
+                          class="btn btns-action_backBtn btn-outline-primary"
+                          aria-label="Close"
+                          (click)="toggleActiveForm('info')"
+                        >
+                          Back
+                        </button>
+                        <button
+                          type="submit"
+                          class="btn saveBtn"
+                          [disabled]="socialNetworksForm.invalid"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                    <!-- <div class="row"> -->
+                    <!--  <div class=" btns-action text-left">
+                      <button type="button" class="btn btn-sm btns-action_addMoreBtn btn-outline-primary"
+                        (click)="addNewPersonal()"><i class="la la-plus"></i>Add More</button>
+                    </div> -->
+                    <!-- </div> -->
+                  </form>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            *ngIf="activeFormType === 'contact'"
+            class="tab-pane fade show active"
+            id="pills-contact"
+          >
+            <section id="filter" class="mb-3">
+              <!-- <div class="card-body"> -->
+              <!-- Add new education -->
+              <!-- <div class="edu-history"> -->
+
+              <form
+                [formGroup]="contactForm"
+                (ngSubmit)="onSubmitContact(contactForm)"
+              >
+                <div class="pt-4">
+                  <div class="row align-items-start">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <p class="form-control-label" for="dateFrom">country</p>
+                        <select
+                          formControlName="country"
+                          (change)="onChangeCountry($event.target.value)"
+                        >
+                          <option
+                            *ngFor="let country of countryInfo; let i = index"
+                            value="{{ i }}"
+                          >
+                            {{ country.CountryName }}</option
+                          >
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <p class="form-control-label" for="dateFrom">city</p>
+                        <select
+                          formControlName="city"
+                          (change)="onChangeState($event.target.value)"
+                        >
+                          <option *ngIf="stateInfo == ''" value="-1"
+                            >--Select State--</option
+                          >
+                          <option
+                            *ngFor="let state of stateInfo; let j = index"
+                            value="{{ j }}"
+                            >{{ state.StateName }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <p class="form-control-label" for="dateFrom">
+                          mobile number
+                        </p>
+                        <input
+                          type="number"
+                          formControlName="phone_number"
+                          [ngModel]="candidateData.phoneNumber"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div
+                        class="form-group"
+                        [ngClass]="{
+                          'is-invalid':
+                            contactForm.get('email').errors &&
+                            contactForm.get('email').touched
+                        }"
+                      >
+                        <p class="form-control-label" for="dateFrom">E-mail</p>
+                        <div
+                          *ngIf="
+                            contactForm.get('email').errors &&
+                            contactForm.get('email').touched
+                          "
+                          class="required-error"
+                        >
+                          *Required
+                        </div>
+                        <input
+                          type="text"
+                          formControlName="email"
+                          [ngModel]="candidateData.email"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <p class="form-control-label" for="dateFrom">Address</p>
+                        <input
+                          type="text"
+                          formControlName="address"
+                          [ngModel]="candidateData.address"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 btns-action text-right pt-3">
+                    <button
+                      id="pills-socail-networks-tab"
+                      data-toggle="pill"
+                      href="#pills-socail-networks"
+                      role="tab"
+                      aria-controls="pills-socail-networks"
+                      type="button"
+                      class="btn btns-action_backBtn btn-outline-primary"
+                      (click)="toggleActiveForm('social')"
+                    >
+                      Back
+                    </button>
+                    <button
+                      routerLink="/complete-profile/step2/cD5QGLI"
+                      [disabled]="contactForm.invalid"
+                      class="btn btns-action_saveBtn"
+                      type="submit"
+                      [disabled]="contactForm.invalid"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <!-- </div>
+            </div> -->
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</section>

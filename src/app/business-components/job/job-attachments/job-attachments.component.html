@@ -1,0 +1,66 @@
+<div *ngIf="attachmentList" class="attachment">
+  <div *ngIf="attachmentList.length === 0" class="note-list_no-data">
+    <div class="note-list_no-data_icon mb-2">
+      <i class="fas fa-exclamation"></i>
+    </div>
+    <div class="note-list_no-data_paragraph mb-4">
+      <p>Theire is no attachments right now !</p>
+    </div>
+    <div class="note-list_no-data_create-new">
+      <label class="btn">
+        <input class="" type="file" (change)="prepareFilesList($event.target.files)" />
+        <span class="custom-file-control"></span>
+        Upload Attachment
+      </label>
+    </div>
+  </div>
+  <div class="note-list_with-data" *ngIf="attachmentList.length > 0">
+    <div class="row pt-2">
+      <div class="col-6 filter">
+        <!-- filter -->
+        <div class="filter__by-name">
+          <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+            (keyup)="updateFilter($event)" />
+          <div class="filter__by-name__icon">
+            <i class="fas fa-filter"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 ml-auto d-flex justify-content-end mb-2">
+        <label class="add-more-btn addMoreBtn">
+          <input class="" type="file" (change)="prepareFilesList($event.target.files)" />
+          <span class="custom-file-control"></span>
+          <i class="la la-plus"></i>Upload
+        </label>
+      </div>
+    </div>
+    <!-- filter -->
+
+    <!-- -------------------------- Data Table Start --------------------------- -->
+    <ngx-datatable #table class="material note-list_with-data_table" [columns]="columns" [columnMode]="'force'"
+      [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]="rows">
+      <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+      <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop" [resizeable]="false">
+      </ngx-datatable-column>
+      <ngx-datatable-column name="" sortable="false" prop="id">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <!-- delete attachment -->
+          <a title="Remove Attachment" class="link" (click)="removeAttachment(row)">
+            <span class="action-icon">
+              <i class="ft-x text-white"></i>
+            </span>
+          </a>
+
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+
+  <!-- Basic File Browser start -->
+
+  <input style="display: none;" #file type="file" class="form-control-file" id="basicInputFile"
+    (change)="uploadFile($event.target.files)" />
+
+  <!-- Basic File Browser end -->
+</div>

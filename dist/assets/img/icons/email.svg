@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="13.75" viewBox="0 0 20 13.75">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:#27bfc0}
+        </style>
+    </defs>
+    <g id="prefix__email" transform="translate(0 -80)">
+        <g id="prefix__Group_89" data-name="Group 89" transform="translate(13.257 82.535)">
+            <g id="prefix__Group_88" data-name="Group 88">
+                <path id="prefix__Path_334" d="M339.392 149.339l6.743 4.262V144.9z" class="prefix__cls-1" data-name="Path 334" transform="translate(-339.392 -144.896)"/>
+            </g>
+        </g>
+        <g id="prefix__Group_91" data-name="Group 91" transform="translate(0 82.535)">
+            <g id="prefix__Group_90" data-name="Group 90">
+                <path id="prefix__Path_335" d="M0 144.9v8.7l6.742-4.262z" class="prefix__cls-1" data-name="Path 335" transform="translate(0 -144.896)"/>
+            </g>
+        </g>
+        <g id="prefix__Group_93" data-name="Group 93" transform="translate(.037 80)">
+            <g id="prefix__Group_92" data-name="Group 92">
+                <path id="prefix__Path_336" d="M19.672 80h-17.5A1.234 1.234 0 0 0 .96 81.064l9.962 6.564 9.962-6.564A1.234 1.234 0 0 0 19.672 80z" class="prefix__cls-1" data-name="Path 336" transform="translate(-.96 -80)"/>
+            </g>
+        </g>
+        <g id="prefix__Group_95" data-name="Group 95" transform="translate(.04 87.731)">
+            <g id="prefix__Group_94" data-name="Group 94">
+                <path id="prefix__Path_337" d="M13.1 277.921l-1.769 1.165a.628.628 0 0 1-.687 0l-1.773-1.166-7.847 4.964a1.233 1.233 0 0 0 1.21 1.055h17.5a1.233 1.233 0 0 0 1.21-1.055z" class="prefix__cls-1" data-name="Path 337" transform="translate(-1.024 -277.92)"/>
+            </g>
+        </g>
+    </g>
+</svg>

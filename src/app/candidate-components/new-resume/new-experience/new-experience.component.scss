@@ -1,0 +1,39 @@
+.profile {
+    float: left;
+    margin-top: 20px;
+}
+.Add-profile{
+    line-height: 27px;
+    font-family: Open Sans;
+    font-size: 13px;
+    color:#fb236a;
+    border: none;
+    background: none;
+}
+.Add-profile i{
+    width: 27px;
+    height: 27px;
+    background: #fb236a;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    color: #ffffff;
+    text-align: center;
+    line-height: 27px;
+    font-size: 14px;
+    margin-right: 8px;
+}
+.border-title h3{
+    margin-right: auto;
+    font-family: Quicksand;
+    font-size: 20px;
+    font-weight: bold;
+    color: #202020;
+    text-transform: capitalize;
+}
+
+textarea{
+    height: auto !important;
+}

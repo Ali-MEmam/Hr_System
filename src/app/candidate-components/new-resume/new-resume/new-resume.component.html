@@ -1,0 +1,375 @@
+<section class="profile">
+  <div class="row candidate no-gutters">
+    <div class="border-title">
+      <div class="container">
+        <h3>New Resume</h3>
+      </div>
+    </div>
+    <div class="tabs-wrapper">
+      <div class="container">
+        <ul class="nav nav-pills active" id="pills-tab" role="tablist">
+          <li class="nav-item" (click)="toggleActiveForm('info')">
+            <a
+              class="nav-link active"
+              id="pills-home-tab"
+              data-toggle="pill"
+              role="tab"
+              aria-controls="pills-home"
+              [ngClass]="{ active: activeFormType === 'info' }"
+              >Education</a
+            >
+          </li>
+          <li class="nav-item" (click)="toggleActiveForm('social')">
+            <a
+              class="nav-link"
+              id="pills-socail-networks-tab"
+              data-toggle="pill"
+              role="tab"
+              aria-controls="pills-socail-networks"
+              [ngClass]="{ active: activeFormType === 'social' }"
+              >Experience</a
+            >
+          </li>
+          <li class="nav-item" (click)="toggleActiveForm('contact')">
+            <a
+              class="nav-link"
+              id="pills-contact-tab"
+              data-toggle="pill"
+              role="tab"
+              aria-controls="pills-contact"
+              [ngClass]="{ active: activeFormType === 'contact' }"
+              >Skills</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row cat-sec dashboard-items container">
+      <div class="col-lg-8">
+        <div class="tab-content row" id="pills-tabContent">
+          <div
+            *ngIf="activeFormType === 'info'"
+            class="tab-pane fade show active"
+            id="pills-home"
+          >
+            <section id="filter" class="mb-3">
+              <!-- <div class="card-body"> -->
+              <!-- Add new education -->
+              <!-- <div class="edu-history"> -->
+              <form
+                [formGroup]="educationForm"
+                (ngSubmit)="onSubmitEducation(educationForm)"
+              >
+                <div
+                  formArrayName="educations"
+                  *ngFor="
+                    let ed of educationForm.get('educations').controls;
+                    let i = index
+                  "
+                  class="resumeadd-form"
+                >
+                  <div [formGroupName]="i" class="row align-items-start">
+                    <div class="col-lg-12">
+                      <div class="row">
+                        <div *ngIf="i != 0" class="col-lg-12">
+                          <div class="delete-more d-flex mt-3">
+                            <a
+                              class="ml-auto"
+                              (click)="deleteEducationFormArray(i)"
+                              title=""
+                              ><i class="la la-close"></i
+                            ></a>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <p class="form-control-label" for="dateFrom">
+                              Title
+                            </p>
+                            <input formControlName="title" type="text" />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p class="form-control-label">From Date</p>
+                            <input
+                              type="Date"
+                              class="dateInput"
+                              formControlName="dateFrom"
+                              id="educationDateEnd"
+                              name="educationDateEnd"
+                            />
+                            <i class="la la-calendar pick"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p class="form-control-label">To Date</p>
+                            <input
+                              type="Date"
+                              class="dateInput"
+                              formControlName="dateTo"
+                              id="educationDateEnd"
+                              name="educationDateEnd"
+                            />
+                            <i class="la la-calendar pick"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <p class="form-control-label" for="dateFrom">
+                              Institute
+                            </p>
+                            <input formControlName="institute" type="text" />
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <p class="form-control-label" for="dateFrom">
+                              Description
+                            </p>
+                            <textarea formControlName="description"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4">
+                  <a
+                    class="add-more-btn addMoreBtn"
+                    [disabled]="educationForm.invalid"
+                    type="button"
+                    (click)="addNewEduForm()"
+                    ><i class="la la-plus"></i>Add More</a
+                  >
+                  <div class="text-right pt-4">
+                    <button
+                      class="btn saveBtn ml-auto"
+                      [disabled]="educationForm.invalid"
+                      type="submit"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <!-- </div>
+            </div> -->
+            </section>
+          </div>
+          <div
+            *ngIf="activeFormType === 'social'"
+            class="tab-pane fade show active"
+            id="pills-socail-networks"
+          >
+            <section id="filter" class="mb-3">
+              <div class="row">
+                <!-- Add new education -->
+                <div class="col-lg-12">
+                  <form
+                    [formGroup]="experienceForm"
+                    (ngSubmit)="onSubmitExperience(experienceForm)"
+                  >
+                    <div
+                      formArrayName="experience"
+                      *ngFor="
+                        let ex of experienceForm.get('experience')['controls'];
+                        let i = index
+                      "
+                      class="resumeadd-form"
+                    >
+                      <div [formGroupName]="i" class="row align-items-start">
+                        <div class="col-lg-12">
+                          <div class="row">
+                            <div *ngIf="i != 0" class="col-lg-12">
+                              <div class="delete-more d-flex mt-3">
+                                <a
+                                  class="ml-auto"
+                                  (click)="deleteExperienceFormArray(i)"
+                                  title=""
+                                  ><i class="la la-close"></i
+                                ></a>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label" for="dateFrom">
+                                  Title
+                                </p>
+                                <input formControlName="title" type="text" />
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <p class="form-control-label">From Date</p>
+                                <input
+                                  type="Date"
+                                  class="dateInput"
+                                  formControlName="dateFrom"
+                                />
+                                <i class="la la-calendar pick"></i>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <p class="form-control-label">To Date</p>
+                                <input
+                                  type="Date"
+                                  class="dateInput"
+                                  formControlName="dateTo"
+                                />
+                                <i class="la la-calendar pick"></i>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label" for="dateFrom">
+                                  company Name
+                                </p>
+                                <input
+                                  formControlName="companyName"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label" for="dateFrom">
+                                  Description
+                                </p>
+                                <textarea
+                                  formControlName="description"
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="pt-4">
+                      <a
+                        class="add-more-btn addMoreBtn"
+                        [disabled]="experienceForm.invalid"
+                        type="button"
+                        (click)="addNewExpForm()"
+                        ><i class="la la-plus"></i>Add More</a
+                      >
+                      <div class="pt-4 text-right">
+                        <button
+                          type="button"
+                          class="btn backBtn"
+                          (click)="toggleActiveForm('info')"
+                        >
+                          Back
+                        </button>
+                        <button type="submit" class="btn saveBtn">
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            *ngIf="activeFormType === 'contact'"
+            class="tab-pane fade show active"
+            id="pills-contact"
+          >
+            <section id="filter" class="mb-3">
+              <!-- <div class="card-body"> -->
+              <!-- Add new education -->
+              <!-- <div class="edu-history"> -->
+
+              <form
+                [formGroup]="skillsForm"
+                (ngSubmit)="onSubmitSkills(skillsForm)"
+              >
+                <div
+                  formArrayName="skills"
+                  *ngFor="
+                    let sk of skillsForm.get('skills')['controls'];
+                    let i = index
+                  "
+                  class="resumeadd-form"
+                >
+                  <div [formGroupName]="i" class="row align-items-start">
+                    <div class="col-lg-12">
+                      <div class="row">
+                        <div *ngIf="i != 0" class="col-lg-12">
+                          <div class="delete-more d-flex mt-3">
+                            <a
+                              class="ml-auto"
+                              (click)="deleteSkillsFormArray(i)"
+                              title=""
+                              ><i class="la la-close"></i
+                            ></a>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p class="form-control-label" for="skills">
+                              skills
+                            </p>
+                            <input formControlName="skills" type="text" />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p class="form-control-label">percentage</p>
+                            <input type="number" formControlName="percentage" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4">
+                  <a
+                    class="add-more-btn addMoreBtn"
+                    [disabled]="skillsForm.invalid"
+                    type="button"
+                    (click)="addNewSkillsForm()"
+                    ><i class="la la-plus"></i>Add More</a
+                  >
+                  <div class="pt-4 text-right">
+                    <button
+                      id="pills-socail-networks-tab"
+                      data-toggle="pill"
+                      href="#pills-socail-networks"
+                      role="tab"
+                      aria-controls="pills-socail-networks"
+                      type="button"
+                      (click)="toggleActiveForm('social')"
+                      class="btn backBtn"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn saveBtn"
+                      routerLink="{{ currentUserIdProfile }}"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <!-- </div>
+            </div> -->
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</section>

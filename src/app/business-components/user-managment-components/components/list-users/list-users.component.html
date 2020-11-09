@@ -1,0 +1,127 @@
+<div class="user_management_with-data" *ngIf="profileData">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row test-table">
+                <div class="col-lg-12">
+                    <div class="table-header d-flex align-items-baseline py-2 row">
+                        <!-- filter -->
+                        <div class="col-6 filter">
+                            <!-- filter -->
+                            <div class="filter__by-name">
+                                <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                                    (keyup)="updateFilter($event)" />
+                                <div class="filter__by-name__icon">
+                                    <i class="fas fa-filter"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 ml-auto d-flex justify-content-end ">
+                            <a class=" btn btnAdd mr-2" (click)="open(inviteMemberModel)">
+                                <i class="fa fa-paper-plane"></i> invite Member</a>
+                            <a class=" btn btnAdd"
+                                [routerLink]="['/pages', 'recruiter', 'user-managment','list-users','add-user']"
+                                routerLinkActive="active">+ Add Member</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <!-- -------------------------- Data Table Start --------------------------- -->
+                        <ngx-datatable #table class="material" [columns]="columns" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [rows]="rows">
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+                            <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                                [resizeable]="false">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Actions" sortable="false" prop="id">
+
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    <a email="view profile" class="link"
+                                        [routerLink]="['/pages', 'recruiter','user-managment', 'list-users' , 'userProfile',row._id]"
+                                        routerLinkActive="active">
+                                        <span class="action-icon">
+                                            <img src="../../../../assets/img/actions/view.svg">
+                                        </span>
+                                    </a>
+                                    <a email="Edit profile" class="link"
+                                        [routerLink]="['/pages', 'recruiter','user-managment', 'list-users' , 'update-user',row._id]">
+                                        <span class="action-icon">
+                                            <i class="fa fa-pencil-alt text-white font-small-2" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    <a email="Remove profile" class="link" (click)="deleteMembeer(row)">
+                                        <span class="action-icon">
+                                            <i class="ft-x text-white"></i>
+                                        </span>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                        <!-- --------------------------- Data Table End ---------------------------- -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="card-body">
+            <ng-template #inviteMemberModel let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h3 class="modal-email">invite Member</h3>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <section id="filter" class="mb-3">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form [formGroup]="inviteMember" (ngSubmit)="onSubmitinviteMember(inviteMember)">
+                                    <div class="row">
+                                        <!-- ------------------------------email------------------------------- -->
+                                        <div class="col-lg-12">
+                                            <div class="form-group"
+                                                [ngClass]="{'is-invalid':inviteMember.get('email').errors &&inviteMember.get('email').touched}">
+                                                <p class="form-control-label">Email</p>
+                                                <div *ngIf="inviteMember.get('email').errors &&inviteMember.get('email').touched"
+                                                    class="required-error">
+                                                    *Required
+                                                </div>
+                                                <input type="email" formControlName="email" name="email" />
+                                            </div>
+                                        </div>
+                                        <!-- ------------------------------Profile------------------------------- -->
+                                        <div class="col-lg-12">
+                                            <div class="form-group"
+                                                [ngClass]="{'is-invalid':inviteMember.get('profile').errors &&inviteMember.get('profile').touched}">
+                                                <p class="form-control-label">profile Description</p>
+                                                <div *ngIf="inviteMember.get('profile').errors &&inviteMember.get('profile').touched"
+                                                    class="required-error">
+                                                    *Required
+                                                </div>
+                                                <select *ngIf="profiles" id="profile" name="profile"
+                                                    formControlName="profile" placeholder="profile"
+                                                    class="form-control">
+                                                    <option value="none" disabled="" [selected]="isSelected">Profile
+                                                    </option>
+                                                    <option *ngFor="let profile of profiles" [value]="profile.title">
+                                                        {{profile.title}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-4 modal-btn-wrapper">
+                                        <button type="button" class="btn backBtn" (click)="c('Close click')">
+                                            Close
+                                        </button>
+                                        <button type="submit" class="btn saveBtn" [disabled]="inviteMember.invalid">
+                                            Save
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </ng-template>
+        </div>
+    </div>
+</div>

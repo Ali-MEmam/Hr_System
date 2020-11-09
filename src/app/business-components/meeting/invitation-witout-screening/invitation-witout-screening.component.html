@@ -1,0 +1,303 @@
+<!-----------------------------------------Start Invitation Without Screening table------------------------------------>
+<section id="filter" class="mb-3">
+  <div class="row text-left">
+    <div class="col-12">
+      <div class="content-header">Invitation Without Screening</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6 filter">
+                <!-- filter -->
+                <div class="filter__by-name">
+                  <label class="mb-0 text-left filter__by-name__label"
+                    >Search :
+                  </label>
+                  <input
+                    class="form-control filter__by-name__input px-3 mt-1"
+                    type="text"
+                    [placeholder]=""
+                    (keyup)="updateFilter($event)"
+                  />
+                  <i class="ft-search filter__by-name__icon icon"></i>
+                </div>
+              </div>
+              <div class="col-6 ml-auto d-flex justify-content-end mb-2">
+                <!-- invitation modale btn -->
+
+                <button
+                  (click)="open(content)"
+                  type="submit"
+                  uisref="work"
+                  class="btn btn-info InviteBtn flex-end"
+                >
+                  Invite <span>+</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- -------------------------- Data Table Start --------------------------- -->
+            <ngx-datatable
+              #table
+              class="bootstrap"
+              [columns]="columns"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="'auto'"
+              [limit]="10"
+              [rows]="rows"
+            >
+              <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+              <ngx-datatable-column
+                *ngFor="let col of columns"
+                [name]="col.name"
+                [prop]="col.prop"
+                [resizeable]="false"
+              >
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Actions" sortable="false" prop="id">
+                <ng-template
+                  let-row="data"
+                  let-value="value"
+                  ngx-datatable-cell-template
+                >
+                  <a
+                    title="Assign Test"
+                    class="success p-0 link"
+                    (click)="open(test)"
+                    type="submit"
+                    uisref="work"
+                  >
+                    <i class="far fa-file-alt mr-2"></i>
+                    <!-- <div class="link_hover-assignTest">
+                                            Assign Test
+                                        </div> -->
+                  </a>
+                  <a
+                    title="Remove Candidate"
+                    class="danger p-0"
+                    data-original-title=""
+                    title=""
+                    (click)="removetest(value)"
+                  >
+                    <i class="ft-x font-medium-3 mr-2"></i>
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <!-- --------------------------- Data Table End ---------------------------- -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-----------------------------------------End Invitation Without Screening table------------------------------------>
+
+<!-----------------------------------------Start Invitation Modal------------------------------------>
+<div class="card-content">
+  <div class="card-body">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Candidate</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <section id="filter" class="mb-3">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <form [formGroup]="addPerson" (ngSubmit)="onSubmit(addPerson)">
+                <div class="row">
+                  <!-- ------------------------------firstlName ------------------------------- -->
+                  <div class="col-lg-6">
+                    <span class="pf-title">Frist Name</span>
+                    <div class="pf-field">
+                      <input
+                        type="text"
+                        formControlName="first_name"
+                        id="firstName"
+                        autocomplete="off"
+                        name="firstName"
+                      />
+                    </div>
+                  </div>
+                  <!-- ------------------------------secondlName ------------------------------- -->
+                  <div class="col-lg-6">
+                    <span class="pf-title">second Name</span>
+                    <div class="pf-field">
+                      <input
+                        type="text"
+                        formControlName="last_name"
+                        id="secondName"
+                        autocomplete="off"
+                        name="secondName"
+                      />
+                    </div>
+                  </div>
+                  <!-- ------------------------------ jobTitle ------------------------------- -->
+                  <div class="col-lg-12">
+                    <span class="pf-title">Job Title</span>
+                    <div class="pf-field">
+                      <input
+                        type="text"
+                        formControlName="job_title"
+                        id="jobTitle"
+                        autocomplete="off"
+                        name="jobTitle"
+                      />
+                    </div>
+                  </div>
+                  <!-- ------------------------------ Email ------------------------------- -->
+                  <div class="col-lg-12">
+                    <span class="pf-title">Email</span>
+                    <div class="pf-field">
+                      <input
+                        type="text"
+                        formControlName="email"
+                        id="email"
+                        autocomplete="off"
+                        name="email"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <!-- ----------------------------- Form Action ----------------------------- -->
+                  <button
+                    type="button"
+                    class="btn btn-secondary closeBtn btn-raised"
+                    (click)="c('Close click')"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn confirmBtn btn-raised"
+                    [disabled]="addPerson.invalid"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-template>
+  </div>
+</div>
+<!-----------------------------------------End Invitation Modal------------------------------------>
+
+<!-----------------------------------------Start Tests Modal------------------------------------>
+<div class="card-content">
+  <div class="card-body">
+    <ng-template #test let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Assign Test</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-8 filter">
+          <!-- filter -->
+
+          <div class="filter__by-name">
+            <label class="mb-0 text-left filter__by-name__label"
+              >Search :
+            </label>
+            <input
+              class="form-control filter__by-name__input px-3 mt-1"
+              type="text"
+              [placeholder]=""
+              (keyup)="updateTestsFilter($event)"
+            />
+            <i class="ft-search filter__by-name__icon icon"></i>
+          </div>
+        </div>
+
+        <!-----------------------------------------Start Tests Table------------------------------------>
+        <ngx-datatable
+          #testsTable
+          class="material"
+          [rows]="displayTestsRows"
+          [columns]="columnsTestsTable"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          rowHeight="auto"
+          [limit]="5"
+          [selected]="selected"
+          [selectionType]="SelectionType.checkbox"
+          [selectAllRowsOnPage]="false"
+          [displayCheck]="displayCheck"
+          (select)="onSelect($event)"
+        >
+          <ngx-datatable-column
+            [width]="30"
+            [sortable]="false"
+            [canAutoResize]="false"
+            [draggable]="false"
+            [resizeable]="false"
+            [headerCheckboxable]="true"
+            [checkboxable]="true"
+          >
+          </ngx-datatable-column>
+
+          <ngx-datatable-column
+            [resizeable]="false"
+            *ngFor="let col of columnsTestsTable"
+            [name]="col.name"
+            [prop]="col.prop"
+          >
+          </ngx-datatable-column>
+        </ngx-datatable>
+
+        <!-----------------------------------------End Tests Table------------------------------------>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary closeBtn btn-raised"
+          (click)="c('Close click')"
+        >
+          Close
+        </button>
+        <button
+          type="submit"
+          class="btn confirmBtn btn-raised"
+          [disabled]="!selected.length"
+          (click)="confirmAssignTasks($event)"
+        >
+          Confirm
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<!-----------------------------------------End Tests Modal------------------------------------>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Inv Witout Screening Component END                 -->
+<!-- ----------------------------------------------------------------------- -->

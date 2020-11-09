@@ -1,0 +1,168 @@
+
+        <!-- ----------------------------------------------------------------------- -->
+        <!--                            start social Networks section                -->
+        <!-- ----------------------------------------------------------------------- -->
+        <div class="profile" *ngIf="profileData">
+
+        <section class="profile__socialNetwork-info">
+            <!--start title -->
+              <div class="profile__summury-info__Edit ">
+                <span (click)="open(Editmode)" title="" class="profile__summury-info__Edit-link job-is ft">
+                  <i class="la la-pencil"></i>
+                </span>
+            </div>
+            <!-- end title -->
+  
+            <!-- start content -->
+            <div class="profile__socialNetwork-info__content">
+                <div class="row content">
+                  <div class="col-lg-6">
+                    <div class="profile__socialNetwork-info__content-links">
+                      <a [href]="profileData.social_networks.facebook" class="row" target="_blank">
+                        <div class="col-2 facebookContainer">
+                          <img src="../../../../assets/img/icons/facebook.png" alt="">
+                        </div>
+                        <div class="col-7">
+                          <h3 class="subtitle facebook-subtitle">facebook</h3>
+                          <p>
+                            {{profileData.social_networks.facebook}}
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+  
+                  <div class="col-lg-6">
+                    <div class="profile__socialNetwork-info__content-links">
+                      <a [href]="profileData.social_networks.linkedin" target="_blank" class="row">
+                        <div class="col-2 linkedinContainer">
+                          <img src="../../../../assets/img/icons/linkedin (1).png" alt="">
+                        </div>
+                        <div class="col-7">
+                          <h3 class="subtitle linkedin-subtitle">linkedin</h3>
+                          <p>
+                            {{profileData.social_networks.linkedin}}
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="profile__socialNetwork-info__content-links">
+                      <a [href]="profileData.social_networks.facebook" class="row" target="_blank">
+                        <div class="col-2 facebookContainer">
+                          <img src="../../../../assets/img/icons/behance.png" alt="">
+                        </div>
+                        <div class="col-7">
+                          <h3 class="subtitle facebook-subtitle">Behance.com/profile</h3>
+                          <p>
+                            {{profileData.social_networks.facebook}}
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+  
+                  <div class="col-lg-6">
+                    <div class="profile__socialNetwork-info__content-links">
+                      <a [href]="profileData.social_networks.linkedin" target="_blank" class="row">
+                        <div class="col-2 linkedinContainer">
+                          <img src="../../../../assets/img/icons/github.png" alt="">
+                        </div>
+                        <div class="col-7">
+                          <h3 class="subtitle linkedin-subtitle">github.com/profile</h3>
+                          <p>
+                            {{profileData.social_networks.linkedin}}
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              <!-- start edit content -->
+  
+              <!-- end edit content -->
+            </div>
+            <!-- <div class="col-12 " *ngIf="!addSocialNetworksInfoEditMode">
+    
+            </div> -->
+  
+  
+  
+            <!-- end content -->
+  
+  
+          </section>
+  
+        </div>
+          <!-- ----------------------------------------------------------------------- -->
+          <!--                            end social Networks section                -->
+          <!-- ----------------------------------------------------------------------- -->
+
+
+          
+<!-----------------------------------------Start add more Modal------------------------------------>
+<div class="card-content">
+  <div class="card-body  p-1">
+    <ng-template #Editmode let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Social Contacts</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <section id="filter" >
+        <div class="modal-body">
+          <div >
+            <!-- ----------------------- Edit Main Profile Info ------------------------ -->
+            <div class="profile__summury-info__Edit-mode" >
+              <form (ngSubmit)="onSubmitSocialNetworks(form)" [formGroup]="socialNetworksForm" class="form content">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>Facebook</p>
+                      <input type="text" formControlName="facebook" [(ngModel)]="profileData.social_networks.facebook">
+                      <i class="fa fa-facebook"></i>
+                   </div>
+                    <!-- <span class="error"  *ngIf="facebook.errors.required">*Required</span> -->
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>Linkedin</p>
+                      <input type="text" formControlName="linkedin" #linkedin [(ngModel)]="profileData.social_networks.linkedin">
+                      <i class="la la-linkedin"  style="font-size: 25px;"></i>
+                   </div>
+                    <!-- <span class="error" [hidden]="!linkedin.valid">*Required</span> -->
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>behance</p>
+                      <input type="text" formControlName="behance" [(ngModel)]="profileData.social_networks.behance">
+                      <i class="fa fa-behance"></i>
+                   </div>
+                    <!-- <span class="error"  *ngIf="facebook.errors.required">*Required</span> -->
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <p>github</p>
+                      <input type="text" formControlName="github" #github [(ngModel)]="profileData.social_networks.github">
+                      <i class="la la-github"  style="font-size: 25px;"></i>
+                   </div>
+                    <!-- <span class="error" [hidden]="!linkedin.valid">*Required</span> -->
+                  </div>
+                  <div class="pt-3 modal-btn-wrapper">
+                    <button type="button" class="btn close backBtn" aria-label="Close"
+                    (click)="d('Cross click')">Cancel</button>
+                    <button type="submit" class="btn saveBtn" [disabled]="socialNetworksForm.invalid">Save</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- ----------------------- Edit Main Profile Info ------------------------ -->
+          </div>
+        </div>
+      </section>
+    </ng-template>
+  </div>
+</div>
+<!-----------------------------------------End add more Modal------------------------------------>

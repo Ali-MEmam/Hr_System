@@ -1,0 +1,218 @@
+.progressbar .progress{
+    background-color: #f26956;
+    height: 100%;
+    overflow: visible;
+
+}
+
+.progress span{
+    right: -33px;
+    top: 4px;
+}
+.example-form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    label{
+        cursor: pointer;
+    }
+}
+
+
+.la.la-plus{
+    background-color: #009DA0 !important;
+}
+.la.la-graduation-cap{
+    color: #009DA0 !important;
+
+}
+
+div.progress{
+    color: #009DA0 !important;
+    background-color: #009DA0 !important;
+
+}
+
+.pdf-img{
+    height: 100%;
+    margin: 20px auto 0;
+    display: block;
+}
+.mportolio{
+    width: 50% !important;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+
+.btn-style.btn-edited{
+    cursor: pointer;
+    border: 1px solid #009DA0;
+    color: #009DA0;
+    margin-top: 12px;
+    font-family: Open Sans;
+    font-size: 14px;
+    border-radius: 22px;
+    background-color: white !important;
+}
+
+.btn-style.btn-edited:hover{
+    background-color: #009DA0 !important;
+    color: white;
+
+
+}
+
+.file-upload-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.delete-popup {
+    background: #f26956;
+
+    &::before {
+        background: #f26956;
+    }
+}
+
+.edit-popup {
+    background: #009DA0;
+
+    &::before {
+        background: #009DA0;
+    }
+}
+.edu-hisinfo > h3{
+    color: #009DA0;
+}
+.edu-history.style2 > i{
+    border-color: #f26956;
+}
+.action_job {
+    .la.la-pencil {
+        &:hover {
+            color: #009DA0;
+        }
+    }
+
+    .la.la-trash-o {
+        &:hover {
+            color: #f26956;
+        }
+    }
+
+    li a {
+        color: grey !important;
+    }
+}
+
+.add-more-btn {
+    >a i {
+        float                : left;
+        width                : 27px;
+        height               : 27px;
+        background           : #009DA0 !important;
+        -webkit-border-radius: 50%;
+        -moz-border-radius   : 50%;
+        -ms-border-radius    : 50%;
+        -o-border-radius     : 50%;
+        border-radius        : 50%;
+        color                : #ffffff;
+        text-align           : center;
+        line-height          : 27px;
+        font-size            : 14px;
+        margin-right         : 8px;
+    }
+
+    margin-right: 2em;
+    align-items: center;
+}
+
+
+
+.cancelBtn {
+    border     : 2px solid #f26956;
+    color      : #f26956;
+    margin-left: 15px;
+
+    &:hover {
+        color     : white;
+        background: #f26956;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor : not-allowed;
+    }
+}
+
+.saveBtn {
+    border     : 2px solid #009DA0;
+    color      : #009DA0;
+    margin-left: 15px;
+
+    &:hover {
+
+        color     : white;
+        background: #009DA0;
+    }
+
+    &:disabled {
+        opacity         : 0.6;
+        cursor          : not-allowed;
+        background-color: white;
+        color           : #009DA0;
+    }
+}
+
+.delete-more > a i {
+    float: left;
+    width: 27px;
+    height: 27px;
+    background: #f26956;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    color: #ffffff;
+    text-align: center;
+    line-height: 27px;
+    font-size: 14px;
+    margin-right: 8px;
+}
+.resumeadd-form{
+    padding-top: 8%;
+    
+}
+
+.pick{
+    pointer-events: none;
+    background: #fff;
+    border: none;
+    width: 36px;
+    top: 3px;
+    right: 14px;
+    // cursor: pointer;
+    &::before{
+        margin-left: 10px;
+        cursor: pointer;
+        
+    }
+}
+.dateInput{
+    padding-right: 15px;
+    //cursor: pointer;
+
+}
+
+.custumPadding{
+    padding-left: 15px;
+}

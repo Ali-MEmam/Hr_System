@@ -1,0 +1,170 @@
+<div class="job-details" *ngIf="jobDetails">
+  <div class="row">
+    <div class="job-details_table col-10">
+      <table>
+        <tr>
+          <td class="job-details_table_heading">Description</td>
+          <td colspan="2" class="job-details_table_content">
+            {{ jobDetails.description }}
+          </td>
+        </tr>
+        <tr>
+          <td class="job-details_table_heading">Location</td>
+          <td class="job-details_table_content first">
+            {{ jobDetails.country }}
+          </td>
+          <td class="job-details_table_content">{{ jobDetails.city }}</td>
+        </tr>
+        <tr>
+          <td class="job-details_table_heading">contract type</td>
+          <td class="job-details_table_content first">
+            {{ jobDetails.contract_type }}
+          </td>
+          <!-- <td class="job-details_table_content">
+            {{ jobDetails.contractTypeTime }}
+          </td> -->
+        </tr>
+        <tr>
+          <td class="job-details_table_heading">salary</td>
+          <td class="job-details_table_content first">
+            {{ jobDetails.salary_from }}$-{{ jobDetails.salary_to }}$
+          </td>
+          <!-- <td class="job-details_table_content">{{ jobDetails.salary_per }}</td> -->
+        </tr>
+      </table>
+    </div>
+    <div class="col-1 job-details_edit" (click)="open(edit)">
+      <i class="fas fa-pencil-alt job-details_edit_icon"></i>
+    </div>
+  </div>
+  <div class="job-details_link">
+    <a [routerLink]="['/pages', 'recruiter', 'jobs', 'info', currentJob ,'details', 'history']"
+      routerLinkActive="active">check job history</a>
+  </div>
+
+  <!-----------------------------------------Start Edit Modal------------------------------------>
+  <div class="card-content">
+    <div class="card-body">
+      <ng-template #edit let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Job Details</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <section id="filter">
+          <div class="modal-body">
+            <!-- Add new education -->
+            <form [formGroup]="jobEditForm" (ngSubmit)="onSubmitEdit(jobEditForm)">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group"
+                    [ngClass]="{'is-invalid': jobEditForm.get('contract_type').errors && jobEditForm.get('contract_type').touched }">
+                    <p>Contract Type</p>
+                    <div *ngIf="jobEditForm.get('contract_type').errors && jobEditForm.get('contract_type').touched"
+                      class="required-error">
+                      *Required</div>
+                    <select formControlName="contract_type" class="custom-select d-block w-100"
+                      id="contractTypecustomSelect">
+                      <option selected value="Full-time">Fulltime</option>
+                      <option value="Part-Time">PartTime</option>
+                      <option value="Remotly">Remotly</option>
+                      <option value="InternShip">InternShip</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group"
+                    [ngClass]="{'is-invalid': jobEditForm.get('country').errors && jobEditForm.get('country').touched }">
+                    <p>Country</p>
+                    <div *ngIf="jobEditForm.get('country').errors && jobEditForm.get('country').touched"
+                      class="required-error">
+                      *Required</div>
+                    <select class="form-control" formControlName="country"
+                      (change)="onChangeCountry($event.target.value , selectValue)">
+                      <option selected disabled>{{jobDetails.country}}</option>
+                      <option *ngFor="let country of countryInfo; let i = index" value="{{i}}" #selectValue>
+                        {{country.CountryName}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group"
+                    [ngClass]="{'is-invalid': jobEditForm.get('city').errors && jobEditForm.get('city').touched }">
+                    <p>City</p>
+                    <div *ngIf="jobEditForm.get('city').errors && jobEditForm.get('city').touched"
+                      class="required-error">
+                      *Required</div>
+                    <select class="form-control" formControlName="city" (change)="onChangeState($event.target.value)">
+                      <option *ngIf="stateInfo == ''" value="-1">{{jobDetails.city}}</option>
+                      <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">{{state.StateName}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{
+                      'is-invalid':
+                        jobEditForm.get('salaryFrom').errors &&
+                        jobEditForm.get('salaryFrom').touched
+                    }">
+                    <p class="form-control-label">Minimum Salary</p>
+                    <div *ngIf="
+                        jobEditForm.get('salaryFrom').errors &&
+                        jobEditForm.get('salaryFrom').touched
+                      " class="required-error">
+                      *Required
+                    </div>
+                    <input type="text" formControlName="salaryFrom" [ngModel]="jobDetails.salary_from" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{
+                      'is-invalid':
+                        jobEditForm.get('salaryTo').errors &&
+                        jobEditForm.get('salaryTo').touched
+                    }">
+                    <p class="form-control-label">Maximum Salary</p>
+                    <div *ngIf="
+                        jobEditForm.get('salaryTo').errors &&
+                        jobEditForm.get('salaryTo').touched
+                      " class="required-error">
+                      *Required
+                    </div>
+                    <input type="text" formControlName="salaryTo" [ngModel]="jobDetails.salary_to" />
+                  </div>
+                </div>
+
+                <div class="col-lg-12">
+                  <div class="form-group" [ngClass]="{
+                      'is-invalid':
+                        jobEditForm.get('description').errors &&
+                        jobEditForm.get('description').touched
+                    }">
+                    <p class="form-control-label" for="dateFrom">description</p>
+                    <div *ngIf="
+                        jobEditForm.get('description').errors &&
+                        jobEditForm.get('description').touched
+                      " class="required-error">
+                      *Required
+                    </div>
+                    <textarea formControlName="description" type="text" [ngModel]="jobDetails.description"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <!-- ----------------------------- Form Action ----------------------------- -->
+                <button type="button" class="btn saveBtn" (click)="c('Close click')">
+                  Close
+                </button>
+                <button type="submit" class="btn deleteBtn" [disabled]="jobEditForm.invalid">
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </ng-template>
+    </div>
+  </div>
+  <!-----------------------------------------End Edit Modal------------------------------------>
+</div>

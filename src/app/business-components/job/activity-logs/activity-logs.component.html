@@ -1,0 +1,6 @@
+<div *ngIf="logsList.length != 0" class="container-wrapper">
+     <div *ngFor='let log of logsList ; let i =index' id="log.id"  class="logs-list">
+        <h4> {{log.description}}</h4>
+        <p>By: <span>{{log.full_name}}</span> {{log.created}}</p>
+    </div>
+</div>

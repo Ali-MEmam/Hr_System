@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="prefix__dashboard" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:#fff}
+        </style>
+    </defs>
+    <path id="prefix__Path_339" d="M7.708 0h-6.25A1.46 1.46 0 0 0 0 1.458v3.75a1.46 1.46 0 0 0 1.458 1.459h6.25a1.46 1.46 0 0 0 1.459-1.459v-3.75A1.46 1.46 0 0 0 7.708 0zm0 0" class="prefix__cls-1" data-name="Path 339"/>
+    <path id="prefix__Path_340" d="M7.708 213.332h-6.25A1.46 1.46 0 0 0 0 214.79v8.75A1.46 1.46 0 0 0 1.458 225h6.25a1.46 1.46 0 0 0 1.458-1.458v-8.75a1.46 1.46 0 0 0-1.458-1.46zm0 0" class="prefix__cls-1" data-name="Path 340" transform="translate(0 -204.999)"/>
+    <path id="prefix__Path_341" d="M285.041 341.332h-6.25a1.46 1.46 0 0 0-1.458 1.458v3.75a1.46 1.46 0 0 0 1.458 1.46h6.25a1.46 1.46 0 0 0 1.458-1.458v-3.75a1.46 1.46 0 0 0-1.458-1.46zm0 0" class="prefix__cls-1" data-name="Path 341" transform="translate(-266.499 -327.999)"/>
+    <path id="prefix__Path_342" d="M285.041 0h-6.25a1.46 1.46 0 0 0-1.458 1.458v8.75a1.46 1.46 0 0 0 1.458 1.458h6.25a1.46 1.46 0 0 0 1.458-1.458v-8.75A1.46 1.46 0 0 0 285.041 0zm0 0" class="prefix__cls-1" data-name="Path 342" transform="translate(-266.499)"/>
+</svg>

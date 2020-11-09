@@ -1,0 +1,48 @@
+<div
+  #wrapper
+  class="wrapper"
+  [ngClass]="{
+    'nav-collapsed': iscollapsed,
+    'menu-collapsed': iscollapsed,
+    'sidebar-sm': isSidebar_sm,
+    'sidebar-lg': isSidebar_lg
+  }"
+  [dir]="options.direction"
+>
+  <div
+    #appSidebar
+    appSidebar
+    class="app-sidebar"
+    (toggleHideSidebar)="toggleHideSidebar($event)"
+    [ngClass]="{ 'hide-sidebar': hideSidebar }"
+    data-active-color="white"
+    [attr.data-background-color]="bgColor"
+    [attr.data-image]="bgImage"
+  >
+    <app-candidate-steps-sidebar></app-candidate-steps-sidebar>
+    <div class="sidebar-background" #sidebarBgImage></div>
+  </div>
+  <app-candidate-steps-navbar (toggleHideSidebar)="toggleHideSidebar($event)"></app-candidate-steps-navbar>
+  <div class="main-panel">
+    <div class="main-content">
+      <!-- <div class="content-wrapper"> -->
+        <!-- <div class="container-fluid"> -->
+          <router-outlet></router-outlet>
+          <!-- <app-single-test></app-single-test> -->
+          <!-- <app-test-list></app-test-list> -->
+          <!-- <app-parameter></app-parameter> -->
+          <!-- <app-screening-upload-cv></app-screening-upload-cv> -->
+          <!-- <app-affect-meeting></app-affect-meeting> -->
+          <!-- <app-departments></app-departments> -->
+          <!-- <app-job-list></app-job-list> -->
+          <!-- <app-job-attachments></app-job-attachments> -->
+          <!-- <app-job-note-list></app-job-note-list> -->
+          <!-- <app-job-note-list></app-job-note-list> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    </div>
+    <app-footer></app-footer>
+
+  </div>
+  <!-- <app-notification-sidebar></app-notification-sidebar> -->
+</div>

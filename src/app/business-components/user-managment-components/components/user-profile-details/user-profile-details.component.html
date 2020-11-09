@@ -1,0 +1,205 @@
+<div class="profile" *ngIf="profileDetails">
+    <section class="profile__summury-info">
+        <div class="content_wrapper my-4">
+            <div class="text-left">
+                <span class="back" (click)="goback()">
+                    <i class="fas fa-chevron-circle-left"></i>
+                </span>
+            </div>
+            <div class="profile__summury-info__Edit col-2 ml-auto">
+                <div class="Edit-icon-wrapper">
+                    <a [routerLink]="['/pages', 'recruiter', 'user-managment','list-users','update-user',id]"
+                        routerLinkActive="active" class="rounded-circle profile__summury-info__Edit-link user-is ft">
+                        <i class="la la-pencil"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="d-flex content profile__summury-wrapper row">
+                <figure class="img-wrapper">
+                    <img [src]="profileDetails.image" class="img-fluid" alt="" />
+                </figure>
+                <div class="profile__summury-info__details col-8">
+                    <div class="user-single-info3">
+                        <h3 class="title">{{profileDetails.first_name}} {{profileDetails.last_name}}</h3>
+                        <ul class="profile__summury-info__detail">
+                            <li>{{profileDetails.email}}</li>
+                            <li>{{profileDetails.phone_number}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-5">
+                <div class="user-overview style2 col-12">
+                    <div class="user-title-sec">
+                        <h3>
+                            <img src="../../../../assets/img/icons/information@2x.png" alt="">
+                            About</h3>
+                        <div class="user-lctn">
+                            <p>{{profileDetails.description}}</p>
+                        </div>
+                    </div>
+                    <div class="user-listings-sec no-border row">
+                        <div class="col-lg-6">
+                            <div class="user-title-sec">
+                                <h3>
+                                    <img src="../../../../../assets/img/icons/user - filled.svg" alt="">
+                                    Profile
+                                </h3>
+                                <div class="user-lctn">
+                                    <p>{{profileDetails.profile_title}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="user-title-sec">
+                                <h3>
+                                    <img src="../../../../assets/img/icons/energy.svg" alt="">
+                                    Status</h3>
+                                <div class="status-label" *ngIf="profileDetails.status === 'active'">
+                                    <p class="member-label member-active">{{profileDetails.status}}</p>
+                                </div>
+                                <div class="status-label" *ngIf="profileDetails.status === 'pending'">
+                                    <p class="member-label member-pending">{{profileDetails.status}}</p>
+                                </div>
+                                <div class="status-label" *ngIf="profileDetails.status === 'blocked'">
+                                    <p class="member-label member-blocked">{{profileDetails.status}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="user-title-sec">
+                                <h3 style="color:#707070;">
+                                    <img src="../../../../assets/img/icons/lock - fill.svg" alt="">
+                                    Roles</h3>
+                                <div class="user-lctn">
+                                    <p class="no-dot">{{profileDetails.roles}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                  User Profile  Details Component Start                  -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- <section id="user-profile" *ngIf="currentUser">
+    <div class="row">
+        <div class="col-12">
+            <div class="card profile-with-cover">
+                <div class="card-img-top img-fluid bg-cover height-300"
+                    style="background: url('assets/img/photos/14.jpg') 50%;"></div>
+                <div class="media profil-cover-details row">
+                    <div class="col-6 col-sm-4">
+                        <div class="align-self-start halfway-fab pl-3 pt-2">
+                            <div class="text-left">
+                                <span class="back" (click)="goback()">
+                                    <i class="fas fa-chevron-circle-left"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4">
+                        <div class="align-self-center halfway-fab text-center">
+                            <h3 class="card-title white">{{currentUser.username}}</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ---------------------------- About Section ---------------------------- -->
+<!-- <section id="about" *ngIf="currentUser">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Personal Information</h5>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="text-bold-500 primary">About Me:</span>
+                            <span class="d-block overflow-hidden">{{currentUser.description}}
+                            </span>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <ul class="no-list-style">
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i class="ft-edit-2 font-small-3"></i>
+                                                First Name:</a></span>
+                                        <span class="d-block overflow-hidden">{{currentUser.first_name}}</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i class="ft-user font-small-3"></i>
+                                                Gender:</a></span>
+                                        <span class="d-block overflow-hidden">{{currentUser.gender}}</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i class="ft-globe font-small-3"></i>
+                                                Lives in:</a></span>
+                                        <span class="d-block overflow-hidden">Denver, USA</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <ul class="no-list-style">
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i class="ft-edit-2 font-small-3"></i>
+                                                Last Name:</a></span>
+                                        <span class="d-block overflow-hidden">{{currentUser.last_name}}</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i class="ft-mail font-small-3"></i>
+                                                Email:</a></span>
+                                        <a class="d-block overflow-hidden">{{currentUser.email}}</a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i class="ft-briefcase font-small-3"></i>
+                                                Company:</a></span>
+                                        <a class="d-block overflow-hidden">pixinvent.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <ul class="no-list-style">
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i
+                                                    class="ft-smartphone font-small-3"></i> Phone Number:</a></span>
+                                        <span class="d-block overflow-hidden">(012){{currentUser.phone}}</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i class="ft-monitor font-small-3"></i>
+                                                Profile:</a></span>
+                                        <span class="d-block overflow-hidden">{{currentUserProfile}}</span>
+                                    </li>
+                                    <li class="mb-2">
+                                        <span class="text-bold-500 primary"><a><i class="ft-book font-small-3"></i>
+                                                Joined:</a></span>
+                                        <span class="d-block overflow-hidden">April 1st, 2012</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ----------------------------------------------------------------------- -->
+<!--                   User Profile Component Details End                    -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- <app-spinner *ngIf="!currentUser"></app-spinner> -->

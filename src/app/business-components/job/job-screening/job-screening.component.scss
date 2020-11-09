@@ -1,0 +1,151 @@
+@import "../../../../general";
+@import "../../../../variables";
+
+.job-screening_no-data {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 67vh;
+    &_icon {
+      font-size: 150px;
+      color: $tealish;
+    }
+    &_create-new {
+      width: 40%;
+      .btn {
+          border-color: $orange;
+        background-color: $orange;
+        color: $white;
+        width: 100%;
+      }
+    }
+    &_paragraph {
+      font-size: 20px;
+      font-weight: 500;
+    }
+}
+
+.job-screening_with-data {
+  &_table {
+    position: relative;
+
+    &_actions {
+      cursor: pointer;
+      background-color: $warm-grey;
+      color: $white;
+      height: 20px;
+      width: 20px;
+      font-size: 14px !important;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.filter {
+  &__by-name {
+    padding: 4px 8px 4px 8px;
+    border-radius: 5px;
+    &__input {
+      border: none;
+      &:focus {
+        outline: none;
+        border: none;
+      }
+    }
+    // &__label {
+    //   margin-right: 3px;
+    // }
+    position: relative;
+    overflow: hidden;
+    width: 50%;
+    border-radius: 10px;
+    border: solid 0.5px #afafaf;
+
+    &__icon {
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 93%;
+      color: $tealish;
+      background-color: $pale-grey;
+      width: 40px;
+      transform: translate(-50%, -50%);
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+    }
+  }
+}
+.addMoreBtn {
+  background-color: white !important;
+  border: 1px solid $tealish !important;
+  color: $tealish !important;
+  // color: #009DA0  ;
+  padding: 4px 8px 4px 8px;
+  // border: 1px solid #009DA0 !important;
+  // border-right-color: #009DA0 !important;
+  border-radius: 5px;
+  font-weight: 400;
+}
+
+::ng-deep .datatable-body-cell-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+::ng-deep
+  .ngx-datatable.fixed-header
+  .datatable-header
+  .datatable-header-inner
+  .datatable-header-cell {
+  text-align: center;
+  background-color: transparent;
+  color: $warm-grey;
+  font-size: 15px;
+}
+::ng-deep
+  .ngx-datatable.material
+  .datatable-body
+  .datatable-body-row
+  .datatable-body-cell {
+  color: $warm-grey;
+  font-size: 15px;
+}
+::ng-deep .ngx-datatable.material {
+  background: #fff;
+  box-shadow: none;
+}
+::ng-deep .ngx-datatable .datatable-body .datatable-body-row > div {
+  border-bottom: 1px solid $pale-grey !important;
+}
+
+::ng-deep .ngx-datatable.material .datatable-header {
+  background-color: $pale-grey;
+  border: none;
+}
+
+::ng-deep .ngx-datatable.material .datatable-footer {
+  border-top: none;
+}
+.card {
+  box-shadow: none;
+}
+
+.modal-body{
+  ul{
+    li{
+      h5{
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
+  }
+}

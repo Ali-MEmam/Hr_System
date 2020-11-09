@@ -1,0 +1,21 @@
+<div class="col-md-12 col-lg-12" *ngIf="data">
+    <h4 class="mt-5 font-weight-bold mb-5" >Profile Permissions</h4>
+    <!--Prevent panel toggle starts-->
+    <ngb-accordion [closeOthers]="true" >
+        <ngb-panel *ngFor="let item of data" [id]="item.id" [title]="item.title">
+            <ng-template ngbPanelTitle class="icon-template"><i class="ft-align-center font-small-3"></i></ng-template>
+            
+            <ng-template ngbPanelContent>
+                <p>{{item.description}}</p>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+    <div class="form-actions">
+        <!-- <button type="button" (click)=goback() class="btn btn-raised btn-warning " >
+           Go Back
+        </button> -->
+        <button class="card-title  goback mr-1 mt-5" (click)="goback()"><i class="ft-chevrons-left  mr-1 "></i>Go Back</button>
+    </div>
+    <!--Prevent panel toggle ends-->
+</div>
+<app-spinner *ngIf="!data"></app-spinner>

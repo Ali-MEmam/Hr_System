@@ -1,0 +1,106 @@
+<div class="screening-details" *ngIf="jobScreeningDetails">
+    <!---------------------- start header-------------------->
+    <!-- <app-candidate-header></app-candidate-header> -->
+    <!---------------------- end header-------------------->
+    <div class="container">
+        <div class="row candidate no-gutters">
+            <!---------------------- start sidebar-------------------->
+            <!-- <app-candidate-sidebar class="col-lg-3"></app-candidate-sidebar> -->
+            <!---------------------- end sidebar-------------------->
+            <div class="col-lg-12">
+                <ul class="nav nav-pills mt-4 ml-2" id="pills-tab" role="tablist">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-screening-info-tab" data-toggle="pill"
+                            href="#pills-screening-info" role="tab" aria-controls="pills-screening-info"
+                            aria-selected="false">screening information
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-uploadedCvs-tab" data-toggle="pill" href="#pills-uploadedCvs"
+                            role="tab" aria-controls="pills-uploadedCvs" aria-selected="false">uploaded Cvs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-selectedCvs-tab" data-toggle="pill" href="#pills-selectedCvs"
+                            role="tab" aria-controls="pills-selectedCvs" aria-selected="false">selected Cvs
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content p-3" id="pills-tabContent">
+
+                    <div class="tab-pane fade show active" id="pills-screening-info" role="tabpanel"
+                        aria-labelledby="pills-screening-info-tab">
+                        <div class="screening-details">
+                            <div>
+                                <h3>test selected :</h3>
+                                <p>{{jobScreeningDetails.test}}</p>
+                            </div>
+                            <div>
+                                <h3>screening label :</h3>
+                                <p> {{jobScreeningDetails.screening_label}}</p>
+                            </div>
+                            <div>
+                                <h3>screening description :</h3>
+                                <p>{{jobScreeningDetails.screening_description}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-uploadedCvs" role="tabpanel"
+                        aria-labelledby="pills-uploadedCvs-tab">
+                        <div class="card-content">
+                            <div class="card-body table-responsive">
+                                <table *ngIf="cvsArray.length>0" class="cv-table table">
+                                    <thead>
+                                        <td>file name</td>
+                                        <td>file size</td>
+                                        <td style="text-align: center;">download</td>
+                                    </thead>
+                                    <tr *ngFor="let cv of cvsArray">
+                                        <td>
+                                            <p class="">{{cv.cv_name}} </p>
+                                        </td>
+                                        <td>{{formatBytes(cv?.cv_size)}}</td>
+                                        <td  style="text-align: center;">
+                                            <a href="{{cv.cv_file}}" download="{{cv.cv_name}}">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-selectedCvs" role="tabpanel"
+                        aria-labelledby="pills-selectedCvs-tab">
+                        <div class="card-content">
+                            <div class="card-body table-responsive">
+                                <table *ngIf="selectedCvsArray.length>0" class="cv-table table">
+                                    <thead>
+                                        <td>file name</td>
+                                        <td>file size</td>
+                                        <td style="text-align: center;">download</td>
+                                    </thead>
+                                    <tr *ngFor="let cv of selectedCvsArray">
+                                        <td>
+                                            <p class="">{{cv.cv_name}} </p>
+                                        </td>
+                                        <td>{{formatBytes(cv?.cv_size)}}</td>
+                                        <td  style="text-align: center;">
+                                            <a href="{{cv.cv_file}}" download="{{cv.cv_name}}">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <app-spinner *ngIf="!screening-detailsData"></app-spinner> -->
+<!-- <app-footer></app-footer> -->

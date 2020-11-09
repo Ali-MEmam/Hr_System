@@ -1,0 +1,61 @@
+<header class="header">
+    <div class="header_bg">
+        <nav class="navbar navbar-dark navbar-expand-lg header_bg-navbar pt-4">
+            <div class="container">
+                <a class="navbar-brand header_bg-navbar__logo" routerLink="#">
+                    <figure>
+                        <img src="../../../assets/img/logos/colored-logo.png" alt="">
+                    </figure>
+                </a>
+                <button class="navbar-toggler header_bg-navbar__collapse" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-collapse-icon"><i class="la la-ellipsis-v"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" routerLink="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" routerLink="#">Job</a>
+                        </li> -->
+                        
+                        <li class="nav-item dropdown header_bg-navbar__notification"> 
+                            <a class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdownMenuLink" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="la la-bell"></i>
+                                <div class="header_bg-navbar__notification-counter">
+                                    1
+                                </div>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" >notification 1</a>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item dropdown header_bg-navbar__user"> 
+                            <a class="nav-link dropdown-toggle profile-img" id="navbarDropdownMenuLink" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<img src="../../../assets/img/user-placeholder.png" alt="" class="img-circle img-fluid w-100">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" routerLink="#">my profile</a>
+                                <!-- <a class="dropdown-item" routerLink="#">my inbox</a> -->
+                                <a class="dropdown-item" (click)="logout()">logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    </div>
+    <div class="header_content">
+        <div class="container">
+            <div class="col-12">
+                <h1>Welcome, Zein-it</h1>
+            </div>
+        </div>
+
+    </div>
+</header>

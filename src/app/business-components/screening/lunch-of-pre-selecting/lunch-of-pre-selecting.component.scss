@@ -1,0 +1,67 @@
+@import '../../../../variables';
+
+::ng-deep .progress {
+    position: relative;
+    display: block;
+    height: 1.2rem;
+    overflow: hidden;
+    font-size: 0.75rem;
+    background-color: #e9ecef;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+}
+
+::ng-deep .bg-primary.progress-bar{
+    width: 100%;
+    position: relative;
+    height: 100%;
+}
+.content-header {
+    h2{
+
+        font-weight: 500;
+        letter-spacing: .5px;
+        font-size: 1.6rem;
+        margin-top: 1.5rem;
+        margin-bottom: .25rem;
+    }
+}
+.btn.btn-raised {
+    background-color: #FF586B!important;
+}
+.form-inline{
+    p{
+        margin: 0;
+    }
+    input{
+    width: 5%;
+    margin-left: 3%;
+    margin-right: 10%;
+    height: 33px;
+    text-align: center;
+    box-shadow: 1px 0px 5px 1px rgb(230, 230, 230);
+    border: 2px solid lightgray;
+    border-radius: 6px;
+    color: gray;
+
+    }
+    button{
+        margin-bottom: 0;
+        padding: 6px 30px;
+        background-color:$tealish;
+        color: white;
+    }
+}
+.btn.btn-raised{
+background-color: #009DA0!important;
+}
+::ng-deep .bg-primary{
+    background-color: #009DA0!important;
+
+}
+.card {
+    box-shadow: none;
+}

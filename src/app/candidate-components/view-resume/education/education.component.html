@@ -1,0 +1,210 @@
+<!---------------- Education Section ---------------->
+<div class="education">
+  <div class="education_icon">
+    <i class="fa fa-graduation-cap"></i>
+  </div>
+  <div class="education_content">
+    <div>
+      <h3 class="education_content_heading">Education</h3>
+      <a class="education_content_add-icon" title="" (click)="open(addMore)"><i class="la la-plus"></i></a>
+      <div *ngIf="this.education.length == 0;" class="no-data-found-wrapper">
+          <!-- <span>!</span> -->
+            <div class="no-data-found-wrapper_paragraph">
+              <p>there is no data right now please add your info!</p>
+          </div>
+          <!-- <div class="no-data-found-wrapper_create-new">
+              <button class="btn btn-primary btn-block"  (click)="open(addMore)">Add Education</button>
+          </div> -->
+    </div>
+      <!-----------------------------------------Start add more Modal------------------------------------>
+      <div class="card-content">
+        <div class="card-body  p-1">
+          <ng-template #addMore let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Education</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <section id="filter" >
+              <div class="modal-body">
+                <div>
+                  <form [formGroup]="educationForm" (ngSubmit)="onSubmitEducation(educationForm)">
+                    <div formArrayName="educations" *ngFor="
+                            let ed of educationForm.get('educations').controls;
+                            let i = index
+                          " class="resumeadd-form">
+                      <div [formGroupName]="i" class="row align-items-start">
+                        <div class="col-lg-12">
+                          <div class="row">
+                            <div *ngIf="i != 0" class="col-lg-12">
+                              <div class="delete-more d-flex mt-3">
+                                <a class="ml-auto" (click)="deleteEducationFormArray(i)" title=""><i
+                                    class="la la-close"></i></a>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label" for="dateFrom">Title</p>
+                                <input formControlName="title" type="text" />
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <p class="form-control-label">From Date</p>
+                                <input type="Date" class="dateInput" formControlName="dateFrom" id="educationDateEnd"
+                                  name="educationDateEnd" />
+                                <i class="la la-calendar pick"></i>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <p class="form-control-label">To Date</p>
+                                <input type="Date" class="dateInput" formControlName="dateTo" id="educationDateEnd"
+                                  name="educationDateEnd" />
+                                <i class="la la-calendar pick"></i>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label" for="dateFrom">Institute</p>
+                                <input formControlName="institute" type="text" />
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label" for="dateFrom">Description</p>
+                                <textarea formControlName="description"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="pt-4">
+                      <a class="add-more-btn" [disabled]="educationForm.invalid" type="button"
+                        (click)="addNewEduForm()"><i class="la la-plus"></i>Add More</a>
+                      <div class="d-flex pt-4 modal-btn-wrapper">
+                        <button type="button" class="btn close" aria-label="Close" (click)="d('Cross click')">
+                          Cancel
+                        </button>
+                        <button class="btn saveBtn" [disabled]="educationForm.invalid" type="submit">
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+          </ng-template>
+        </div>
+      </div>
+      <!-----------------------------------------End add more Modal------------------------------------>
+
+
+
+    </div>
+    <div class="edu-history-sec education_content_details">
+      <div>
+        <div *ngFor="let edu of education" class="edu-history edu-design style2 education_content_details_info">
+          <i class="education_content_details_info_side-circle"></i>
+          <div class="edu-history edu-design">
+            <div class="edu-hisinfo">
+              <h3 class="education_content_details_info_subtitle">{{ edu.institute }}</h3>
+              <div class="education_content_details_info_subtitle ml-3">
+                <ul>
+                  <li>
+                    <h4>{{ edu.title }} .</h4>
+                    <h4> <span>{{ edu.date_from }}</span> - <span>{{ edu.date_to }}</span></h4>
+                  </li>
+                </ul>
+                <p>{{ edu.description }}</p>
+              </div>
+            </div>
+            <ul class=" action_job">
+              <li (click)="getEduId(edu.id)">
+                <span class="edit-popup  education_content_details_info_action-popup">Edit</span><a (click)="open(edit)"
+                  title=""><i class="la la-pencil education_content_details_info_action-icon"></i></a>
+              </li>
+            </ul>
+          </div>
+
+          <!-----------------------------------------Start Edit Modal------------------------------------>
+          <div class="card-content">
+            <div class="card-body">
+              <ng-template #edit let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Education</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <section id="filter" >
+                  <div class="modal-body">
+                    <!-- Add new education -->
+                    <div class="edu-history">
+                      <form [formGroup]="eduEdit" (ngSubmit)="onSubmitEduEdit(eduEdit,edu.id)">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateFrom">Title</p>
+                              <input formControlName="title" type="text" />
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateFrom">date from</p>
+                              <input type="Date" class="dateInput" formControlName="dateFrom" id="educationDateEnd"
+                                name="educationDateEnd" />
+                              <i class="la la-calendar pick"></i>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateFrom">date from</p>
+                              <input type="Date" class="dateInput" formControlName="dateTo" id="educationDateEnd"
+                                name="educationDateEnd" />
+                              <i class="la la-calendar pick"></i>
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateFrom">Institute</p>
+                              <input formControlName="institute" type="text" />
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateFrom">Description</p>
+                              <textarea formControlName="description"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row pt-4">
+                          <div class="d-flex pt-4 modal-btn-wrapper">
+                            <button type="button" class="btn close" (click)="onDeleteEdu(edu.id)">
+                              Delete
+                            </button>
+                            <button class="btn saveBtn" [disabled]="eduEdit.invalid" type="submit">
+                              Save
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </section>
+              </ng-template>
+            </div>
+          </div>
+          <!-----------------------------------------End Edit Modal------------------------------------>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

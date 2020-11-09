@@ -1,0 +1,236 @@
+<div *ngIf="notesData">
+  <div *ngIf="notesData.length == 0" class="note-list_no-data">
+    <div class="note-list_no-data_icon mb-2">
+      <i class="fas fa-exclamation"></i>
+    </div>
+    <div class="note-list_no-data_paragraph mb-4">
+      <p>Theire is no notes right now!</p>
+    </div>
+    <div class="note-list_no-data_create-new">
+      <button class="btn btn-block" (click)="open(note)">
+        create Note
+      </button>
+    </div>
+  </div>
+
+  <!-----------------------------------------jobment list start------------------------------------>
+  <!-- ----------------------------------------------------------------------- -->
+  <!--                     List Profiles Componenet Start                      -->
+  <!-- ----------------------------------------------------------------------- -->
+  <section *ngIf="notesData.length > 0" id="filter" class="mb-3">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body p-0">
+              <div class="row">
+                <div class="col-6 filter">
+                  <!-- filter -->
+                  <div class="filter__by-name">
+                    <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                      (keyup)="updateFilter($event)" />
+                    <div class="filter__by-name__icon">
+                      <i class="fas fa-filter"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 ml-auto d-flex justify-content-end mb-2">
+                  <a class="add-more-btn addMoreBtn" type="button" (click)="open(note)"><i class="la la-plus"></i>Create
+                    New</a>
+                </div>
+              </div>
+
+              <!-- -------------------------- Data Table Start --------------------------- -->
+              <ngx-datatable #table class="material note-list_with-data_table" [columns]="columns"
+                [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5"
+                [rows]="rows">
+                <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                  [resizeable]="false">
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Actions" sortable="false" prop="id">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <a title="View Note" class="link" (click)="ViewNotesValue(row)" (click)="open(noteView)">
+                      <span class="action-icon">
+                        <img src="../../../../assets/img/actions/view.svg">
+                      </span>
+                    </a>
+                    <a title="Edit Note" class="link" (click)="editNotesValue(row)" (click)="open(editNote)"
+                      type="submit" uisref="work">
+                      <span class="action-icon">
+                        <i class="fa fa-pencil-alt text-white font-small-2" aria-hidden="true"></i>
+                      </span>
+                    </a>
+                    <a title="Remove Note" class="link" (click)="removeNote(row)">
+                      <span class="action-icon">
+                        <i class="ft-x text-white"></i>
+                      </span>
+                    </a>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              <!-----------------------------------------edit Note Modal------------------------------------>
+              <div class="card-content">
+                <div class="card-body">
+                  <ng-template #editNote let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Note Edit</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+
+                    <section id="filter">
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <form [formGroup]="noteEditForm" (ngSubmit)="
+                                      onSubmitEdit(noteEditForm)
+                                    ">
+                              <div class="row">
+                                <!-- ------------------------------title------------------------------- -->
+                                <div class="col-lg-12">
+                                  <div class="form-group">
+                                    <p class="form-control-label">
+                                      Note Title
+                                    </p>
+                                    <input type="text" formControlName="title" name="title" />
+                                  </div>
+                                </div>
+                                <!-- ------------------------------note------------------------------- -->
+                                <div class="col-lg-12">
+                                  <div class="form-group">
+                                    <p class="form-control-label">Note Description</p>
+                                    <textarea type="text" formControlName="note" name="note"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <!-- ----------------------------- Form Action ----------------------------- -->
+                                <button type="button" class="btn btn-secondary cancelBtn btn-raised"
+                                  (click)="c('Close click')">
+                                  Close
+                                </button>
+                                <button type="submit" class="btn saveBtn btn-raised" [disabled]="noteEditForm.invalid">
+                                  Save
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </ng-template>
+                </div>
+              </div>
+              <!-----------------------------------------End edit Modal------------------------------------>
+
+              <!-- --------------------------- Data Table End ---------------------------- -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-----------------------------------------Start create new Modal------------------------------------>
+  <div class="card-content">
+    <div class="card-body">
+      <ng-template #note let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Create New Note</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <section id="filter" class="mb-3">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <form [formGroup]="addNote" (ngSubmit)="onSubmit(addNote)">
+                  <div class="row">
+                    <!-- ------------------------------title------------------------------- -->
+                    <div class="col-lg-12">
+                      <div class="form-group" [ngClass]="{
+                          'is-invalid':
+                            addNote.get('title').errors &&
+                            addNote.get('title').touched
+                        }">
+                        <p class="form-control-label">Note Title</p>
+                        <div *ngIf="
+                            addNote.get('title').errors &&
+                            addNote.get('title').touched
+                          " class="required-error">
+                          *Required
+                        </div>
+                        <input type="text" formControlName="title" name="title" />
+                      </div>
+                    </div>
+                    <!-- ------------------------------note------------------------------- -->
+                    <div class="col-lg-12">
+                      <div class="form-group" [ngClass]="{
+                          'is-invalid':
+                            addNote.get('note').errors &&
+                            addNote.get('note').touched
+                        }">
+                        <p class="form-control-label">Note Description</p>
+                        <div *ngIf="
+                            addNote.get('note').errors &&
+                            addNote.get('note').touched
+                          " class="required-error">
+                          *Required
+                        </div>
+                        <textarea type="text" formControlName="note" name="note"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <!-- ----------------------------- Form Action ----------------------------- -->
+                    <button type="button" class="btn btn-secondary cancelBtn btn-raised" (click)="c('Close click')">
+                      Close
+                    </button>
+                    <button type="submit" class="btn btn-raised saveBtn" [disabled]="addNote.invalid">
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </ng-template>
+    </div>
+  </div>
+  <!-----------------------------------------End  create new Modal------------------------------------>
+
+  <!-----------------------------------------Start create new Modal------------------------------------>
+  <div class="card-content">
+    <div class="card-body">
+      <ng-template #noteView let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Note Details</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <section id="filter">
+          <div class="modal-body">
+              <ul class="d-flex contact-link col-sm-12">
+                <li>
+                  <p>Note Title</p>
+                  <span>{{ noteDetails.title }}</span>
+                </li>
+                <li>
+                  <p>Note Description</p>
+                  <span>{{ noteDetails.note }}</span>
+                </li>
+              </ul>
+            </div>
+        </section>
+      </ng-template>
+    </div>
+  </div>
+  <!-----------------------------------------End  create new Modal------------------------------------>
+</div>

@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="border-title">
+      <div class="container">
+        <h3>{{jobName ? jobName : "Job Details" }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="tabs-wrapper">
+  <div class="container">
+    <ul class="list-group mt-0 list-group-horizontal">
+      <li class="pr-2">
+        <a class="nav-link" [routerLink]="['/pages', 'recruiter', 'jobs', 'info', id, 'details']"
+          routerLinkActive="active">Job Details</a>
+      </li>
+      <li class="pr-2">
+        <a class="nav-link" [routerLink]="['/pages', 'recruiter', 'jobs', 'info', id, 'criteria']"
+          routerLinkActive="active">Criteria</a>
+      </li>
+      <li class="pr-2">
+        <a class="nav-link" [routerLink]="['/pages', 'recruiter', 'jobs', 'info', id, 'attachments']"
+          routerLinkActive="active">Attachments</a>
+      </li>
+      <li class="pr-2">
+        <a class="nav-link" [routerLink]="['/pages', 'recruiter', 'jobs', 'info', id, 'screening']"
+          routerLinkActive="active">Screening</a>
+      </li>
+      <li class="pr-2">
+        <a class="nav-link" [routerLink]="['/pages', 'recruiter', 'jobs', 'info', id, 'notes']"
+          routerLinkActive="active">Notes</a>
+      </li>
+          <li><a class="nav-link" [routerLink]='["/pages","recruiter","jobs","info",id,"tests"]' routerLinkActive="active" >Tests</a></li>
+              
+      <!-- <li class="pr-2">
+        <a class="nav-link" [routerLink]="['/pages', 'recruiter', 'jobs', 'info', id, 'tests']"
+          routerLinkActive="active">Logs</a>
+      </li> -->
+      <li class="pr-2">
+        <a class="nav-link" [routerLink]="['/pages', 'recruiter', 'jobs', 'info', id, 'tasks']"
+          routerLinkActive="active">Log Activity</a>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="container">
+    <div class="job-wrapper mt-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+</div>

@@ -1,0 +1,233 @@
+<!-----------------------------------------If There is no Department------------------------------------>
+
+<div *ngIf="this.departmentList.length == 0;" class="depart-list_no-data">
+    <div class="depart-list_no-data_icon">
+        <i class="fas fa-exclamation"></i>
+    </div>
+    <div class="depart-list_no-data_paragraph">
+        <p>Theire is no departments right now please creat a new one!</p>
+    </div>
+    <div class="depart-list_no-data_create-new">
+        <button class="btn btn-secondary btn-block" (click)="open(newDepart)">create department</button>
+    </div>
+</div>
+
+<section *ngIf="this.departmentList.length != 0;" id="filter" class="mb-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="border-title">
+                <div class="container">
+                    <h3>Department</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-header row">
+                    <!-- filter -->
+                    <div class="col-6 filter">
+                        <!-- filter -->
+                        <div class="filter__by-name">
+                            <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                                (keyup)="updateFilter($event)" />
+                            <div class="filter__by-name__icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 ml-auto d-flex justify-content-end mb-2">
+                        <button class="btn btnAdd" (click)="open(newDepart)">+ add Department</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <!-- -------------------------- Data Table Start --------------------------- -->
+                    <ngx-datatable #table class="material" [columns]="columns" [columnMode]="'force'"
+                        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [rows]="rows">
+                        <ngx-datatable-row-detail></ngx-datatable-row-detail>
+                        <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                            [resizeable]="false">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Actions" sortable="false" prop="id">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <a title="Edit Department" class="link" (click)="editDepartmentVal(row)" (click)="open(editDepartment)">
+                                    <span class="action-icon">
+                                        <i class="fa fa-pencil-alt text-white font-small-2" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                                <a title="Remove Department" class="link" (click)="deleteDepartment(row)">
+                                    <span class="action-icon">
+                                        <i class="ft-x text-white"></i>
+                                    </span>
+                                </a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                    <!-- --------------------------- Data Table End ---------------------------- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-----------------------------------------Department list start------------------------------------>
+
+
+<!-----------------------------------------Start Invitation Modal------------------------------------>
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #newDepart let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h3>Create a new Department</h3>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <section id="filter" class="mb-3">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form [formGroup]="departmentForm" (ngSubmit)="onSubmit(departmentForm)">
+                                <div class="row">
+                                    <!-- ------------------------------title------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': departmentForm.get('name').errors && departmentForm.get('name').touched }">
+                                            <p>Department name</p>
+                                            <div *ngIf="departmentForm.get('name').errors && departmentForm.get('name').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <input type="text" formControlName="name" id="name"
+                                                autocomplete="off" name="name" />
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------country------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': departmentForm.get('country').errors && departmentForm.get('country').touched }">
+                                            <p>Country</p>
+                                            <div *ngIf="departmentForm.get('country').errors && departmentForm.get('country').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select class="form-control" formControlName="country"
+                                                (change)="onChangeCountry($event.target.value , selectValue)">
+                                                <option *ngFor="let country of countryInfo; let i = index" value="{{i}}"
+                                                    #selectValue>{{country.CountryName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------city------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': departmentForm.get('city').errors && departmentForm.get('city').touched }">
+                                            <p>City</p>
+                                            <div *ngIf="departmentForm.get('city').errors && departmentForm.get('city').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select class="form-control" formControlName="city"
+                                                (change)="onChangeState($event.target.value)">
+                                                <option *ngIf="stateInfo == ''" [value]="">--Select State--</option>
+                                                <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">
+                                                    {{state.StateName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-4 modal-btn-wrapper">
+                                    <button type="button" class="btn close backBtn" aria-label="Close"
+                                        (click)="d('Cross click')">Cancel</button>
+                                    <button type="submit" class="btn saveBtn"
+                                        [disabled]="departmentForm.invalid">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>
+<!-----------------------------------------End Invitation Modal------------------------------------>
+
+
+
+
+
+<!-----------------------------------------Start Invitation Modal------------------------------------>
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #editDepartment let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h3>Edit Department</h3>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <section id="filter" class="mb-3">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form [formGroup]="departmentEditForm" (ngSubmit)="onSubmitEdit(departmentEditForm)">
+                                <div class="row">
+                                    <!-- ------------------------------title------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': departmentEditForm.get('name').errors && departmentEditForm.get('name').touched }">
+                                            <p>Department name</p>
+                                            <div *ngIf="departmentEditForm.get('name').errors && departmentEditForm.get('name').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <input type="text" formControlName="name" id="name"
+                                                autocomplete="off" name="name" />
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------country------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': departmentEditForm.get('country').errors && departmentEditForm.get('country').touched }">
+                                            <p>Country</p>
+                                            <div *ngIf="departmentEditForm.get('country').errors && departmentEditForm.get('country').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select class="form-control" formControlName="country"
+                                                (change)="onChangeCountry($event.target.value , selectValue)">
+                                                <option *ngFor="let country of countryInfo; let i = index" value="{{i}}"
+                                                    #selectValue>{{country.CountryName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------city------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': departmentEditForm.get('city').errors && departmentEditForm.get('city').touched }">
+                                            <p>City</p>
+                                            <div *ngIf="departmentEditForm.get('city').errors && departmentEditForm.get('city').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select class="form-control" formControlName="city"
+                                                (change)="onChangeState($event.target.value)">
+                                                <option *ngIf="stateInfo == ''" value="-1">--Select State--</option>
+                                                <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">
+                                                    {{state.StateName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="pt-4 modal-btn-wrapper">
+                                    <button type="button" class="btn close backBtn" aria-label="Close"
+                                        (click)="d('Cross click')">Cancel</button>
+                                    <button type="submit" class="btn saveBtn"
+                                        [disabled]="departmentEditForm.invalid">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>
+<!-----------------------------------------End Invitation Modal------------------------------------>

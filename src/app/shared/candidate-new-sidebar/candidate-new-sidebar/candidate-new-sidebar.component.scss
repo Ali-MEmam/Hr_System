@@ -1,0 +1,28 @@
+@import "../../../../variables";
+
+.app-sidebar .navigation li > a:before, .off-canvas-sidebar .navigation li > a:before {
+    border-right:solid 5px  $tealish !important;
+}
+
+
+.widget{
+    float: none;
+  }
+::ng-deep svg{
+  float: none;
+  border-top: 1px solid $dusk;
+  padding-top: 10%;
+  box-sizing: content-box;
+  height: 150px;
+}
+
+
+  .chart-title{
+    text-align: center !important;
+    color: $orange;
+    position: relative;
+    float: none;
+    font-weight: normal !important;
+    text-transform: capitalize;
+    font-size: 12px !important;
+  }

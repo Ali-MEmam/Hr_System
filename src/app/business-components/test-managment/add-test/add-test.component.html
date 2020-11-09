@@ -1,0 +1,694 @@
+<div class="addTest-wrapper">
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- ---------------------------------------------------------------------- -->
+            <!--                             ADD TEST HEADER                            -->
+            <!-- ---------------------------------------------------------------------- -->
+            <div class=" addTest-wrapper-header row py-2">
+                <div class="col-lg-12 d-flex justify-content-between p-0">
+                    <div class="addTest-wrapper-header-title col-lg-6 d-flex align-items-center">
+                        <span class="back" (click)="goback()">
+                            <i class="fas fa-chevron-circle-left"></i>
+                        </span>
+                        <h2>Create New Test</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- ---------------------------------------------------------------------- -->
+            <!--                             ADD TEST TABS                              -->
+            <!-- ---------------------------------------------------------------------- -->
+            <ul class="nav nav-pills">
+                <li class="mat-test active"><a data-toggle="pill" href="#first"
+                        (click)="changeTabs('First Contact')">First Contact</a></li>
+                <li class="mat-test"><a data-toggle="pill" href="#hr" (click)="changeTabs('HR Test')">HR Test</a></li>
+                <li class="mat-test"><a data-toggle="pill" href="#technical"
+                        (click)="changeTabs('Technical Test')">Technical Test</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- ---------------------------------------------------------------------- -->
+                <!--                              First Contant                             -->
+                <!-- ---------------------------------------------------------------------- -->
+                <div id="first" class="tab-pane in active">
+                    <div class="row mt-2">
+                        <div class="col-lg-12">
+                            <section id="basic-form-layouts">
+                                <div class="row text-left">
+                                    <div class="col-md-12 mx-auto">
+                                        <!-- ----------------------------- Form Start ------------------------------ -->
+                                        <form class="form" [formGroup]="questionsFirstForm"
+                                            (ngSubmit)="onSubmitFirstContentQuestionsForm(questionsFirstForm)">
+                                            <h4 class="form-section">
+                                                <div class="form-group">
+                                                    <p for="Title">Test Title</p>
+                                                    <input formControlName="testName" type="text" id="Title"
+                                                        class="form-control border-primary" name="name">
+                                                </div>
+                                            </h4>
+                                            <div class="form-group ">
+                                                <p for="userinput1">Question</p>
+                                                <textarea formControlName="question" type="text" id="userinput1"
+                                                    class="form-control border-primary" name="name"></textarea>
+                                            </div>
+                                            <div *ngIf="!editMode">
+                                                <button [disabled]="questionsFirstForm.invalid" type="submit"
+                                                    class="btn btnAdd">
+                                                    + Add Question
+                                                </button>
+                                            </div>
+                                            <!-- ---------------------------- Form Buttons ----------------------------- -->
+                                            <div *ngIf="!editMode" class="float-right">
+                                                <button (click)="goback()" type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button (click)="onSaveFirstContent()"
+                                                    [disabled]="!listOfHRQuestions[0]" type="button"
+                                                    class="btn saveBtn">
+                                                    Save
+                                                </button>
+                                            </div>
+                                            <div *ngIf="editMode" class="float-right d-flex justify-content-center">
+                                                <button (click)="cancelEditFirstContent(questionsFirstForm)"
+                                                    type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button [disabled]="questionsFirstForm.invalid" type="button"
+                                                    class="btn saveBtn"
+                                                    (click)="saveEditFirstContent(questionsFirstForm)">>
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <!-- ---------------------------------------------------------------------- -->
+                <!--                                HR test                                 -->
+                <!-- ---------------------------------------------------------------------- -->
+                <div id="hr" class="tab-pane fade">
+                    <div class="row mt-2">
+                        <div class="col-lg-12">
+                            <section id="basic-form-layouts">
+                                <div class="row text-left">
+                                    <div class="col-md-12 mx-auto">
+                                        <!-- ----------------------------- Form Start ------------------------------ -->
+                                        <form class="form" [formGroup]="questionsHRForm"
+                                            (ngSubmit)="onSubmitHRQuestionsForm(questionsHRForm)">
+                                            <h4 class="form-section">
+                                                <div class="form-group">
+                                                    <p for="Title">Test Title</p>
+                                                    <input formControlName="testName" type="text" id="Title"
+                                                        class="form-control border-primary" name="name">
+                                                </div>
+                                            </h4>
+                                            <div class="form-group ">
+                                                <p for="Question">Question</p>
+                                                <textarea formControlName="question" type="text" id="Question"
+                                                    class="form-control border-primary" name="name"></textarea>
+                                            </div>
+                                            <div class="form-group ">
+                                                <p for="Answer">Answer</p>
+                                                <textarea formControlName="answer" type="text" id="Answer"
+                                                    class="form-control border-primary" name="name"></textarea>
+                                            </div>
+                                            <div *ngIf="!editMode">
+                                                <button [disabled]="questionsHRForm.invalid" type="submit"
+                                                    class="btn btnAdd">
+                                                    + Add Question
+                                                </button>
+                                            </div>
+                                            <!-- ---------------------------- Form Buttons ----------------------------- -->
+                                            <div *ngIf="!editMode" class="float-right">
+                                                <button (click)="goback()" type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button (click)="onSaveHR()" [disabled]="!listOfHRQuestions[0]"
+                                                    type="button" class="btn saveBtn">
+                                                    Save
+                                                </button>
+                                            </div>
+                                            <div *ngIf="editMode" class="float-right d-flex justify-content-center">
+                                                <button (click)="cancelEditHR(questionsHRForm)" type="button"
+                                                    class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button [disabled]="questionsHRForm.invalid" type="button"
+                                                    class="btn saveBtn" (click)="saveEditHR(questionsHRForm)">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <!-- ---------------------------------------------------------------------- -->
+                <!--                             Technical Test                             -->
+                <!-- ---------------------------------------------------------------------- -->
+                <div id="technical" class="tab-pane fade">
+                    <div class="row mt-2">
+                        <div class="col-lg-12">
+                            <section id="basic-form-layouts">
+                                <div class="row text-left">
+                                    <div class="col-md-12 mx-auto">
+                                        <!-- ----------------------------- Form Start ------------------------------ -->
+                                        <form class="form" [formGroup]="questionsTecnicalForm"
+                                            (ngSubmit)="onSubmitQuestionsForm(questionsTecnicalForm)">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col-lg-7">
+                                                <div class="form-group">
+                                                    <p for="category">Select Category</p>
+                                                    <select formControlName="category"
+                                                        class="custom-select d-block w-100" id="category">
+                                                        <option selected value="HTML">Html</option>
+                                                        <option value="CSS">Css</option>
+                                                        <option value="JavaScript">JavaScript</option>
+                                                        <option value="Angular">Angular</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                                <div class="col-lg-5">
+                                                    <a class="btn btncreate" (click)="open(addcategory)">+ Create New Category</a>
+                                                </div>
+                                            </div>
+                                            <h4 class="form-section">
+                                                <div class="form-group">
+                                                    <p for="userinput1">Test Title</p>
+                                                    <input formControlName="testName" type="text" id="userinput1"
+                                                        class="form-control border-primary" name="name">
+                                                </div>
+                                            </h4>
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    <div class="form-group">
+                                                        <p for="userinput1">Question</p>
+                                                        <textarea formControlName="question" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <p for="userinput1">Answer 1</p>
+                                                        <textarea formControlName="ans1" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <p for="userinput1">Answer 2</p>
+                                                        <textarea formControlName="ans2" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <p for="userinput1">Answer 3</p>
+                                                        <textarea formControlName="ans3" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <p for="userinput1">Answer 4</p>
+                                                        <textarea formControlName="ans4" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 check-answers-col">
+                                                    <h5>Check The correct answer</h5>
+                                                    <div
+                                                        *ngFor="let ans of questionsTecnicalForm.controls.correct['controls']; let i=index;">
+                                                        <h5>
+                                                            <input type="checkbox" [FormControl]="ans" selectGroup
+                                                                selected=CorrectAnswersLabels[i].check
+                                                                (change)="getCorrectAns($event.target.checked,CorrectAnswersLabels[i].group);">
+                                                            {{ CorrectAnswersLabels[i].name }}
+                                                        </h5>
+                                                        <!-- <label formArrayName="items"
+                                                            *ngFor="let child of correct.children">
+                                                            <input type="checkbox" [formControlName]="child.index">
+                                                            {{ items[child.index].name }}
+                                                        </label> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!editMode">
+                                                <button [disabled]="questionsTecnicalForm.invalid" type="submit"
+                                                    class="btn btnAdd">
+                                                    + Add Question
+                                                </button>
+                                            </div>
+                                            <!-- ---------------------------- Form Buttons ----------------------------- -->
+                                            <div *ngIf="!editMode" class="float-right">
+                                                <button (click)="goback()" type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button (click)="onSave()" [disabled]="!tecnicallistOfQuestions[0]"
+                                                    type="button" class="btn saveBtn">
+                                                    Save
+                                                </button>
+                                            </div>
+                                            <div *ngIf="editMode" class="float-right d-flex justify-content-center">
+                                                <button (click)="cancelEdit(questionsTecnicalForm)" type="button"
+                                                    class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button [disabled]="questionsFirstForm.invalid" type="button"
+                                                    class="btn saveBtn" (click)="saveEdit(questionsTecnicalForm)">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- <mat-tab-group animationDuration="0ms">
+                <mat-tab label="First Contact" id="firstContent">
+                    <div class="row mt-2">
+                        <div class="col-lg-12">
+                            <section id="basic-form-layouts">
+                                <div class="row text-left">
+                                    <div class="col-md-12 mx-auto">
+                                        <form class="form" [formGroup]="questionsFirstForm"
+                                            (ngSubmit)="onSubmitFirstContentQuestionsForm(questionsFirstForm)">
+                                            <h4 class="form-section">
+                                                <div class="form-group">
+                                                    <p for="Title">Test Title</p>
+                                                    <input formControlName="testName" type="text" id="Title"
+                                                        class="form-control border-primary" name="name">
+                                                </div>
+                                            </h4>
+                                            <div class="form-group ">
+                                                <p for="userinput1">Question</p>
+                                                <textarea formControlName="question" type="text" id="userinput1"
+                                                    class="form-control border-primary" name="name"></textarea>
+                                            </div>
+                                            <div *ngIf="!editMode">
+                                                <button [disabled]="questionsFirstForm.invalid" type="submit"
+                                                    class="btn btnAdd">
+                                                    + Add Question
+                                                </button>
+                                            </div>
+                                            <div *ngIf="!editMode" class="float-right">
+                                                <button (click)="goback()" type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button (click)="onSaveFirstContent()"
+                                                    [disabled]="!listOfHRQuestions[0]" type="button"
+                                                    class="btn saveBtn">
+                                                    Save
+                                                </button>
+                                            </div>
+                                            <div *ngIf="editMode" class="float-right d-flex justify-content-center">
+                                                <button (click)="cancelEditFirstContent(questionsFirstForm)"
+                                                    type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button [disabled]="questionsFirstForm.invalid" type="button"
+                                                    class="btn saveBtn"
+                                                    (click)="saveEditFirstContent(questionsFirstForm)">>
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="HR Test" id="hr-test">
+                    <div class="row mt-2">
+                        <div class="col-lg-12">
+                            <section id="basic-form-layouts">
+                                <div class="row text-left">
+                                    <div class="col-md-12 mx-auto">
+                                        <form class="form" [formGroup]="questionsHRForm"
+                                            (ngSubmit)="onSubmitHRQuestionsForm(questionsHRForm)">
+                                            <h4 class="form-section">
+                                                <div class="form-group">
+                                                    <p for="Title">Test Title</p>
+                                                    <input formControlName="testName" type="text" id="Title"
+                                                        class="form-control border-primary" name="name">
+                                                </div>
+                                            </h4>
+                                            <div class="form-group ">
+                                                <p for="Question">Question</p>
+                                                <textarea formControlName="question" type="text" id="Question"
+                                                    class="form-control border-primary" name="name"></textarea>
+                                            </div>
+                                            <div class="form-group ">
+                                                <p for="Answer">Answer</p>
+                                                <textarea formControlName="answer" type="text" id="Answer"
+                                                    class="form-control border-primary" name="name"></textarea>
+                                            </div>
+                                            <div *ngIf="!editMode">
+                                                <button [disabled]="questionsHRForm.invalid" type="submit"
+                                                    class="btn btnAdd">
+                                                    + Add Question
+                                                </button>
+                                            </div>
+                                            <div *ngIf="!editMode" class="float-right">
+                                                <button (click)="goback()" type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button (click)="onSaveHR()" [disabled]="!listOfHRQuestions[0]"
+                                                    type="button" class="btn saveBtn">
+                                                    Save
+                                                </button>
+                                            </div>
+                                            <div *ngIf="editMode" class="float-right d-flex justify-content-center">
+                                                <button (click)="cancelEditHR(questionsHRForm)" type="button"
+                                                    class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button [disabled]="questionsHRForm.invalid" type="button"
+                                                    class="btn saveBtn" (click)="saveEditHR(questionsHRForm)">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Technical Test">
+                    <div class="row mt-2">
+                        <div class="col-lg-12">
+                            <section id="basic-form-layouts">
+                                <div class="row text-left">
+                                    <div class="col-md-12 mx-auto">
+                                        <form class="form" [formGroup]="questionsTecnicalForm"
+                                            (ngSubmit)="onSubmitQuestionsForm(questionsTecnicalForm)">
+                                            <h4 class="form-section">
+                                                <div class="form-group">
+                                                    <p for="userinput1">Test Title</p>
+                                                    <input formControlName="testName" type="text" id="userinput1"
+                                                        class="form-control border-primary" name="name">
+                                                </div>
+                                            </h4>
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    <div class="form-group">
+                                                        <p for="userinput1">Question</p>
+                                                        <textarea formControlName="question" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <p for="userinput1">Answer 1</p>
+                                                        <textarea formControlName="ans1" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <p for="userinput1">Answer 2</p>
+                                                        <textarea formControlName="ans2" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <p for="userinput1">Answer 3</p>
+                                                        <textarea formControlName="ans3" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <p for="userinput1">Answer 4</p>
+                                                        <textarea formControlName="ans4" type="text" id="userinput1"
+                                                            class="form-control border-primary" name="name"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <h4>Check The correct answer</h4>
+                                                    <form [formGroup]="correctAnswer">
+
+                                                        <div *ngFor="let group of CorrectAnswersLabels">
+                                                            <h5>
+                                                                <input type="checkbox" selectGroup> {{ group.name }}
+                                                            </h5>
+                                                            <label formArrayName="items"
+                                                                *ngFor="let child of group.children">
+                                                                <input type="checkbox" [formControlName]="child.index">
+                                                                {{ items[child.index].name }}
+                                                            </label>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!editMode">
+                                                <button [disabled]="questionsTecnicalForm.invalid" type="submit"
+                                                    class="btn btnAdd">
+                                                    + Add Question
+                                                </button>
+                                            </div>
+                                            <div *ngIf="!editMode" class="float-right">
+                                                <button (click)="goback()" type="button" class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button (click)="onSave()" [disabled]="!tecnicallistOfQuestions[0]"
+                                                    type="button" class="btn saveBtn">
+                                                    Save
+                                                </button>
+                                            </div>
+                                            <div *ngIf="editMode" class="float-right d-flex justify-content-center">
+                                                <button (click)="cancelEdit(questionsTecnicalForm)" type="button"
+                                                    class="mr-2 btn backBtn">
+                                                    Cancel
+                                                </button>
+                                                <button [disabled]="questionsFirstForm.invalid" type="button"
+                                                    class="btn saveBtn" (click)="saveEdit(questionsTecnicalForm)">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group> -->
+        </div>
+
+        <!-- ----------------------------------------------------------------------- -->
+        <!--                              List Of Question                           -->
+        <!-- ----------------------------------------------------------------------- -->
+        <div class="col-lg-6">
+            <section class="listOfQuestion-wrapper" *ngIf="hrtestlist == true">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>{{test_Name ? test_Name : "HR Test"}}</h4>
+                            </div>
+                            <ul class="card-content">
+                                <li class="card-body" *ngFor="let item of HrTestrows">
+                                    <div class="Question-wrapper d-flex justify-content-between">
+                                        <div class="Question">
+                                            <h3 class="m-0">{{item.id}}.{{item.questions}}?</h3>
+                                        </div>
+                                        <div class="Actions d-flex">
+                                            <a class="link" title="Edit Test" (click)="editQuestionHR(item)">
+                                                <span class="action-icon">
+                                                    <i class="fa fa-pencil-alt text-white font-small-2"
+                                                        aria-hidden="true"></i>
+                                                </span>
+                                            </a>
+                                            <a class="link" title="Delete Test" (click)="deleteQuestionHR(item)">
+                                                <span class="action-icon">
+                                                    <i class="ft-x text-white"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="Answer mt-3">
+                                        <p>{{item.answers}}</p>
+                                    </div>
+                                </li>
+                                <!-- <div *ngIf="listOfQuestions.length==0" class="test-placeholder">
+                                        <img src="../../../../assets/img/test.svg" alt="">
+                                        <p>please add question</p>
+                                    </div> -->
+                                <!-- -------------------------- List Questions Start --------------------------- -->
+                                <!-- <div *ngIf="listOfQuestions.length>=1" class="card-responsive"> -->
+                                <!-- </div> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="listOfQuestion-wrapper" *ngIf="firsttestlist == true">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{test_Name ? test_Name : "First Contact Test"}}</h4>
+                    </div>
+                    <div class="card-content">
+                        <!-- -------------------------- Data Table Start --------------------------- -->
+                        <ngx-datatable #table class='material' [columns]="columns" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="9"
+                            [rows]='FirstContentrows'>
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                            <ngx-datatable-column [width]="500" *ngFor="let col of columns" [name]="col.name"
+                                [prop]="col.prop">
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column [width]="100" name="Actions" sortable="false" prop="id">
+                                <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+                                    <a class="success p-0" data-original-title="" title=""
+                                        (click)="editQuestionFirstContent(value)">
+                                        <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                                    </a>
+                                    <a class="danger p-0" data-original-title="" title=""
+                                        (click)="deleteQuestionFirstContent(value)">
+                                        <i class="ft-x font-medium-3 mr-2"></i>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                        <!-- --------------------------- Data Table End --------------------------- -->
+                    </div>
+                </div>
+            </section>
+            <section class="listOfQuestion-wrapper" *ngIf="tecnicaltestlist == true">
+                <div class="row">
+                    <div class="col-sm-12">
+                
+                        <div class="Category-section">
+                            <!-- <div class="Category-section_progress">
+                                <div *ngFor="let category of categoryArr;let i=index;" [style.width]=category.width>
+                                    {{i}}</div>
+                            </div> -->
+                                    <div class="prograssbar-wrapper">
+                            <div class="prograssbar">
+                                <div class="prograas-value" *ngFor="let category of categoryArr;let i=index;" [style.width]="category.width" [style.background-color]="category.color"></div>
+                            </div>
+                        </div>
+                            <div class="Category-section_content">
+                                <div class='mr-4' *ngFor="let category of categoryArr;let i=index;">
+                                    <span class="category-icon" [style.background-color]="category.color"></span>
+                                    <h4 >{{category.name}}</h4>
+                                    <h6>{{category.width}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>{{test_Name ? test_Name : "Tecnical Test"}}</h4>
+                            </div>
+                            <div class="card-content">
+                                <!-- -------------------------- Data Table Start --------------------------- -->
+                                <ngx-datatable #table class='material' [columns]="columns" [columnMode]="'force'"
+                                    [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="9"
+                                    [rows]='rows'>
+                                    <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                                    <ngx-datatable-column [width]="250" *ngFor="let col of columns" [name]="col.name"
+                                        [prop]="col.prop">
+                                    </ngx-datatable-column>
+
+                                    <ngx-datatable-column [width]="100" name="Actions" sortable="false" prop="id">
+                                        <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+                                            <a class="success p-0" data-original-title="" title=""
+                                                (click)="editQuestion(value)">
+                                                <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                                            </a>
+                                            <a class="danger p-0" data-original-title="" title=""
+                                                (click)="deleteQuestion(value)">
+                                                <i class="ft-x font-medium-3 mr-2"></i>
+                                            </a>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                                <!-- --------------------------- Data Table End ---------------------------- -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                            Edit criteria  Details                       -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <div class="card-content">
+        <div class="card-body p-1">
+            <ng-template #addcategory let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Category</h4>
+                    <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                </div>
+                <section id="filter">
+                    <div class="modal-body">
+                        <div class="row content">
+                            <div class="col-12">
+                                <form [formGroup]="addCategoryform" (ngSubmit)="onSubmitEdit(addCategoryform)">
+                                    <div class="row">
+                                        <!-- ------------------------------Education Degree------------------------------- -->
+                                        <div class="col-lg-12">
+                                            <div class="form-group"
+                                                [ngClass]="{'is-invalid': addCategoryform.get('name').errors && addCategoryform.get('name').touched }">
+                                                <p>Category name</p>
+                                                <div *ngIf="addCategoryform.get('name').errors && addCategoryform.get('name').touched"
+                                                    class="required-error">
+                                                    *Required</div>
+                                                <input type="text" formControlName="name" id="name"
+                                                    autocomplete="off" name="name" />
+                                            </div>
+                                        </div>
+                                        <!-- ------------------------------Skills------------------------------- -->
+                                        <div class="col-lg-12">
+                                            <div class="form-group"
+                                                [ngClass]="{'is-invalid': addCategoryform.get('skill').errors && addCategoryform.get('skill').touched }">
+                                                <p>Skills</p>
+                                                <div *ngIf="addCategoryform.get('skill').errors && addCategoryform.get('skill').touched"
+                                                    class="required-error">
+                                                    *Required</div>
+                                                <mat-form-field class="example-chip-list">
+                                                    <mat-chip-list #chipList aria-label="skill selection">
+                                                        <mat-chip *ngFor="let skill of skills"
+                                                            [selectable]="selectable" [removable]="removable"
+                                                            (removed)="remove(skill)">
+                                                            {{skill}}
+                                                            <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
+                                                        </mat-chip>
+                                                        <input formControlName="skill" 
+                                                            [matChipInputFor]="chipList"
+                                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                            [matChipInputAddOnBlur]="addOnBlur"
+                                                            (matChipInputTokenEnd)="add($event)">
+                                                    </mat-chip-list>
+                                                </mat-form-field>
+
+                                            </div>
+                                            <div class="pt-4 modal-btn-wrapper">
+                                                <button type="button" class="btn close backBtn" aria-label="Close"
+                                                    (click)="d('Cross click')">Cancel</button>
+                                                <button type="submit" class="btn saveBtn"
+                                                    [disabled]="addCategoryform.invalid">Save</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </ng-template>
+        </div>
+    </div>

@@ -1,0 +1,29 @@
+::ng-deep .btn-link{
+    width: 100%;
+    text-align: left;
+    padding: 1.5rem;
+    padding-bottom: 0;
+    &:hover{
+        text-decoration: none;
+    }
+}
+::ng-deep .accordion > .card > .card-header{
+    padding:0
+}
+::ng-deep .accordion > .card:not(:last-of-type){
+    margin-bottom: 10px;
+}
+::ng-deep .font-small-3 {
+    position: absolute;
+    right: 10px;
+    font-size: 1.3rem !important;
+}
+.goback{
+    background-color: inherit;
+    border: none;
+    margin-bottom: 0;
+    color:#39b3b5
+}
+h4{
+   color: #39b3b5
+}

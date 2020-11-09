@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,YAAY,CAAA;EACR,KAAK,EAAE,gBAAgB;CAC1B",
+    "sources": [
+        "result-of-preselecting.component.scss"
+    ],
+    "names": [],
+    "file": "result-of-preselecting.component.css"
+}

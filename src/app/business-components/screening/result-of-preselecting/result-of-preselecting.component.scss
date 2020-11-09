@@ -1,0 +1,114 @@
+@import '../../../../general';
+@import '../../../../variables';
+
+
+.btn-primary{
+    color: white !important;
+}
+.InviteBtn{
+    margin-bottom: 0;
+    background-color: #009DA0 ;
+    color: white !important;
+    padding: 1% 6%;
+    width: 30%;
+}
+
+  .assign-test{
+    // padding: 2%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &_type-label{
+      margin: 0;
+      margin-right: 2%;
+      color: #181818 !important;
+      font-size: 15px;
+      &::after{
+        content: '';
+      }
+    }
+    &_type-checkbox{
+      margin-right: 5%;
+    height: 15px;
+    width: 15px;
+    }
+  }
+
+
+  .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
+    opacity: .75;
+    border: none;
+    outline: none;
+}
+.pf-title {
+    margin-bottom: 13px;
+    margin-top: 13px;
+}
+.confirmBtn{
+    background-color: #009DA0 !important;
+    color: white;
+}
+.closeBtn{
+    background-color: #FF586B;
+    border-color: #FF586B;
+}
+.modal-header .modal-title {
+    margin: 0 !important;
+    // font-size: 1.5rem;
+}
+.pf-field > input, .pf-field > textarea {
+    padding: 8px 45px 8px 15px;
+}
+
+.filter{
+    &__by-name{
+      &__input{
+        display: inline-block;
+        width: 40%;
+  
+      }
+      &__label{
+        margin-right: 3px;
+      }
+      &__icon{
+        position: absolute;
+        top: 42%;
+        left: 46%;
+        font-size: 14px;
+      }
+    }
+
+  }
+
+  a.success {
+    color: #009DA0 !important;
+}
+.card{
+  box-shadow: none;
+}
+.ngx-datatable .datatable-body-row {
+  width: 966px;
+}
+.card-body {
+padding: 2.5rem;
+}
+.card-content p{
+    color: #0b1b46;
+    font-size: 20px;
+    line-height: 1.35;
+}
+.card-title {
+  text-transform: none;
+   font-size :16px;
+}
+.btn-info.btn-raised {
+  background-color: $orange !important;
+  color: #fff !important;
+  // border-color: #009DA0!important;
+}
+.btn-secondary{
+  background-color: white !important;
+  color: $orange !important;
+  border-color: $orange!important;  
+  border: solid 1px;
+}

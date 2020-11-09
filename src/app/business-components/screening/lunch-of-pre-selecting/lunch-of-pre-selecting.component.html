@@ -1,0 +1,39 @@
+<!--table starts-->
+<section id="ng-tables">
+    <div class="card m-0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group form-inline">
+                    <p>Number of Preselected candidate :</p>
+                    <input type="number" [value]="numberOfPreselected" min="1"
+                        (change)="SelectNumberOfPreSelected($event)">
+                    <button class="btn mr-1" (click)="onLunch($event)">Lunch</button>
+                </div>
+                <!--Global configuration of progress bars Starts-->
+                <div class="row text-left mt-2">
+                    <!-- <div class="col-lg-1"></div> -->
+                    <div class="col-lg-12">
+                        <ngb-progressbar type="primary" [value]="progressValue" [striped]="false" [animated]="false">
+                        </ngb-progressbar>
+                    </div>
+                    <!-- <div class="col-lg-1"></div> -->
+                </div>
+
+                <!--Global configuration of progress bars Ends-->
+
+                <!-- <div class="table-responsive d-none">
+                    <table class="table table-striped">
+                        <thead>
+                        </thead>
+                        <tbody *ngIf="uploadedCvs">
+                            <tr *ngFor="let cv of uploadedCvs">
+                                <th scope="row">{{cv.file_name}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--table ends-->

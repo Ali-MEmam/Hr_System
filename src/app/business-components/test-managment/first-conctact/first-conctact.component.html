@@ -1,0 +1,231 @@
+<!-----------------------------------------If There is no Test------------------------------------>
+
+<div *ngIf="this.testData.length == 0;" class="test_management-list_no-data">
+    <div class="test_management-list_no-data_icon">
+        <i class="fas fa-exclamation"></i>
+    </div>
+    <div class="test_management-list_no-data_paragraph">
+        <p>There is no Test right now please create a new one!</p>
+    </div>
+    <div class="test_management-list_no-data_create-new">
+        <button class="btn btn-secondary btn-block" [routerLink]="['/pages', 'recruiter', 'test-managment' ,'addtest']"
+            routerLinkActive="active">Create Test</button> </div>
+</div>
+
+<div class="test_management_with-data" *ngIf="this.testData.length != 0;">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row test-table">
+                <div class="col-lg-12">
+                    <div class="table-header d-flex align-items-baseline py-2 row">
+                        <!-- filter -->
+                        <div class="col-6 filter">
+                            <!-- filter -->
+                            <div class="filter__by-name">
+                                <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                                    (keyup)="updateFilter($event)" />
+                                <div class="filter__by-name__icon">
+                                    <i class="fas fa-filter"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <!-- -------------------------- Data Table Start --------------------------- -->
+                        <ngx-datatable #table class="material" [columns]="columns" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [rows]="rows">
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+                            <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                                [resizeable]="false">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Actions" sortable="false" prop="id">
+                                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    <a title="view Test" class="link" (click)="showTestDetails(row)"
+                                        (click)=open(testview)>
+                                        <span class="action-icon">
+                                            <img src="../../../../assets/img/actions/view.svg">
+                                        </span>
+                                    </a>
+                                    <a title="Edit Test" class="link" (click)="EditTestVal(row.type)"
+                                        [routerLink]="['/pages', 'recruiter','test-managment','addtest']"
+                                        routerLinkActive="active">
+                                        <span class="action-icon">
+                                            <i class="fa fa-pencil-alt text-white font-small-2" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    <a title="Remove Test" class="link" (click)="deleteTest(value)">
+                                        <span class="action-icon">
+                                            <i class="ft-x text-white"></i>
+                                        </span>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                        <!-- --------------------------- Data Table End ---------------------------- -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #testview let-c="close" let-d="dismiss">
+        <div class="card-content">
+            <div class="modal-header d-flex">
+                <!-- <h4 class="modal-title"> Profile Details</h4> -->
+                <section id="filter">
+                    <div class="modal-body container">
+                        <ul class="d-flex contact-link row m-0">
+                            <li class="col-sm-12 d-flex align-items-baseline">
+                                <h5 class="mb-0">Title:</h5>
+                                <span>{{ testDetails.test }}</span>
+                            </li>
+                            <li class="col-sm-12 d-flex align-items-baseline">
+                                <h5 class="mb-0">Type:</h5>
+                                <span>{{ testDetails.type }}</span>
+                            </li>
+                            <li class="col-sm-12 d-flex align-items-baseline">
+                                <h5 class="mb-0">created Date:</h5>
+                                <span>{{ testDetails.created }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="row"> -->
+<!-- ----------------------------------------------------------------------- -->
+<!--                           First contact  test                           -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- <div class="col-lg-5 col-12"><section id="basic-form-layouts">
+
+    <div class="row text-left">
+        <div class="col-sm-12">
+            <div class="content-header">Create Test</div>
+        </div>
+    </div>
+    <div class="row text-left">
+        <div class="col-md-12 mx-auto">
+            <div class="card">
+                <div class="card-content">
+                    <div class="px-3"> -->
+<!-- ----------------------------- Form Start ------------------------------ -->
+<!-- <form class="form" [formGroup]="questionsForm"
+                            (ngSubmit)="onSubmitQuestionsForm(questionsForm)">
+                            <h4 class="form-section">First-Contact</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="userinput1">Test Name</label>
+                                        <input formControlName="testName" type="text" id="userinput1"
+                                            class="form-control border-primary" name="name">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group ">
+                                        <label for="userinput1">Question</label>
+                                        <textarea formControlName="question" type="text" id="userinput1"
+                                            class="form-control border-primary" name="name"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="!editMode" class="form-actions" style="border: none; padding: 0; margin-top: 0px;">
+                                <button [disabled]="questionsForm.invalid" type="submit"
+                                    class="btn btn-raised btn-primary">
+                                     Add Question
+                                </button>
+                            </div> -->
+<!-- ---------------------------- Form Buttons ----------------------------- -->
+<!-- <div *ngIf="!editMode" class="form-actions left">
+                                <button (click)="backClicked()" type="button" class="btn btn-raised btn-warning mr-1">
+                                    <i class="ft-x"></i> Back
+                                </button>
+                                <button 
+                                (click)="onSave()"
+                                [disabled]="!listOfQuestions[0]" type="button"
+                                    class="btn btn-raised btn-primary">
+                                    <i class="fa fa-check-square-o"></i> Save
+                                </button>
+                            </div>
+
+                            <div *ngIf="editMode" class="form-actions left d-flex justify-content-center">
+                                <button (click)="cancelEdit(questionsForm)" type="button" class="btn btn-raised btn-warning mr-1">
+                                    <i class="ft-x"></i> Cancel
+                                </button>
+                                <button [disabled]="questionsForm.invalid" type="button"
+                                    class="btn btn-raised btn-primary" (click)="saveEdit(questionsForm)">
+                                    <i class="fa fa-check-square-o"></i> Edit
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section></div> -->
+<!-- ----------------------------------------------------------------------- -->
+<!--                           First Constact       End                      -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- <div class="col-lg-7 col-12"><section id="filter" class="mb-3">
+    <div class="row text-left">
+        <div class="col-12">
+            <div class="content-header">List Of Questions</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body" style="padding-top: 10px;">
+                        <div *ngIf="listOfQuestions.length==0" class="test-placeholder">
+                            <img src="../../../../assets/img/test.svg" alt="">
+                            <p>please add question</p>
+                             </div>
+                        -------------------------- Data Table Start ---------------------------
+                        <ngx-datatable *ngIf="listOfQuestions.length>=1" #table class='bootstrap' [columns]="columns" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="6" [rows]='rows'>
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                            <ngx-datatable-column  [width]="500" *ngFor="let col of columns" [name]="col.name" [prop]="col.prop">
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column  [width]="100" name="Actions" sortable="false" prop="id">
+                                <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+                                    <a class="success p-0" data-original-title="" title="" (click)="editQuestion(value)">
+                                        <i class="ft-edit-2 font-medium-3 mr-2"></i>
+                                    </a>
+                                    <a class="danger p-0" data-original-title="" title="" (click)="deleteQuestion(value)">
+                                        <i class="ft-x font-medium-3 mr-2"></i>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable> -->
+<!-- --------------------------- Data Table End ---------------------------- -->
+<!-- </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section></div>
+</div> -->

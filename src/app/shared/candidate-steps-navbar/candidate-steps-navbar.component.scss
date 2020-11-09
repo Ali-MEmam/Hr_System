@@ -1,0 +1,42 @@
+@import '../../../variables';
+@import '../../../general';
+.dropdown-menu {
+    right: 0;
+    left: auto;
+}
+.navbar{
+    box-shadow: none !important;
+    border-bottom: solid 0.5px #edeff7;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #fff;
+    .nav-link{
+        font-family: Open Sans;
+        font-size: 15px;
+        position: relative;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+    }
+    .navbar-nav > li{
+        margin-bottom: 0;
+    }
+    .navbar .navbar-container{
+        padding: 0 !important;
+    }
+    .navbar-form {
+      .form-control-position{
+            top:0;
+        }
+        .form-control{
+            width: 370px;
+            height: 34px;
+            border-radius: 10px;
+            border: solid 0.5px #edeff7;
+        }
+    }
+}
+.change-password form{
+    padding: 15px ;
+}

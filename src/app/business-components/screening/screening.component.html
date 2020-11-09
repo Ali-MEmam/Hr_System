@@ -1,0 +1,281 @@
+<div class="screening-container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="content-header border-title">Screening</div>
+        </div>
+    </div>
+    <section id="ngx">
+        <div class="pt-3">
+            <div class="card-content">
+                <div *ngIf="resultOfScreening == false">
+                    <aw-wizard #wizard navBarLayout="large-filled-symbols" class="container pr-2 pl-2">
+                        <aw-wizard-step [stepTitle]="'Tests'"
+                            [navigationSymbol]="{ symbol: '', fontFamily: 'FontAwesome' }">
+
+                            <!---------------------------------- Screening-Test -------------------------------->
+
+                            <div class="row test-table">
+                                <div
+                                    class="col-lg-11  mx-auto d-flex align-items-center justify-content-between mx-auto mb-2">
+                                    <div class="col-6 filter p-0">
+                                        <!-- filter -->
+                                        <div class="filter__by-name">
+                                            <input class="filter__by-name__input" type="text"
+                                                placeholder="Type to Filter" (keyup)="updateFilter($event)" />
+                                            <div class="filter__by-name__icon">
+                                                <i class="fas fa-filter"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <button class="testCreate col-2" (click)="open(creatTest)"> -->
+                                    <button class="btn btnAdd" [routerLink]="['/pages', 'recruiter', 'hrtest']">
+                                        + Create Test </button>
+                                </div>
+                                <div class="col-lg-11 mx-auto">
+                                    <ngx-datatable #table class=" p-0 col-lg-12 material screening_with-data_table"
+                                        [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+                                        [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [rows]="rows">
+                                        <ngx-datatable-row-detail class="col-lg-12"></ngx-datatable-row-detail>
+                                        <ngx-datatable-column *ngFor="let col of columns" [name]="col.name"
+                                            [prop]="col.prop" [resizeable]="false">
+                                        </ngx-datatable-column>
+                                        <ngx-datatable-column name="Actions" sortable="false" prop="id">
+                                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                                <button class="actions btn" (click)="displayTestVal(row)"
+                                                    (click)="open(displayTest)"> view </button>
+                                                <ng-template #displayTest let-c="close" let-d="dismiss">
+                                                    <div class="modal-header">
+                                                        <h3>Test-view</h3>
+                                                        <button type="button" class="close" aria-label="Close"
+                                                            (click)="d('Cross click')">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <section id="filter">
+                                                        <div class="modal-body">
+                                                            <div class="row text-center">
+                                                                <div class="col-sm-12">
+                                                                    <h3>Name: {{ selectedTest.recrutier_name }}</h3>
+                                                                    <h3>Test: {{ selectedTest.test }} </h3>
+                                                                    <h3>Type: {{ selectedTest.type }} </h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                </ng-template>
+                                            </ng-template>
+                                        </ngx-datatable-column>
+                                    </ngx-datatable>
+                                </div>
+
+                            </div>
+                            <div class=" col-lg-12 mt-3">
+                                <button type="submit" uiSref="work" class="float-right btn btn-info btn-raised"
+                                    awNextStep>
+                                    Next
+                                </button>
+                            </div>
+                        </aw-wizard-step>
+
+                        <!---------------------------------- Screening -------------------------------->
+
+                        <aw-wizard-step [stepTitle]="'Screening'"
+                            [navigationSymbol]="{ symbol: '', fontFamily: 'FontAwesome'}">
+                            <form [formGroup]="descriptionForm" (ngSubmit)="onSubmitDescriptionForm(descriptionForm)"
+                                class="">
+                                <br />
+                                <div class='row container'>
+                                    <!-- <div class='col-2'></div> -->
+                                    <div class='col-12 pr-4 pl-4'>
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="firstname">Screening Title</label>
+                                            <input formControlName="screeningName" type="text"
+                                                class="form-control input-md" placeholder="">
+                                            <small class="form-text text-muted danger"
+                                                *ngIf="descriptionForm.get('screeningName').hasError('required') && descriptionForm.controls['screeningName'].touched ">This
+                                                field is required!</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="email">Desription</label>
+                                            <textarea class="form-control input-md border-0" rows="4" cols="50"
+                                                formControlName="description" placeholder="" type="text"></textarea>
+                                            <small class="form-text text-muted danger"
+                                                *ngIf="descriptionForm.get('description').hasError('required')&& descriptionForm.controls['description'].touched">This
+                                                field is required!</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="text-align: end;" class="mt-3">
+                                    <button uiSref="work" type="button" class="btn btn-raised btn-secondary mr-1"
+                                        awPreviousStep>
+                                        Back</button>
+                                    <button type="submit" uiSref="work" class="btn btn-info btn-raised ml-3"
+                                        [disabled]="!descriptionForm.valid" awNextStep>
+                                        Next
+                                    </button>
+                                </div>
+                            </form>
+                        </aw-wizard-step>
+
+                        <!---------------------------------- Job Criteria -------------------------------->
+
+                        <aw-wizard-step [stepTitle]="'Criteria'"
+                            [navigationSymbol]="{ symbol: '', fontFamily: 'FontAwesome' }">
+                            <form [formGroup]="jobCriteriaForm" (ngSubmit)="onSubmitJobCriteriaForm(jobCriteriaForm)"
+                                class="">
+                                <br />
+                                <div class="row container">
+                                    <div class="col-lg-12 pl-4 pr-4">
+                                        <div class="form-group mb-4">
+                                            <label class="form-control-label" for="firstname">Select Job
+                                                Criteria</label>
+                                            <!-- <input formControlName="job" list="jobs" name="job" id="job"
+                                                (change)=displayJob($event) (keyup)="onsearchCriteria($event)">
+                                            <select id="jobs">
+
+                                                <option value="">Select a job...</option>
+                                                <option *ngFor="let option of selectJobCriteria" name=""
+                                                    value={{option}}>
+                                                    {{option}}</option>
+                                            </select> -->
+                                            <!-- <input type="text" list="jobs" name="job" id="job" (keyup)="onsearchCriteria($event)" class="form-control"/>
+                                            <select formControlName="job" class="form-control" id="username"
+                                                autocomplete="off" placeholder="select" (change)=displayJob($event)>
+                                                <option *ngFor="let option of selectJobCriteria" name=""
+                                                    value={{option}}>
+                                                    {{option}}</option>
+                                            </select> -->
+                                            <mat-form-field formControlName="job" class="example-full-width">
+                                                <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                                    [formControl]="myControl" [matAutocomplete]="auto"
+                                                    (keyup)=displayJob($event)>
+                                                <mat-autocomplete #auto="matAutocomplete">
+                                                    <mat-option *ngFor="let option of filteredOptions | async"
+                                                        [value]="option">
+                                                        {{option}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-12 pl-4 pr-4" *ngFor="let job of selectedJob">
+                                            <div class="d-flex align-items-baseline">
+                                                <label class="form-control-label mr-2">Title :</label>
+                                                <p class="m-0">{{job.job_name}} </p>
+                                            </div>
+                                            <div class="d-flex align-items-baseline">
+                                                <label class="form-control-label mr-2"> Experience : </label>
+                                                <p class="m-0">{{job.experience}}</p>
+                                            </div>
+                                            <div class="d-flex align-items-baseline">
+                                                <label class="form-control-label mr-2"> Education Degree: </label>
+                                                <p class="m-0">{{job.education}}</p>
+                                            </div>
+                                            <div class="d-flex align-items-baseline">
+                                                <label class="form-control-label mr-2"> Language: </label>
+                                                <p class="m-0">{{job.language}}</p>
+                                            </div>
+                                            <div class="d-flex align-items-baseline">
+                                                <label class="form-control-label mr-2"> Skills: </label>
+                                                <p *ngFor="let skill of job.skill" class="mx-2 mb-0"
+                                                    style="display: list-item;">{{skill}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="text-align: end;" class="mt-3">
+                                    <button uiSref="work" type="button" class="btn btn-raised btn-secondary mr-1"
+                                        awPreviousStep>
+                                        Back</button>
+                                    <button type="submit" uiSref="work" class="btn btn-info btn-raised ml-3"
+                                        [disabled]="!jobCriteriaForm.valid" awNextStep>
+                                        Next
+                                    </button>
+                                </div>
+                            </form>
+                        </aw-wizard-step>
+
+                        <!---------------------------------- Upload Cv -------------------------------->
+
+                        <aw-wizard-step [stepTitle]="'Upload Cv'"
+                            [navigationSymbol]="{ symbol: '', fontFamily: 'FontAwesome' }">
+                            <form class="">
+                                <br />
+                                <div class='row conainer'>
+                                    <div class="col-lg-12">
+                                        <app-screening-upload-cv></app-screening-upload-cv>
+                                    </div>
+                                </div>
+                                <div style="text-align: end;" class="mt-3">
+                                    <button uiSref="work" type="button" class="btn btn-raised btn-secondary mr-1"
+                                        awPreviousStep>
+                                        Back</button>
+                                    <button type="submit" uiSref="work" class="btn btn-info btn-raised ml-3" awNextStep>
+                                        Next
+                                    </button>
+                                </div>
+                            </form>
+                        </aw-wizard-step>
+
+                        <!---------------------------------- Lunch -------------------------------->
+
+                        <aw-wizard-step [stepTitle]="'Lunch'"
+                            [navigationSymbol]="{ symbol: '', fontFamily: 'FontAwesome' }">
+                            <br />
+                            <form class="">
+                                <div class='row m-0 mb-3'>
+                                    <div class="col-lg-12 p-0">
+                                        <app-lunch-of-pre-selecting></app-lunch-of-pre-selecting>
+                                    </div>
+                                </div>
+                                <div style="text-align: end;" class="mt-3">
+                                    <button uiSref="work" type="button" class="btn btn-raised btn-secondary mr-1"
+                                        awPreviousStep>
+                                        Back</button>
+                                    <button type="submit" uiSref="work" class="btn btn-info btn-raised ml-3"
+                                        [disabled]="!jobCriteriaForm.valid" awNextStep (click)="showResultOfScreeing()">
+                                        Finish
+                                    </button>
+                                </div>
+                            </form>
+                        </aw-wizard-step>
+                    </aw-wizard>
+                </div>
+
+                <!---------------------------------- Finish Screening  -------------------------------->
+
+                <div *ngIf="resultOfScreening == true" class="">
+                    <form class="">
+                        <div class='row'>
+                            <app-result-of-preselecting class="col-lg-12 mx-auto"></app-result-of-preselecting>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!---------------------------------- create a new Test -------------------------------->
+
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #creatTest let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h3>create a new Test</h3>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <section id="filter">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Form
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>

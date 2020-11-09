@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32.8" height="30.005" viewBox="0 0 32.8 30.005">
+    <defs>
+        <style>
+            .cls-3{fill:#fafafa}
+        </style>
+    </defs>
+    <g id="upload" transform="translate(0 -21.823)">
+        <path id="Path_1742" fill="#bbdefb" d="M25.748 30A10.244 10.244 0 0 0 5.47 32.023c0 .231.01.467.03.717A6.146 6.146 0 0 0 6.153 45h.717c-.016-.227-.034-.452-.034-.683a8.878 8.878 0 1 1 17.756 0c0 .231-.018.456-.034.683h.717a7.5 7.5 0 0 0 .473-15z" data-name="Path 1742"/>
+        <circle id="Ellipse_387" cx="7.512" cy="7.512" r="7.512" fill="#4caf50" data-name="Ellipse 387" transform="translate(8.202 36.804)"/>
+        <g id="Group_1160" data-name="Group 1160" transform="translate(12.308 39.535)">
+            <path id="Path_1743" d="M235.45 308.03a.683.683 0 0 1-.683-.683v-8.2a.683.683 0 1 1 1.366 0v8.2a.683.683 0 0 1-.683.683z" class="cls-3" data-name="Path 1743" transform="translate(-232.044 -298.469)"/>
+            <path id="Path_1744" d="M198.378 302.579a.683.683 0 0 1-.484-.2l-2.248-2.25-2.248 2.25a.683.683 0 0 1-.966-.966l2.732-2.732a.683.683 0 0 1 .966 0l2.732 2.732a.683.683 0 0 1-.484 1.165z" class="cls-3" data-name="Path 1744" transform="translate(-192.24 -298.481)"/>
+        </g>
+    </g>
+</svg>

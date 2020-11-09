@@ -1,0 +1,54 @@
+<!-----------------------------------------start sidebar---------------------------------->
+<aside class="col-12 sidebar" #sidebar>
+  <div class="pt-4">
+    <div class="widget">
+      <div class="tree_widget-sec">
+        <div class="sidebar__colse" (click)="sidebarColse($event, sidebar)">
+          <span><i class="la la-times"></i></span>
+        </div>
+        <ul>
+          <li class="inner-child">
+            <a [routerLink]="['/candidate', 'pages', currentUserId, 'dashboard']"
+              routerLinkActive="active-router-sidebar" title=""><i class="la la-eye"></i>Dashboard</a>
+          </li>
+          <li class="inner-child">
+            <a [routerLink]="['/candidate', 'pages',currentUserId, 'profile']" routerLinkActive="active-router-sidebar"
+              title=""><i class="la la-user"></i>My Profile</a>
+          </li>
+          <li class="inner-child">
+            <a [routerLink]="['/candidate', 'pages', currentUserId, 'resume']" routerLinkActive="active-router-sidebar"
+              title=""><i class="la la-file-text"></i>My Resume</a>
+          </li>
+          <li class="inner-child">
+            <a [routerLink]="['/candidate', 'pages', currentUserId, 'meetings']"
+              routerLinkActive="active-router-sidebar" title=""><i class="la la-briefcase"></i>List of Meeting</a>
+          </li>
+          <li class="inner-child">
+            <a [routerLink]="['/candidate', 'pages', currentUserId, 'assessments']"
+              routerLinkActive="active-router-sidebar" title=""><i class="la la-check"></i>List of Assessment</a>
+          </li>
+          <li class="inner-child">
+            <a [routerLink]="['/candidate', 'pages', currentUserId, 'changepassword']"
+              routerLinkActive="active-router-sidebar" title=""><i class="la la-lock"></i>Change Password</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="widget text-center pt-3">
+        <circle-progress [percent]="profileCompleteInfoPercentage" [maxPercent]="100" [radius]="80"
+          [outerStrokeWidth]="12" [innerStrokeWidth]="5" [outerStrokeColor]="'#27bfc0'" [animation]="true"
+          [animationDuration]="600" [clockwise]="false" [titleFontSize]='40'>
+        </circle-progress>
+      </div>
+      <div class="chart-title text-center pt-2">
+        <h3 class=" text-center">completed profile info</h3>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div class="sidebar__collapse" (click)="sidebarCollapse($event, sidebar)">
+  <span><i class="la la-bars"></i></span>
+</div>
+<!-----------------------------------------end sidebar---------------------------------->

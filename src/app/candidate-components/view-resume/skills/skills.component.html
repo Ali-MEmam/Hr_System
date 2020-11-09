@@ -1,0 +1,162 @@
+<!---------------- skills Section ---------------->
+
+<div class="skills">
+  <div class="skills_content">
+    <h3 class="skills_content_title">skills</h3>
+    <div *ngIf="this.skills.length == 0;" class="no-data-found-wrapper">
+      <!-- <span>!</span> -->
+        <div class="no-data-found-wrapper_paragraph">
+          <p>there is no data right now please add your info!</p>
+      </div>
+      <!-- <div class="no-data-found-wrapper_create-new">
+          <button class="btn btn-primary btn-block"  (click)="open(addMore)">Add Education</button>
+      </div> -->
+</div>
+    <div *ngFor="let skill of skills" class="progress-sec with-edit col-lg-6 col-md-6 col-sm-12">
+      <ul class="skills_content_list">
+        <li>
+          <div class="row">
+            <div class="col-10">
+              <h3 class="skills_content_heading">{{ skill.skill }}</h3>
+            </div>
+            <div class="col-2 text-right ">
+              <span class="skills_content_list_percentage text-right">{{ skill.percentage }}%</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="progressbar">
+                <div class="progress skills_content_progressbar" [ngStyle]="{ width: skill.percentage + '%' }">
+                </div>
+              </div>
+            </div>
+            <div class="skills_content_edit-icon">
+              <ul class=" action_job">
+                <li (click)="getSkillId(skill.id)" class="skills_content_action-list">
+                  <span class="edit-popup  skills_content_action-list_action-popup">Edit</span><a
+                    (click)="open(edit)" title=""><i
+                      class="la la-pencil skills_content_action-list_action-icon"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <!-----------------------------------------Start Edit Modal------------------------------------>
+      <div class="card-content">
+        <div class="card-body">
+          <ng-template #edit let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Skills</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <section id="filter" >
+              <div class="modal-body">
+                <!-- Add new experience -->
+                <div class="edu-history">
+                  <form [formGroup]="skillEdit" (ngSubmit)="onSubmitSkillEdit(skillEdit,skill.id)">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="form-group">
+                          <p class="form-control-label">skill</p>
+                          <input formControlName="skill" placeholder="Skill Name" type="text" />
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <p class="form-control-label">percentage</p>
+                          <input formControlName="percentage" type="number"  min="1" />
+                        </div>
+                      </div>
+                    </div>
+                      <div class="d-flex pt-4 modal-btn-wrapper">
+                        <button type="button"  class="btn close" (click)="onDeleteSkill(skill.id)">
+                          Delete
+                        </button>
+                        <button class="btn saveBtn"  [disabled]="skillEdit.invalid" type="submit">
+                          Save
+                        </button>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+          </ng-template>
+        </div>
+      </div>
+      <!-----------------------------------------End Edit Modal------------------------------------>
+    </div>
+
+  </div>
+
+  <div class="skills_icon">
+    <a (click)="open(addMore)" title="" class="skills_icon_add-icon"><i class="la la-plus"></i></a>
+
+    <!-----------------------------------------Start add more Modal------------------------------------>
+    <div class="card-content">
+      <div class="card-body p-1">
+        <ng-template #addMore let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Skills</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <section id="filter" >
+            <div class="modal-body">
+              <div>
+                <form [formGroup]="skillsForm" (ngSubmit)="onSubmitSkill(skillsForm)">
+                  <div formArrayName="skills" *ngFor="let skill of skillsForm.get('skills').controls; let i = index"
+                    class="resumeadd-form">
+                    <div [formGroupName]="i" class="row align-items-start">
+                      <div class="col-lg-12">
+                        <div class="row">
+                          <div *ngIf="i != 0" class="col-lg-12">
+                            <div class="delete-more d-flex mt-3">
+                              <a class="ml-auto" (click)="deleteEducationFormArray(i)" title=""><i
+                                  class="la la-close"></i></a>
+                            </div>
+                          </div>
+                          <div class="col-lg-8">
+                            <div class="form-group">
+                              <p class="form-control-label">Skill</p>
+                              <input formControlName="skill" type="text" placeholder="Skill Title" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <p class="form-control-label">Skill Proffecient</p>
+                              <input type="number" formControlName="percentage" min="1"
+                                placeholder="Skill Proffecient" />
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+           
+                  </div>
+                  <a class="add-more-btn" [disabled]="skillsForm.invalid" type="button" (click)="addNewSkillForm()"><i
+                    class="la la-plus"></i>
+                  Add More</a>
+                    <div class="d-flex pt-4 modal-btn-wrapper">
+                      <button type="button"  class="btn close" aria-label="Close" (click)="d('Cross click')">
+                        Cancel
+                      </button>
+                      <button class="btn saveBtn" [disabled]="skillsForm.invalid" type="submit">
+                        Save
+                      </button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </ng-template>
+      </div>
+    </div>
+    <!-----------------------------------------End add more Modal------------------------------------>
+  </div>
+
+</div>

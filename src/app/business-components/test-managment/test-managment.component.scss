@@ -1,0 +1,58 @@
+@import "./../../../variables";
+@import "../../../general";
+
+.active {
+  color: $dark-indigo !important;
+  background-color: transparent !important;
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #e59a12;
+  }
+}
+
+ul li a {
+  padding: 5px 35px;
+  border: none;
+  border-radius: 0px;
+  background-color: transparent;
+  font-size: 17px;
+  color: rgb(133, 133, 133);
+}
+ul li:last-of-type a {
+  border: none;
+}
+
+ul {
+  margin-top: 10px;
+}
+.tabs-wrapper {
+  box-shadow: none !important;
+}
+.tests-header {
+  padding: 20px 0px 16px 20px;
+  background-color: rgb(136, 136, 136);
+
+  h2 {
+    font-size: 22px;
+    margin: 0;
+  }
+
+  i {
+    color: black;
+  }
+}
+
+.main-wrapper {
+  margin: 0 auto !important;
+  padding: 0;
+}
+
+.tab-pane {
+  width: 100% !important;
+}
+.tab-pane.active::after{
+  display: none !important;
+}

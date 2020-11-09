@@ -1,0 +1,619 @@
+<!---------------- Education Section ---------------->
+<div class="experience">
+  <div class="experience_icon">
+    <i class="fa fa-briefcase"></i>
+  </div>
+  <div class="experience_content">
+    <div>
+      <h3 class="experience_content_heading">Work Experience</h3>
+      <a class="experience_content_add-icon" title="" (click)="open(addMore)"><i class="la la-plus"></i
+      ></a>
+      <div *ngIf="this.experience.length == 0;" class="no-data-found-wrapper">
+          <!-- <span>!</span> -->
+            <div class="no-data-found-wrapper_paragraph">
+              <p>there is no data right now please add your info!</p>
+          </div>
+          <!-- <div class="no-data-found-wrapper_create-new">
+              <button class="btn btn-primary btn-block"  (click)="open(addMore)">Add Education</button>
+          </div> -->
+    </div>
+      <!-----------------------------------------Start add more Modal------------------------------------>
+      <div class="card-content">
+        <div class="card-body p-1">
+          <ng-template #addMore let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Work Experience</h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="d('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <section id="filter" >
+              <div class="modal-body">
+                <div>
+                  <form
+                    [formGroup]="experienceForm"
+                    (ngSubmit)="onSubmitExp(experienceForm)"
+                  >
+                    <div
+                      formArrayName="experiences"
+                      *ngFor="
+                        let exp of experienceForm.get('experiences').controls;
+                        let i = index
+                      "
+                      class="resumeadd-form"
+                    >
+                      <div [formGroupName]="i" class="row align-items-start">
+                        <div class="col-lg-12">
+                          <div class="row">
+                            <div *ngIf="i != 0" class="col-lg-12">
+                              <div class="delete-more d-flex mt-3">
+                                <a
+                                  class="ml-auto"
+                                  (click)="deleteEducationFormArray(i)"
+                                  title=""
+                                  ><i class="la la-close"></i
+                                ></a>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label" for="dateFrom">
+                                  Title
+                                </p>
+                                <input formControlName="title" type="text" />
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <p class="form-control-label">From Date</p>
+                                <input
+                                  type="Date"
+                                  class="dateInput"
+                                  formControlName="dateFrom"
+                                  id="experienceDateEnd"
+                                  name="experienceDateEnd"
+                                />
+                                <i class="la la-calendar pick"></i>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <p class="form-control-label">To Date</p>
+                                <input
+                                  type="Date"
+                                  class="dateInput"
+                                  formControlName="dateTo"
+                                  id="experienceDateEnd"
+                                  name="experienceDateEnd"
+                                />
+                                <i class="la la-calendar pick"></i>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p
+                                  class="form-control-label"
+                                  for="company_name"
+                                >
+                                  company_name
+                                </p>
+                                <input
+                                  formControlName="company_name"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label" for="dateFrom">
+                                  Description
+                                </p>
+                                <textarea
+                                  formControlName="description"
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   
+                    </div>
+                    <a
+                    class="add-more-btn"
+                    [disabled]="experienceForm.invalid"
+                    (click)="addNewExpForm()"
+                    type="button"
+                    ><i class="la la-plus"></i> Add More</a
+                  >
+                      <div class="d-flex pt-4 modal-btn-wrapper">
+                   
+                        <button
+                          type="button"
+                          class="btn close"
+                          aria-label="Close"
+                          (click)="d('Cross click')"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          class="btn saveBtn"
+                          [disabled]="experienceForm.invalid"
+                          type="submit"
+                        >
+                          Save
+                        </button>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+          </ng-template>
+        </div>
+      </div>
+      <!-----------------------------------------End add more Modal------------------------------------>
+    </div>
+    <div class="edu-history-sec experience_content_details">
+      <div *ngIf="experience">
+        <div
+          *ngFor="let exp of experience"
+          class="edu-history edu-design experience_content_details_info"
+        >
+          <ul class="experience_content_details_list">
+            <li>
+              <div class="edu-history edu-design">
+                <div class="edu-hisinfo">
+                  <h3 class="experience_content_details_info_subtitle">
+                    {{ exp.company_name }}
+                  </h3>
+                  <div class="experience_content_details_info_subtitle ml-3">
+                    <ul>
+                      <li>
+                        <h4>{{ exp.title }} .</h4>
+                        <h4>
+                          <span>{{ exp.date_from }}</span> -
+                          <span>{{ exp.date_to }}</span>
+                        </h4>
+                      </li>
+                    </ul>
+                    <p>{{ exp.description }}</p>
+                  </div>
+                </div>
+                <ul class="action_job">
+                  <li (click)="getExpId(exp.id)">
+                    <span
+                      class="edit-popup experience_content_details_info_action-popup"
+                      >Edit</span
+                    ><a (click)="open(edit)" title=""
+                      ><i
+                        class="la la-pencil experience_content_details_info_action-icon"
+                      ></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <!-----------------------------------------Start Edit Modal------------------------------------>
+          <div class="card-content">
+            <div class="card-body">
+              <ng-template #edit let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Experience</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <section id="filter" >
+                  <div class="modal-body">
+                    <!-- Add new experience -->
+                    <div class="edu-history">
+                      <form
+                        [formGroup]="expEdit"
+                        (ngSubmit)="onSubmitExpEdit(expEdit, exp.id)"
+                      >
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateFrom">
+                                Title
+                              </p>
+                              <input formControlName="title" type="text" />
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateFrom">
+                                date from
+                              </p>
+                              <input
+                                type="Date"
+                                class="dateInput"
+                                formControlName="dateFrom"
+                                id="experienceDateEnd"
+                                name="experienceDateEnd"
+                              />
+                              <i class="la la-calendar pick"></i>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateTo">
+                                date to
+                              </p>
+                              <input
+                                type="Date"
+                                class="dateInput"
+                                formControlName="dateTo"
+                                id="experienceDateEnd"
+                                name="experienceDateEnd"
+                              />
+                              <i class="la la-calendar pick"></i>
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label" for="company_name">
+                                Company Name
+                              </p>
+                              <input
+                                formControlName="company_name"
+                                type="text"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label" for="dateFrom">
+                                Description
+                              </p>
+                              <textarea
+                                formControlName="description"
+                              ></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <!-- <div class="row pt-4"> -->
+                          <div class="d-flex pt-4 modal-btn-wrapper">
+                            <button
+                            type="button"
+                            class="btn close"
+                            (click)="onDeleteExp(exp.id)"
+                          >
+                            Delete
+                          </button>
+                          <button
+                            class="btn saveBtn"
+                            [disabled]="expEdit.invalid"
+                            type="submit"
+                          >
+                            Save
+                          </button>
+                        </div>
+                        <!-- </div> -->
+                      </form>
+                    </div>
+                  </div>
+                </section>
+              </ng-template>
+            </div>
+          </div>
+          <!-----------------------------------------End Edit Modal------------------------------------>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-----------------------------------------end Work------------------------------------>
+
+<!-----------------------------------------Start Volunteer------------------------------------>
+
+<!---------------- volunteer Section ---------------->
+<div class="experience">
+  <div class="experience_icon">
+    <i class="fa fa-hands-helping"></i>
+  </div>
+  <div class="experience_content">
+    <div>
+      <h3 class="experience_content_heading">Volunteer Experience</h3>
+      <a class="experience_content_add-icon" title="" (click)="open(addMoreVol)"
+        ><i class="la la-plus"></i
+      ></a>
+      <div *ngIf="this.volunteer.length == 0;" class="no-data-found-wrapper">
+        <!-- <span>!</span> -->
+          <div class="no-data-found-wrapper_paragraph">
+            <p>there is no data right now please add your info!</p>
+        </div>
+        <!-- <div class="no-data-found-wrapper_create-new">
+            <button class="btn btn-primary btn-block"  (click)="open(addMoreVol)">Add Education</button>
+        </div> -->
+  </div>
+      <!-----------------------------------------Start add more Modal------------------------------------>
+      <div class="card-content">
+        <div class="card-body p-1">
+          <ng-template #addMoreVol let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Volunteer experience</h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="d('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <section id="filter" >
+              <div class="modal-body">
+                <div>
+                  <form
+                    [formGroup]="volExperienceForm"
+                    (ngSubmit)="onSubmitvolExp(volExperienceForm)"
+                  >
+                    <div
+                      formArrayName="volunteer"
+                      *ngFor="
+                        let volExp of volExperienceForm.get('volunteer')
+                          .controls;
+                        let i = index
+                      "
+                      class="resumeadd-form"
+                    >
+                      <div [formGroupName]="i" class="row align-items-start">
+                        <div class="col-lg-12">
+                          <div class="row">
+                            <div *ngIf="i != 0" class="col-lg-12">
+                              <div class="delete-more d-flex mt-3">
+                                <a
+                                  class="ml-auto"
+                                  (click)="deleteVolExpFormArray(i)"
+                                  title=""
+                                  ><i class="la la-close"></i
+                                ></a>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label">Title</p>
+                                <input formControlName="title" type="text" />
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <p class="form-control-label">From Date</p>
+                                <input
+                                  type="Date"
+                                  class="dateInput"
+                                  formControlName="date_from"
+                                />
+                                <i class="la la-calendar pick"></i>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <p class="form-control-label">To Date</p>
+                                <input
+                                  type="Date"
+                                  class="dateInput"
+                                  formControlName="date_to"
+                                />
+                                <i class="la la-calendar pick"></i>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label">Organization</p>
+                                <input
+                                  formControlName="organization_name"
+                                  type="text"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <p class="form-control-label">Description</p>
+                                <textarea
+                                  formControlName="description"
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  
+                    </div>
+                    <a
+                    class="add-more-btn"
+                    [disabled]="volExperienceForm.invalid"
+                    (click)="addNewVolExpForm()"
+                    type="button"
+                    ><i class="la la-plus"></i> Add More</a
+                  >
+                    <!-- <div class="row pt-4"> -->
+                    <div class="d-flex pt-4 modal-btn-wrapper">
+                      <button
+                        type="button"
+                        class="btn close"
+                        aria-label="Close"
+                        (click)="d('Cross click')"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        class="btn saveBtn"
+                        [disabled]="volExperienceForm.invalid"
+                        type="submit"
+                      >
+                        Save
+                      </button>
+                      <!-- </div> -->
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+          </ng-template>
+        </div>
+      </div>
+      <!-----------------------------------------End add more Modal------------------------------------>
+    </div>
+    <div class="edu-history-sec experience_content_details">
+      <div *ngIf="experience">
+        <div
+          *ngFor="let volExp of volunteer"
+          class="edu-history edu-design experience_content_details_info"
+        >
+          <ul class="experience_content_details_list">
+            <li>
+              <div class="edu-history edu-design">
+                <div class="edu-hisinfo">
+                  <h3 class="experience_content_details_info_subtitle">
+                    {{ volExp.organization_name }}
+                  </h3>
+                  <div class="experience_content_details_info_subtitle ml-3">
+                    <ul>
+                      <li>
+                        <h4>{{ volExp.title }} .</h4>
+                        <h4>
+                          <span>{{ volExp.date_from }}</span> -
+                          <span>{{ volExp.date_to }}</span>
+                        </h4>
+                      </li>
+                    </ul>
+                    <p>{{ volExp.description }}</p>
+                  </div>
+                </div>
+                <ul class="action_job">
+                  <li (click)="getvolExpId(volExp.id)">
+                    <span
+                      class="edit-popup experience_content_details_info_action-popup"
+                      >Edit</span
+                    ><a (click)="open(editVol)" title=""
+                      ><i
+                        class="la la-pencil experience_content_details_info_action-icon"
+                      ></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          <!-----------------------------------------Start Edit Modal------------------------------------>
+          <div class="card-content">
+            <div class="card-body">
+              <ng-template #editVol let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Volunteering Experience</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <section id="filter" >
+                  <div class="modal-body">
+                    <!-- Add new experience -->
+                    <div class="edu-history">
+                      <form
+                        [formGroup]="volExpEdit"
+                        (ngSubmit)="onSubmitVolExpEdit(volExpEdit, volExp.id)"
+                      >
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label">Title</p>
+                              <input formControlName="title" type="text" />
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <p class="form-control-label">date from</p>
+                              <input
+                                type="Date"
+                                class="dateInput"
+                                formControlName="date_from"
+                              />
+                              <i class="la la-calendar pick"></i>
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <p class="form-control-label">date to</p>
+                              <input
+                                type="Date"
+                                class="dateInput"
+                                formControlName="date_to"
+                              />
+                              <i class="la la-calendar pick"></i>
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label">
+                                organization Name
+                              </p>
+                              <input
+                                formControlName="organization_name"
+                                type="text"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <p class="form-control-label" for="description">
+                                Description
+                              </p>
+                              <textarea
+                                formControlName="description"
+                              ></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="row pt-4"> -->
+                        <div class="d-flex pt-4 modal-btn-wrapper">
+                          <button
+                            type="button"
+                            class="btn close"
+                            (click)="onDeleteVolExp(volExp.id)"
+                          >
+                            Delete
+                          </button>
+                          <button
+                            class="btn saveBtn"
+                            [disabled]="volExpEdit.invalid"
+                            type="submit"
+                          >
+                            Save
+                          </button>
+                        </div>
+                        <!-- </div> -->
+                      </form>
+                    </div>
+                  </div>
+                </section>
+              </ng-template>
+            </div>
+          </div>
+          <!-----------------------------------------End Edit Modal------------------------------------>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

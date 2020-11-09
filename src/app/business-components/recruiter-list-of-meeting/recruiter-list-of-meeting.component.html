@@ -1,0 +1,80 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Inv Witout Screening Component Start               -->
+<!-- ----------------------------------------------------------------------- -->
+<section id="filter" class="mb-3">
+   
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card" >
+                <div class="card-header">
+                    <h4 class="card-title">List of Meetings</h4>
+                    
+                </div>
+
+                <div class="card-content">
+                    <div class="card-body">
+
+                        <div class="filter row">
+                            
+                            <div class="filter__by-type  text-left  col-6 ">
+                                <label for="" class="filter__by-type__label">select type : </label>
+                                <select #select name="" id="" class="form-control filter__by-type__input" (change)="onSelectOption($event,$event.target.value)">
+                                    <option value="personal">personal test</option>
+                                    <option value="hr">hr test</option>
+                                    <option value="technical">technical test</option>
+                                </select>
+                            </div>
+
+                            <div class="filter__by-name  text-right col-6 ">
+                                <label class="mb-0 text-left filter__by-name__label">Search : </label>
+                                <input
+                                class="form-control filter__by-name__input px-3 mt-1"
+                                type='text'
+                                [placeholder]=""
+                                (keyup)='updateFilter($event)'
+                                />
+                                <i class="ft-search filter__by-name__icon icon"></i>
+                            </div>
+                        </div>
+
+<!-- -------------------------- Data Table Start --------------------------- -->
+                        <ngx-datatable
+                        #table class='bootstrap  mt-3'
+                        [columns]="columns"
+                        [columnMode]="'force'"
+                        [headerHeight]="50"
+                        [footerHeight]="50"
+                        [rowHeight]="'auto'"
+                        [limit]="10"
+                        [rows]='rows'
+                        >
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                            <ngx-datatable-column
+                            *ngFor="let col of columns"
+                            [name]="col.name"
+                            [prop]="col.prop">
+                            </ngx-datatable-column>
+
+
+                            <ngx-datatable-column name="Details" sortable="false" prop="report_id">
+
+                                <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+                                    <a class="success p-0" title="view report" data-original-title="" title="" (click)="viewReport(value)">
+                                        <i class="far fa-eye"></i>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                        </ngx-datatable>
+<!-- --------------------------- Data Table End ---------------------------- -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                      Inv Witout Screening Component END                 -->
+<!-- ----------------------------------------------------------------------- -->

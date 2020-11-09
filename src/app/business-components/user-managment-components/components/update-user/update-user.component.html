@@ -1,0 +1,253 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                    Create New User Commponent Start                     -->
+<!-- ----------------------------------------------------------------------- -->
+
+<section id="horizontal-form-layouts" *ngIf="!isLoading">
+    <div class="row text-left">
+        <div class="col-sm-12">
+            <div class="content-header">Edit Member</div>
+        </div>
+    </div>
+    <div class="row text-left" *ngIf="userData">
+        <div class="col-md-10 col-lg-8">
+            <!-- ----------------------------- Form Start ------------------------------ -->
+            <form class="form form-horizontal" [formGroup]="regularForm" (ngSubmit)="updateMember(regularForm)"
+                novalidate>
+                <div class="form-body">
+                    <div class="col-lg-12 logo-wrapper">
+                        <div class="personal-deatils">
+                            <label class="hoverable">
+                                <img [src]="croppedImage ?  croppedImage : '../../../../../assets/img/user-placeholder.png'"
+                                    alt="" class="w-100 img-fluid" #profileImage>
+                                <div class="hover-text" data-toggle="modal" data-target="#profileImageCropper">
+                                    upload logo</div>
+                                <div class="background"></div>
+                            </label>
+                            <br />
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profileImageCropper">
+                                                        Choose file
+                                                      </button> -->
+                            <div class="modal fade" id="profileImageCropper" tabindex="-1" role="dialog"
+                                aria-labelledby="profileImageCropper" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">update your logo
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                                [maintainAspectRatio]="true" [aspectRatio]="2 / 2" [resizeToWidth]="500"
+                                                [roundCropper]="true" [cropper]="cropper" format="png"
+                                                (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                                                (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+                                            </image-cropper>
+
+                                            <input id="fileInput" type='file' (change)="fileChangeEvent($event)"
+                                                formControlName="profile_image">
+                                            <label for="fileInput"> choose new picture
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                                save changes
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <h4 class="form-section"><i class="ft-user"></i> User Information</h4> -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- ----------------------------- first Name ------------------------------ -->
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('firstName').errors && regularForm.get('firstName').touched}">
+                                <p>
+                                    First Name
+                                </p>
+                                <div *ngIf="regularForm.get('firstName').errors && regularForm.get('firstName').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input name="firstName" class="form-control" type="firstName" placeholder="First Name"
+                                    formControlName="firstName" id="firstName" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- ------------------------------ Last Name ------------------------------ -->
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('lastName').errors && regularForm.get('lastName').touched}">
+                                <p>
+                                    last Name
+                                </p>
+                                <div *ngIf="regularForm.get('lastName').errors && regularForm.get('lastName').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input name="lastName" class="form-control" type="lastName" placeholder="Last Name"
+                                    formControlName="lastName" id="lastName" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- -------------------------------- Phone -------------------------------- -->
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('phone').errors && regularForm.get('phone').touched }">
+                                <p>
+                                    Phone Number
+                                </p>
+                                <div *ngIf="regularForm.get('confirmPassword').errors && regularForm.get('confirmPassword').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <ngx-intl-tel-input formControlName="phone" [inputId]="'phone'"
+                                    [cssClass]="'form-control phone'" [preferredCountries]="preferredCountries"
+                                    [enableAutoCountrySelect]="false" [enablePlaceholder]="true"
+                                    [searchCountryFlag]="true"
+                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                    [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Morocco"
+                                    [maxLength]="15" [tooltipField]="TooltipLabel.Name" [phoneValidation]="false"
+                                    [separateDialCode]="separateDialCode" name="phone" id="phone">
+                                </ngx-intl-tel-input>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- -------------------------------- Email -------------------------------- -->
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('email').errors && regularForm.get('email').touched}">
+                                <p>
+                                    Email
+                                </p>
+                                <div *ngIf="regularForm.get('email').errors && regularForm.get('email').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input name="email" class="form-control" type="email" placeholder="Email"
+                                    formControlName="email" id="email" autocomplete="off" />
+                                <!-- (change)=checkEmail($event) -->
+                            </div>
+                            <small class="form-text text-muted danger"
+                                *ngIf="!regularForm.get('email').valid && (regularForm.get('email').dirty || regularForm.get('email').touched)">Please
+                                enter a valid email!</small>
+                            <!-- <div *ngIf="regularForm.get('email').value === this.userEmail" class="help-block">
+                       This Email Is Already Exist</div> -->
+                        </div>
+
+                        <div class="col-lg-6">
+                            <!-- ------------------------------- Profile ------------------------------- -->
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('profil').errors && regularForm.get('profil').touched }">
+                                <p>Profile</p>
+                                <div *ngIf="regularForm.get('profil').errors && regularForm.get('profil').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <select *ngIf="profiles" id="profile" name="profil" formControlName="profil"
+                                    placeholder="profile" class="form-control">
+                                    <option selected disabled>{{userData.profile}}</option>
+                                    <option *ngFor="let profile of profiles" [value]="profile.title">
+                                        {{profile.title}}</option>
+                                </select>
+                                <app-spinner *ngIf="!profiles"></app-spinner>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('status').errors && regularForm.get('status').touched }">
+                                <p>Status</p>
+                                <div *ngIf="regularForm.get('status').errors && regularForm.get('status').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <select id="status" name="status" formControlName="status" placeholder="status"
+                                    class="form-control">
+                                    <!-- <option selected disabled>{{userData.status}}</option> -->
+                                    <!-- <option value="pending">Pending</option> -->
+                                    <option value="active">Active</option>
+                                    <option value="blocked">Blocked</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- ------------------------------ Passowrd ------------------------------- -->
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('password').errors && regularForm.get('password').touched }">
+                                <p>
+                                    Password
+                                </p>
+                                <div *ngIf="regularForm.get('password').errors && regularForm.get('password').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input class="form-control" type="password" placeholder="Password"
+                                    formControlName="password" id="pwd" autocomplete="off"
+                                    [type]="fieldTextType ? 'text' : 'password'" />
+                                <span>
+                                    <i class="fa" [ngClass]="{
+                      'fa-eye-slash': !fieldTextType,
+                      'fa-eye': fieldTextType
+                    }" (click)="toggleFieldTextType()"></i>
+                                </span>
+                            </div>
+                            <!-- <div *ngIf="regularForm.get('password').value.length < 4 && regularForm.get('password').touched"
+                class="help-block">password should be morethan 4 character</div> -->
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- -------------------------- Reapeat Password --------------------------- -->
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('confirmPassword').errors && regularForm.get('confirmPassword').touched }">
+                                <p>
+                                    Confirm Password
+                                </p>
+                                <div *ngIf="regularForm.get('confirmPassword').errors && regularForm.get('confirmPassword').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input class="form-control" type="password" placeholder="Confirm Password"
+                                    formControlName="confirmPassword" id="confirmpwd" autocomplete="off"
+                                    [type]="repeatFieldTextType ? 'text' : 'password'" />
+                                <span>
+                                    <i class="fa" [ngClass]="{
+                           'fa-eye-slash': !repeatFieldTextType,
+                           'fa-eye': repeatFieldTextType
+                         }" (click)="toggleRepeatFieldTextType()"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+                        <small class="form-text text-muted danger"
+                            *ngIf="!regularForm.get('password').valid && (regularForm.get('password').dirty || regularForm.get('password').touched)">Password
+                            characters length must be between 4 and 24 !</small>
+                        <div *ngIf="regularForm.get('confirmPassword').value  != regularForm.get('password').value "
+                            class="help-block">
+                            password not match</div>
+                        <div class="col-lg-12">
+                            <!-- ----------------------------- about ----------------------------- -->
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': regularForm.get('about').errors && regularForm.get('about').touched}">
+                                <p>
+                                    About
+                                </p>
+                                <div *ngIf="regularForm.get('about').errors && regularForm.get('about').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input name="about" class="form-control" type="about" placeholder="about"
+                                    formControlName="about" id="about" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ---------------------------- Form Buttons ----------------------------- -->
+
+                <div class="pt-4 modal-btn-wrapper">
+                    <button type="button" class="btn close backBtn"
+                        [routerLink]="['/pages', 'recruiter', 'user-managment', 'list-users' ]"
+                        routerLinkActive="active">Cancel</button>
+                    <button type="submit" class="btn saveBtn" [disabled]="regularForm.invalid">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                     Create New User Commponent End                      -->
+<!-- ----------------------------------------------------------------------- -->

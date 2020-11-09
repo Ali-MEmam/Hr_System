@@ -1,0 +1,141 @@
+<!-- Navbar (Header) Starts -->
+<nav class="header-navbar navbar navbar-expand-lg navbar-light bg-faded">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle d-lg-none float-left" data-toggle="collapse"
+                (click)="toggleSidebar()">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="d-lg-none navbar-right navbar-collapse-toggle">
+                <a class="open-navbar-container" (click)="isCollapsed = !isCollapsed"
+                    [attr.aria-expanded]="!isCollapsed" aria-controls="navbarSupportedContent">
+                    <i class="ft-more-vertical"></i>
+                </a>
+            </span>
+            <!-- <form class="navbar-form navbar-right" role="search">
+                      <div class="position-relative has-icon-right">
+                          <input type="text" class="form-control round" placeholder="Search">
+                          <div class="form-control-position">
+                              <i class="ft-search"></i>
+                          </div>
+                      </div>
+                  </form> -->
+        </div>
+        <div class="navbar-container">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
+                <ul class="navbar-nav d-flex align-items-center">
+                    <li class="nav-item mr-2 d-none d-lg-block">
+                        <a href="javascript:;" class="nav-link" id="navbar-fullscreen" appToggleFullscreen
+                            (click)="ToggleClass()">
+                            <i class="{{ toggleClass }} font-medium-3 blue-grey darken-4"></i>
+                            <p class="d-none">fullscreen</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" ngbDropdown [placement]="placement">
+                        <a [hidden]="show" class="dropdown-item py-1 lang" href="javascript:;"
+                            (click)="ChangeLanguage('en')">
+                            <img src="../../../assets/img/English-icon.svg" alt="English" class="langimg" />
+                            <!-- <span>English</span> -->
+                        </a>
+                        <a [hidden]="!show" class="dropdown-item py-1 lang" href="javascript:;"
+                            (click)="ChangeLanguage('fr')">
+                            <img src="../../../assets/img/Lang. switch.svg" alt="French" class="langimg" />
+                            <!-- <span>French</span> -->
+                        </a>
+                    </li>
+
+                    <li class="nav-item" ngbDropdown [placement]="placement">
+                        <a class="nav-link position-relative" id="dropdownBasic3" ngbDropdownToggle>
+                            <img [src]="profile_image ? profile_image : '../../../assets/img/user-placeholder.png'" alt="" class="user-img" />
+                            <!-- <i class="ft-user font-medium-3 blue-grey darken-4"></i> -->
+                            <p class="d-none">User Settings</p>
+                        </a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic3" class="text-left">
+                            <a class="dropdown-item py-1" href="javascript:;" (click)="open(change)">
+                                <i class="ft-edit mr-2"></i>
+                                <span>Change Password</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:;" (click)="onLogout()">
+                                <i class="ft-power mr-2"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Navbar (Header) Ends -->
+<div class="card-content">
+    <div class="card-body p-1">
+        <ng-template #change let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title">Change Password</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <section id="filter" class="mb-3">
+                <div class="modal-body">
+                    <div class="change-password">
+                        <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+                            <!-- ------------------------------OldPassword ------------------------------- -->
+
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': changePasswordForm.get('oldPassword').errors && changePasswordForm.get('oldPassword').touched }">
+                                <p>Old Password</p>
+                                <div *ngIf="changePasswordForm.get('oldPassword').errors && changePasswordForm.get('oldPassword').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input class="form-control" type="password" formControlName="oldPassword"
+                                    id="oldPassword" autocomplete="off" name="oldPassword" />
+                            </div>
+
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': changePasswordForm.get('newPassword').errors && changePasswordForm.get('newPassword').touched }">
+                                <p>New Password</p>
+                                <div *ngIf="changePasswordForm.get('newPassword').errors && changePasswordForm.get('newPassword').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input class="form-control" type="password" formControlName="newPassword"
+                                    id="newPassword" autocomplete="off" name="newPassword" />
+                            </div>
+                            <div *ngIf="changePasswordForm.get('newPassword').value.length < 4 && changePasswordForm.get('newPassword').touched"
+                                class="help-block">password should be morethan 4 character</div>
+
+                            <!-- ------------------------------ ConfirmPassword ------------------------------- -->
+
+                            <div class="form-group"
+                                [ngClass]="{'is-invalid': changePasswordForm.get('confirmPassword').errors && changePasswordForm.get('confirmPassword').touched }">
+                                <p>Confirm Password</p>
+                                <div *ngIf="changePasswordForm.get('confirmPassword').errors && changePasswordForm.get('confirmPassword').touched"
+                                    class="required-error">
+                                    *Required</div>
+                                <input class="form-control" type="password" formControlName="confirmPassword"
+                                    id="confirmPassword" autocomplete="off" name="confirmPassword" />
+                            </div>
+                            <div *ngIf="changePasswordForm.get('confirmPassword').value  != changePasswordForm.get('newPassword').value "
+                                class="help-block">
+                                password not match</div>
+                            <!-- ----------------------------- Form Action ----------------------------- -->
+
+                            <div class="d-flex justify-space-between modal-btn-wrapper">
+                                <button class="close mt-3" aria-label="Close" (click)="d('Cross click')">Cancel</button>
+                                <button class="btn-style saveBtn mt-3" type="submit"
+                                    [disabled]="changePasswordForm.invalid">
+                                    Update
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+    <defs>
+        <style>
+            .cls-1{fill:#44c9a8}.cls-4{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_1044" data-name="Group 1044" transform="translate(-158.414 -158.414)">
+        <path id="Path_1243" d="M405.017 354.76h-5.284l2.673 4.657-2.673 4.657h5.284l2.672-4.657-2.672-4.657" class="cls-1" data-name="Path 1243" transform="translate(-218.789 -178.06)"/>
+        <path id="Path_1244" fill="#2299a9" d="M322.261 354.76h-5.345l-2.673 4.657 2.673 4.657h5.284l-2.673-4.657 2.673-4.657h.061" data-name="Path 1244" transform="translate(-141.316 -178.06)"/>
+        <path id="Path_1245" fill="#0f94a1" d="M373.711 354.76h-.061l-2.672 4.657 2.672 4.657h.061l2.672-4.657-2.672-4.657" data-name="Path 1245" transform="translate(-192.766 -178.06)"/>
+        <path id="Path_1246" d="M174.853 196.163s.559-5.16-.11-5.587a11.466 11.466 0 1 1 6.171 1.8q-.553 0-1.094-.051h-.039c-1.082 0-4.928 3.839-4.928 3.839m6.061-37.749a22.5 22.5 0 1 0 22.5 22.5 22.5 22.5 0 0 0-22.5-22.5" class="cls-1" data-name="Path 1246"/>
+        <circle id="Ellipse_54" cx="1.149" cy="1.149" r="1.149" class="cls-4" data-name="Ellipse 54" transform="translate(175.605 180.045)"/>
+        <circle id="Ellipse_55" cx="1.149" cy="1.149" r="1.149" class="cls-4" data-name="Ellipse 55" transform="translate(179.983 180.045)"/>
+        <circle id="Ellipse_56" cx="1.149" cy="1.149" r="1.149" class="cls-4" data-name="Ellipse 56" transform="translate(183.987 180.045)"/>
+    </g>
+</svg>

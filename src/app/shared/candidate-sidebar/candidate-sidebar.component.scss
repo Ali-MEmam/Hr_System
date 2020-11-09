@@ -1,0 +1,125 @@
+@import '../../../variables';
+@import '../../../general';
+.sidebar {
+  height: 100%;
+  border-right: 1px solid #edeff7;
+  @media(max-width:768px){
+    background-color: #fff;
+    transition: left 0.6s;
+    transition-timing-function: ease-in-out;
+  }
+  .tree_widget-sec {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      li {
+        width: 1000%;
+        margin: 0;
+        padding: 2%;
+        transition: all 0.2s ease-in-out;
+        a {
+          color: #888888;
+          transition: all 0.2s ease-in-out;
+        }
+        i {
+          color: #888888;
+          transition: all 0.2s ease-in-out;
+        }
+        &:hover {
+          a {
+            color: #f26956;
+          }
+          i {
+            color: #f26956;
+          }
+        }
+      }
+    }
+    .la-times {
+      display: none;
+      position: relative;
+      text-align: right;
+      padding-right: 5%;
+      font-size: 30px;
+      color: #888888;
+    }
+  }
+}
+
+.sidebar__collapse {
+  display: none;
+  position: fixed;
+  top: 5%;
+  left: 2%;
+  color: white;
+  font-size: 30px;
+  z-index: 3;
+}
+li.inner-child {
+  float: none;
+  margin-right: 2%;
+}
+.active-router-sidebar{
+  padding-left: 0 !important;
+  color: #f26956 !important;
+  i{
+    color: #f26956 !important;
+  }
+}
+// responsive tablet view
+@media only screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    width: 40%;
+    top: 0;
+    height: 100%;
+    z-index: 3;
+    left: -100%;
+    transition: left 0.6s;
+    transition-timing-function: ease-in-out;
+    box-shadow: 0 0 17px #888888;
+    .tree_widget-sec {
+      .la-times {
+        display: block;
+      }
+    }
+  }
+
+  .sidebar__collapse {
+    display: block;
+    transition: all 0.2s ease-in-out;
+  }
+}
+.inner-child{
+
+  .active-router-sidebar {
+    padding-left: 30px;
+    color: #f26956 !important;
+    font-weight: 500;
+  }
+  .active-router-sidebar i {
+    color: #f26956 !important;
+  }
+  
+}
+.widget{
+    float: none;
+  }
+::ng-deep svg{
+  float: none;
+  border-top: 1px solid $dusk;
+  padding-top: 20%;
+  box-sizing: content-box;
+}
+
+
+  .chart-title{
+    text-align: center !important;
+    color: $orange;
+    position: relative;
+    float: none;
+    font-weight: normal !important;
+    text-transform: capitalize;
+    font-size: 12px !important;
+  }

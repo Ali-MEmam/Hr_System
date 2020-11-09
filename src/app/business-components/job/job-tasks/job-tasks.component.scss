@@ -1,0 +1,73 @@
+@import "../../../../general";
+@import "../../../../variables";
+
+::ng-deep .datatable-body-cell-label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  ::ng-deep .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+    text-align: center;
+    background-color: transparent;
+    color: $warm-grey;
+    font-size: 15px;
+  }
+  
+  ::ng-deep .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+    color: $warm-grey;
+    font-size: 15px;
+    padding: 5px;
+  }
+  
+  ::ng-deep .ngx-datatable.material {
+    background: #fff;
+    box-shadow: none;
+  }
+  
+  ::ng-deep .ngx-datatable .datatable-body .datatable-body-row>div {
+    border-bottom: 1px solid $pale-grey !important;
+    align-items: center;
+    height: 55px;
+  }
+  
+  ::ng-deep .ngx-datatable.material .datatable-header {
+    background-color: $pale-grey;
+    border: none;
+  }
+  
+  ::ng-deep .ngx-datatable.material .datatable-footer {
+    border-top: none;
+  }
+  
+  ::ng-deep .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover {
+    background-color: $white !important;
+  }
+  
+  .action-icon {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+.modal-body{
+    ul{
+      li{
+        h5{
+          font-size: 15px;
+          font-weight: 500;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  button.close{
+    span{
+      color:$tealish;
+      font-size:30px;
+    }
+  }
+  .card {
+    box-shadow: none;
+  }

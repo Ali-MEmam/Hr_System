@@ -1,0 +1,22 @@
+.content-header {
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: #000;
+}
+
+.content-header span {
+  font-weight: 200 !important;
+}
+
+.content-subTitle {
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+  font-size: 1rem;
+  margin: 1rem 0;
+  color: #33b1b3;
+}
+/*# sourceMappingURL=statistic-of-matching.component.css.map */

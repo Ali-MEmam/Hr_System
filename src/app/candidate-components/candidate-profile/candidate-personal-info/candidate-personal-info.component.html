@@ -1,0 +1,269 @@
+<div class="profile" *ngIf="profileData">
+  <section class="profile__summury-info">
+        <div class="content_wrapper my-4" >
+          <div class="profile__summury-info__Edit col-2 ml-auto">
+            <div class="Edit-icon-wrapper">
+              <span  (click)="open(addMore)" class="profile__summury-info__Edit-link job-is ft">
+                <i class="la la-pencil"></i>
+              </span>
+            </div>
+          </div>
+            <div class="d-flex content profile__summury-wrapper row">
+              <figure class="img-wrapper">
+                <img [src]="profileData.profile_image" class="img-fluid"  alt="" />
+              </figure>
+              <div class="profile__summury-info__details col-8">
+                <div class="job-single-info3">
+                  <h3 class="title">{{profileData.first_name}} {{profileData.last_name}}</h3>
+                  <ul class="profile__summury-info__detail">
+                    <li>{{profileData.job_title}}</li>
+                    <!-- <li>{{profileData.domain}}</li> -->
+                    <li>{{profileData.birth_date}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row pt-5">
+              <div class="job-overview style2 col-12">
+                <div class="job-title-sec">
+                  <h3>
+                    <img src="../../../../assets/img/icons/information@2x.png" alt="">
+                    About</h3>
+                  <div class="job-lctn">
+                    <p>{{profileData.about}}</p>
+                  </div>
+                </div>
+                <div class="job-listings-sec no-border row">
+                  <div class="col-lg-6">
+                    <div class="job-title-sec">
+                      <h3>
+                        <img src="../../../../assets/img/icons/work@2x.png" alt="">
+                        Education Level
+                      </h3>
+                      <div class="job-lctn">
+                        <p>{{profileData.education_level}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="job-title-sec">
+                     <h3>  
+                      <img src="../../../../assets/img/icons/work@2x.png" alt="">
+                                   Experience</h3>
+                      <div class="job-lctn ">
+                        <p>{{profileData.experience}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="job-title-sec">
+                      <h3>                     
+                           <img src="../../../../assets/img/icons/money@2x.png" alt="">
+                        Salary Range</h3>
+                      <div class="job-lctn">
+                        <p class="no-dot">{{profileData.expected_salary_min}}$ - {{profileData.expected_salary_max}}$</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class=" wtabs noimg col-12">
+                    <div class="job-title-sec">
+                      <h3>Discription</h3>
+                      <div class="job-lctn"><i class="la la-circle"></i>
+                        <p></p>{{profileData.description}}
+                      </div>
+                    </div>
+  
+                  </div> -->
+                
+  
+                </div>
+              </div>
+              <!-- <div class="col-lg-4 column">
+                <div class="job-overview">
+                  <ul>
+                    <li><i class="la la-money"></i>
+                      <h3>Current Salary</h3><span>{{profileData.current_salary}}$</span>
+                    </li>
+                    <li><i class="la la-money"></i>
+                      <h3>Expected Minimum Salary($)</h3><span>{{profileData.expected_salary_max}}$</span>
+                    </li>
+                    <li><i class="la la-money"></i>
+                      <h3>Expected Maximum Salary($)</h3><span>{{profileData.expected_salary_min}}$</span>
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+            </div>
+          <!-- </div> -->
+        </div>
+    </section>
+  </div>
+  
+  
+  
+  <!-----------------------------------------Start add more Modal------------------------------------>
+  <div class="card-content">
+    <div class="card-body  p-1">
+      <ng-template #addMore let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Profile</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <section id="filter" >
+          <div class="modal-body">
+            <div>
+              <!-- ----------------------- Edit Main Profile Info ------------------------ -->
+              <div class="profile__summury-info__Edit-mode" >
+                <form (ngSubmit)="onSubmitEditMyProfile(form)" [formGroup]="myProfileForm" class="form content">            
+                    <div class="profile-form-edit">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <div class="personal-deatils img pf-field">
+                            <label class="hoverable">
+        
+                                <img [src]="croppedImage ?  croppedImage : profileData.profile_image"
+                                    alt="" class="w-100 img-fluid" #profileImage>
+                                <div class="hover-text" data-toggle="modal" data-target="#profileImageCropper">
+                                    upload picture</div>
+        
+                                <div class="background"></div>
+                            </label>
+                            <br />
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profileImageCropper">
+                              Choose file
+                            </button> -->
+                            <div class="modal fade" id="profileImageCropper" tabindex="-1" role="dialog"
+                                aria-labelledby="profileImageCropper" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">update profile picture </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <image-cropper [imageChangedEvent]="imageChangedEvent"
+                                                [maintainAspectRatio]="true" [aspectRatio]="2 / 2" [resizeToWidth]="500"
+                                                [roundCropper]="true" [cropper]="cropper" format="png"
+                                                (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                                                (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+                                            </image-cropper>
+        
+                                            <input id="fileInput" type='file' (change)="fileChangeEvent($event)" formControlName="profile_image" >
+                                            <label for="fileInput"> choose new picture </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                                save changes
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-lg-8 my-auto">
+                          <div class="form-group">
+                            <p>
+                              First Name</p>
+                            <input
+                            class="form-control"
+                            formControlName="first_name" type="text" id="first_name" [(ngModel)]="profileData.first_name" 
+                            />
+                          </div>
+                          <div class="form-group">
+                            <p>
+                              Last Name</p>
+                            <input
+                            class="form-control"
+                            formControlName="last_name" type="text" id="last_name" [(ngModel)]="profileData.last_name"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>Job Title</p>
+                            <input 
+                            class="form-control"
+                            formControlName="job_title" type="text" id="job_title" [(ngModel)]="profileData.job_title"
+                            />
+                          </div>
+                        </div>
+                 
+                        <!-- <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>Domain</p>
+                            <input class="form-control" formControlName="domain" type="text" id="domain" [(ngModel)]="profileData.domain" />
+                          </div>
+                        </div> -->
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>Birth Date</p>
+                            <input class="form-control" formControlName="birth_date" type="Date" class="dateInput" id="educationDateStart" [(ngModel)]="profileData.birth_date" />
+                            <i class="la la-calendar pick"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <p>About</p>
+                            <textarea class="profile__textarea form-control" formControlName="about" type="text" id="about"  [(ngModel)]="profileData.about"></textarea>
+                          </div>
+                        </div>
+                        <!-- <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>Current Salary($)</p>
+                            <input class="form-control" formControlName="current_salary" type="text" id="current_salary" [(ngModel)]="profileData.current_salary" />
+                          </div>
+                        </div> -->
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>Experience</p>
+                            <input class="form-control" formControlName="experience" type="text" id="experience" [(ngModel)]="profileData.experience" />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>Education Level</p>
+                            <input class="form-control" formControlName="education_level" type="text" id="education_level" [(ngModel)]="profileData.education_level" />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>salary From </p>
+                            <input  class="form-control" formControlName="expected_salary_min" type="text" id="expected_salary_min" [(ngModel)]="profileData.expected_salary_min" />
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>Salary To</p>
+                            <input class="form-control" formControlName="expected_salary_max" type="text" id="expected_salary_max" [(ngModel)]="profileData.expected_salary_max" />
+                          </div>
+                        </div>
+                    
+                        <!-- <div class="col-lg-6">
+                          <div class="form-group">
+                            <p>language</p>
+                            <input class="form-control" formControlName="language" type="text" id="language" [(ngModel)]="profileData.language" />
+                          </div>
+                        </div> -->
+                    
+                  
+                      </div>
+                    </div>
+                    <div class="pt-4 modal-btn-wrapper">
+                      <button type="button" class="btn close backBtn" aria-label="Close" (click)="d('Cross click')">Cancel</button>
+                      <button type="submit" class="btn saveBtn">Save</button>
+                    </div>        
+                </form>
+              </div>
+              <!-- ----------------------- Edit Main Profile Info ------------------------ -->
+            </div>
+          </div>
+        </section>
+      </ng-template>
+    </div>
+  </div>
+  <!-----------------------------------------End add more Modal------------------------------------>

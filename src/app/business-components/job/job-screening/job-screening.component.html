@@ -1,0 +1,87 @@
+<!-----------------------------------------If There is no screening------------------------------------>
+
+<div *ngIf="this.jobScreeningData.length == 0;" class="job-screening_no-data">
+  <div class="job-screening_no-data_icon">
+    <i class="fas fa-exclamation"></i>
+  </div>
+  <div class="job-screening_no-data_paragraph">
+    <p>Theire is no Screening right now please create a new one!</p>
+  </div>
+  <div class="job-screening_no-data_create-new">
+    <button class="btn btn-secondary btn-block" [routerLink]="['/pages', 'recruiter', 'screening']"
+      routerLinkActive="active">create screening</button>
+  </div>
+</div>
+
+<div class="job-screening_with-data"*ngIf="this.jobScreeningData.length != 0;">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-6 filter mb-2">
+                <!-- filter -->
+                <div class="filter__by-name">
+                  <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                    (keyup)="updateFilter($event)" />
+                  <div class="filter__by-name__icon">
+                    <i class="fas fa-filter"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- -------------------------- Data Table Start --------------------------- -->
+            <ngx-datatable #table class="material job-screening_with-data_table" [columns]="columns"
+              [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5"
+              [rows]="rows">
+              <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+              <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                [resizeable]="false">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="" sortable="false" prop="id">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <a title="Show Screening" class="link" data-original-title="" title="" (click)="showJobScreening(row)"
+                    (click)="open(screeningview)">
+                    <span class="action-icon">
+                      <img src="../../../../assets/img/actions/view.svg">
+                    </span>
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-content">
+    <div class="card-body">
+      <ng-template #screeningview let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title"> Screening Details</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <section id="filter">
+          <div class="modal-body container">
+            <ul class="d-flex contact-link row">
+              <li class="col-sm-12">
+                <h5>Screening Title</h5>
+                <span>{{ ScreeningDetails.name }}</span>
+              </li>
+              <li class="col-sm-12">
+                <h5>Screening Description</h5>
+                <span>{{ ScreeningDetails.description }}</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </ng-template>
+    </div>
+  </div>
+</div>

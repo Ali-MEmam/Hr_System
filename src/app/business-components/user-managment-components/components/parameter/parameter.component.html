@@ -1,0 +1,144 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Parameter Commponent End                      -->
+<!-- ----------------------------------------------------------------------- -->
+
+<section id="horizontal-form-layouts">
+    <div class="row text-left">
+        <div class="col-sm-12">
+            <div class="content-header">Set Up Parameters</div>
+        </div>
+    </div>
+    <div class="row text-left">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="px-3">
+<!-- ----------------------------- Form Start ------------------------------ -->
+                        <form class="form form-horizontal" [formGroup]="parameterForm" (ngSubmit)="onParameterFormSubmit()">
+                            <div class="form-body">
+                                <h4 class="form-section"><i class="ft-user"></i> User Parameters</h4>
+<!-- ----------------------------- notfication SMS ------------------------------ -->
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="profilinput2">Notification SMS:</label>
+                                    <div class="col-md-9">
+                                        <textarea
+                                        id="profilinput2"
+                                        rows="5"
+                                        class="form-control"
+                                        formControlName="notification" 
+                                        name="notification" 
+                                        required
+                                        >
+                                        </textarea>
+                                    </div>
+                                </div>
+<!-- ------------------------------ message auto ------------------------------ -->
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="lastName">Message Automatic: </label>
+                                    <div class="col-md-9">
+                                        <textarea
+                                        id="profilinput2"
+                                        rows="5"
+                                        class="form-control"
+                                        formControlName="message" 
+                                        name="message" 
+                                        required
+                                        >
+                                        </textarea>
+                                    </div>
+                                </div>
+<!-- ------------------------------ max number of days t oaccept invitation ------------------------------- -->
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="username">Max days to accept invitation: </label>
+                                    <div class="col-md-9">
+                                        <input type="number"
+                                        id="username"
+                                        class="form-control"
+                                        formControlName="invDays" 
+                                        name="invDays" 
+                                        required
+                                        >
+                                    </div>
+                                </div>
+<!-- -------------------------------- max number to pass -------------------------------- -->
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="email">Max days to pass invitation: </label>
+                                    <div class="col-md-9">
+                                        <input
+                                        type="number"
+                                        id="email"
+                                        class="form-control"
+                                        formControlName="passDays" 
+                                        name="passDays" 
+                                        required
+                                        >
+                                    </div>
+                                </div>
+<!-- -------------------------------- max number of Questions /first contact -------------------------------- -->
+                                <h4 class="form-section"><i class="ft-file-text"></i> Max Number of questions:</h4>
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="phone">First Contact: </label>
+                                    <div class="col-md-9">
+                                        <input
+                                        type="number"
+                                        id="phone"
+                                        class="form-control"
+                                        formControlName="firstContactNum" 
+                                        name="firstContactNum" 
+                                        required
+                                        >
+                                    </div>
+                                </div>
+<!-- -------------------------------- max number of Questions /technical -------------------------------- -->
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="phone">Technical test: </label>
+                                    <div class="col-md-9">
+                                        <input
+                                        type="number"
+                                        id="phone"
+                                        class="form-control"
+                                        formControlName="technicalNum" 
+                                        name="technicalNum" 
+                                        required
+                                        >
+                                    </div>
+                                </div>
+<!-- -------------------------------- max number of Questions /hr -------------------------------- -->
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 label-control" for="phone">HR interview: </label>
+                                    <div class="col-md-9">
+                                        <input
+                                        type="number"
+                                        id="phone"
+                                        class="form-control"
+                                        formControlName="hrNum" 
+                                        name="hrNum" 
+                                        required 
+                                        >
+                                    </div>
+                                </div>
+<!-- ---------------------------- Form Buttons ----------------------------- -->
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-raised btn-warning mr-1" (click)="backClicked()" >
+                                    <i class="ft-x"></i>
+                                   Back
+                                </button>
+                                <button [disabled]="parameterForm.invalid" type="submit" class="btn btn-raised btn-primary">
+                                    <i class="fa fa-check-square-o"></i> Save
+                                </button>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <app-spinner ></app-spinner>
+ -->
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Parameter Commponent End                      -->
+<!-- ----------------------------------------------------------------------- -->

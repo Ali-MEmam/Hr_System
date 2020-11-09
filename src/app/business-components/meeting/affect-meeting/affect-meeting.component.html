@@ -1,0 +1,182 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                      affect meeting Component Start                     -->
+<!-- ----------------------------------------------------------------------- -->
+<section id="filter" class="mb-3">
+    <div class="row text-left">
+        <div class="col-12">
+            <div class="content-header">Affect Meeting</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">{{FilterOptionLabel|translate}}</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <input type='text' style='padding:8px;margin:15px auto;width:30%;'
+                            [placeholder]="[FilterPlaceHolder|translate]" (keyup)='updateFilter($event)' />
+                        <th>
+                            <a (click)="open(content)">
+                                <i class="icon-user-follow"></i>
+                                &nbsp;&nbsp;
+                                <span class="menu-title">Get Preselected Candidate</span>
+                            </a>
+                        </th>
+                        <!-- -------------------------- Data Table Start --------------------------- -->
+                        <ngx-datatable #table class='bootstrap' [columns]="columns" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10"
+                            [rows]='displayedRows'>
+                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                            <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop">
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="Actions" sortable="false" prop="id">
+
+                                <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+                                    <a class="success p-0" data-original-title="" title=""  (click)="open(test)" >
+                                        <i class="fa fa-paper-plane-o font-medium-1 mr-2"></i>
+                                    </a>
+                                    <a class=" danger p-0" data-original-title="" title=""
+                                        (click)="removeCandidate(value)">
+                                        <i class="ft-x font-medium-3 mr-2"></i>
+                                    </a>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                        <!-- --------------------------- Data Table End ---------------------------- -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Modal with Default options starts-->
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title">Preselecting Result</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-----               -------------------------------                ------>
+                <!-----               result of preselecting in modal  Start         ------>
+                <!-----               -------------------------------                ------>
+                <section id="filter" class="mb-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">{{FilterOptionLabel|translate}}</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <input type='text' style='padding:8px;margin:15px auto;width:50%;'
+                                            [placeholder]="[FilterPlaceHolder|translate]"
+                                            (keyup)='updateFilterForModal($event)' />
+                                        <!-- -------------------------- Data Table Start --------------------------- -->
+                                        <ngx-datatable #table class='bootstrap' [columns]="columns"
+                                            [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                                            [rowHeight]="'auto'" [limit]="10" [rows]='rows'>
+                                            <ngx-datatable-row-detail></ngx-datatable-row-detail>
+
+                                            <ngx-datatable-column *ngFor="let col of columns" [name]="col.name"
+                                                [prop]="col.prop">
+                                            </ngx-datatable-column>
+
+                                            <ngx-datatable-column name="Actions" sortable="false" prop="id">
+
+                                                <ng-template let-row="data" let-value="value"
+                                                    ngx-datatable-cell-template>
+                                                    <a class="success p-0" data-original-title="" title=""
+                                                        (click)="addCandidate(value)">
+                                                        <i class="ft-plus font-medium-3 ml-2"></i>
+                                                    </a>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                        </ngx-datatable>
+                                        <!-- --------------------------- Data Table End ---------------------------- -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-----               -------------------------------                ------>
+                <!-----               result of preselecting in modal End            ------>
+                <!-----               -------------------------------                ------>
+
+                <!-----               -------------------------------                ------>
+                <!-----               result of preselecting in modal End            ------>
+                <!-----               -------------------------------                ------>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-raised"
+                (click)="c('Close click')">Close</button>
+            </div>
+        </ng-template>
+    </div>
+</div>
+<!--Modal with Default options ends-->
+
+<!-----------------------------------------Start Tests Modal------------------------------------>
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #test let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title">Assign Test</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-8 filter">
+                    <!-- filter -->
+
+                    <div class="filter__by-name">
+                        <label class="mb-0 text-left filter__by-name__label">Search : </label>
+                        <input class="form-control filter__by-name__input px-3 mt-1" type='text' [placeholder]=""
+                            (keyup)='updateTestsFilter($event)' />
+                        <i class="ft-search filter__by-name__icon icon"></i>
+                    </div>
+                </div>
+
+                <!-----------------------------------------Start Tests Table------------------------------------>
+                <ngx-datatable #testsTable class="material" [rows]="displayTestsRows" [columns]="columnsTestsTable"
+                    [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="5"
+                    [selected]="selected" [selectionType]="SelectionType.checkbox" [selectAllRowsOnPage]="false"
+                    [displayCheck]="displayCheck" (select)="onSelect($event)">
+                    <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false"
+                        [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [resizeable]="false" *ngFor="let col of columnsTestsTable" [name]="col.name"
+                        [prop]="col.prop">
+                    </ngx-datatable-column>
+                </ngx-datatable>
+
+                <!-----------------------------------------End Tests Table------------------------------------>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary closeBtn btn-raised"
+                    (click)="c('Close click')">Close</button>
+                <button type="submit" class="btn confirmBtn btn-raised" [disabled]="!selected.length"
+                    (click)="confirmAssignTasks($event)">Confirm</button>
+            </div>
+        </ng-template>
+    </div>
+</div>
+<!-----------------------------------------End Tests Modal------------------------------------>
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                       affect meeting Component End                      -->
+<!-- ----------------------------------------------------------------------- -->

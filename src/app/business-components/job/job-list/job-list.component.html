@@ -1,0 +1,666 @@
+<!-----------------------------------------If There is no joment------------------------------------>
+<div *ngIf="this.departmentList.length == 0;" class="job-list_no-data">
+    <div class="job-list_no-data_icon">
+        <i class="fas fa-exclamation"></i>
+    </div>
+    <div class="job-list_no-data_paragraph">
+        <p>Theire is no Departments Please create a new one !</p>
+    </div>
+    <div class="job-list_no-data_create-new">
+        <a class="btn btn-secondary btn-block" (click)="redirectFunction()">Create Department</a>
+    </div>
+</div>
+
+<div *ngIf="this.Joblist.length == 0 && this.departmentList.length > 0;" class="job-list_no-data">
+    <div class="job-list_no-data_icon">
+        <i class="fas fa-exclamation"></i>
+    </div>
+    <div class="job-list_no-data_paragraph">
+        <p>Theire is no Jobs right now please create a new one!</p>
+    </div>
+    <div class="job-list_no-data_create-new">
+        <button class="btn btn-secondary btn-block" (click)="clearData()" (click)="open(newJob)" >Create Job</button>
+    </div>
+</div>
+
+
+
+<!-----------------------------------------jobment list start------------------------------------>
+<!-- ----------------------------------------------------------------------- -->
+<!--                     List Profiles Componenet Start                      -->
+<!-- ----------------------------------------------------------------------- -->
+<div *ngIf="!isLoading">
+<section *ngIf="this.Joblist.length > 0 && this.departmentList.length > 0" id="filter" class="mb-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="border-title">
+                <div class="container">
+                    <h3>Jobs</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-header row">
+                    <!-- filter -->
+                    <div class="col-6 filter">
+                        <!-- filter -->
+                        <div class="filter__by-name">
+                            <input class="filter__by-name__input" type="text" placeholder="Type to Filter"
+                                (keyup)="updateFilter($event)" />
+                            <div class="filter__by-name__icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6 ml-auto d-flex justify-content-end mb-2">
+                        <button class="btn btnAdd" (click)="open(newJob)">+ add job</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <!-- -------------------------- Data Table Start --------------------------- -->
+                    <ngx-datatable #table class="material" [columns]="columns" [columnMode]="'force'"
+                        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [rows]="rows">
+                        <ngx-datatable-row-detail></ngx-datatable-row-detail>
+                        <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop"
+                            [resizeable]="false">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Actions" sortable="false" prop="id">
+
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <a title=" Open Job Details" class="link" (click)=viewJobDetails(row)>
+                                    <span class="action-icon">
+                                        <img src="../../../../assets/img/actions/view.svg">
+                                    </span>
+                                </a>
+                                <a title="Edit Job" class="link" (click)="EditJobVal(row)" (click)="open(editJob)">
+                                    <span class="action-icon">
+                                        <i class="fa fa-pencil-alt text-white font-small-2" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                                <a title="Remove Job" class="link" (click)="removeJob(row)">
+                                    <span class="action-icon">
+                                        <i class="ft-x text-white"></i>
+                                    </span>
+                                </a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                    <!-- --------------------------- Data Table End ---------------------------- -->
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+ 
+
+
+
+<!-----------------------------------------Start create Modal------------------------------------>
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #newJob let-c="close" let-d="dismiss">
+            <div class="modal-header">
+
+                <button type="button" class="close ml-auto" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <section id="filter">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <aw-wizard>
+                                <aw-wizard-step>
+                                    <h3 class="subtitle">Create New Job</h3>
+                                    <!----------------->
+                                    <!-- add new job -->
+                                    <!----------------->
+                                    <form [formGroup]="JobForm" (ngSubmit)="onSubmit(JobForm)">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': JobForm.get('Jobname').errors && JobForm.get('Jobname').touched }">
+                                                    <span class="pf-title">Job name
+                                                        <span class="danger">*</span>
+                                                    </span>
+                                                    <div *ngIf="JobForm.get('Jobname').errors && JobForm.get('Jobname').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <div class="pf-field">
+                                                        <input type="text" formControlName="Jobname" id="Jobname"
+                                                            autocomplete="off" name="Jobname" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------title------------------------------- -->
+                                            <div class="col-lg-6">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': JobForm.get('contract_type').errors && JobForm.get('contract_type').touched }">
+                                                    <p>Contract Type</p>
+                                                    <div *ngIf="JobForm.get('contract_type').errors && JobForm.get('contract_type').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <select formControlName="contract_type"
+                                                        class="custom-select d-block w-100"
+                                                        id="contractTypecustomSelect">
+                                                        <option selected value="Full-time">Fulltime</option>
+                                                        <option value="Part-Time">PartTime</option>
+                                                        <option value="Remotly">Remotly</option>
+                                                        <option value="InternShip">InternShip</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': JobForm.get('department').errors && JobForm.get('department').touched }">
+                                                    <span class="pf-title">Department
+                                                        <span class="danger">*</span>
+                                                    </span>
+                                                    <div *ngIf="JobForm.get('department').errors && JobForm.get('department').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <div class="pf-field">
+                                                        <!-- <input type="text" /> -->
+                                                        <select formControlName="department"
+                                                            class="custom-select d-block w-100"
+                                                            formControlName="department" id="department"
+                                                            autocomplete="off" name="department">
+                                                            <option
+                                                                *ngFor="let department of departmentList; let i = index"
+                                                                value="{{department._id}}" #selectValue>
+                                                                {{department.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': JobForm.get('salary_from').errors && JobForm.get('salary_from').touched }">
+                                                    <span class="pf-title">Minimum Salary
+                                                        <span class="danger">*</span>
+                                                    </span>
+                                                    <div *ngIf="JobForm.get('salary_from').errors && JobForm.get('salary_from').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <div class="pf-field">
+                                                        <input type="text" formControlName="salary_from"
+                                                            id="salary_from" autocomplete="off" name="salary_from" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': JobForm.get('salary_to').errors && JobForm.get('salary_to').touched }">
+                                                    <span class="pf-title">Maximum Salary
+                                                        <span class="danger">*</span>
+                                                    </span>
+                                                    <div *ngIf="JobForm.get('salary_to').errors && JobForm.get('salary_to').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <div class="pf-field">
+                                                        <input type="text" formControlName="salary_to" id="salary_to"
+                                                            autocomplete="off" name="salary_to" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------country------------------------------- -->
+                                            <div class="col-lg-6">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': jobEditForm.get('country').errors && jobEditForm.get('country').touched }">
+                                                    <p>Country</p>
+                                                    <div *ngIf="jobEditForm.get('country').errors && jobEditForm.get('country').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <select class="form-control" formControlName="country"
+                                                        (change)="onChangeCountry($event.target.value , selectValue)">
+                                                        <option *ngFor="let country of countryInfo; let i = index"
+                                                            value="{{i}}" #selectValue>{{country.CountryName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------city------------------------------- -->
+                                            <div class="col-lg-6">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': JobForm.get('city').errors && JobForm.get('city').touched }">
+                                                    <p>City</p>
+                                                    <div *ngIf="JobForm.get('city').errors && JobForm.get('city').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <select class="form-control" formControlName="city"
+                                                        (change)="onChangeState($event.target.value)">
+                                                        <option *ngIf="stateInfo == ''" value="-1">--Select State--
+                                                        </option>
+                                                        <option *ngFor="let state of stateInfo; let j = index"
+                                                            value="{{j}}">
+                                                            {{state.StateName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': JobForm.get('description').errors && JobForm.get('description').touched }">
+                                                    <span class="pf-title">description
+                                                        <span class="danger">*</span>
+                                                    </span>
+                                                    <div *ngIf="JobForm.get('description').errors && JobForm.get('description').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <div class="pf-field">
+                                                        <textarea formControlName="description" name="description"
+                                                            id="description"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="wizard-btn-wrapper">
+                                            <button type="button" [awGoToStep]="{stepIndex: 2}"
+                                                class="btn current-btn"></button>
+                                            <button type="button" class="btn previous-btn"></button>
+                                        </div>
+                                        <div class="pt-4 modal-btn-wrapper">
+                                            <p class="info-text">step 1 of 2</p>
+                                            <button type="button" class="btn backBtn mr-2" aria-label="Close"
+                                                (click)="d('Cross click')">Cancel</button>
+                                            <button type="submit" class="btn saveBtn" [disabled]="JobForm.invalid"
+                                                awNextStep>Next</button>
+                                        </div>
+                                    </form>
+                                    <!----------------->
+                                    <!------ end------>
+                                    <!----------------->
+
+                                </aw-wizard-step>
+                                <aw-wizard-step awOptionalStep>
+                                    <h3 class="subtitle">Create Job Criteria</h3>
+                                    <!----------------->
+                                    <!-- add job criteria -->
+                                    <!----------------->
+                                    <form (ngSubmit)="onSubmitJobCriteriaForm(jobCriteriaForm)"
+                                        [formGroup]="jobCriteriaForm" class="form content">
+                                        <div class="row">
+                                            <!-- ------------------------------Education Degree------------------------------- -->
+                                            <div class="col-lg-12">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': jobCriteriaForm.get('education').errors && jobCriteriaForm.get('education').touched }">
+                                                    <p>Education Degree</p>
+                                                    <div *ngIf="jobCriteriaForm.get('education').errors && jobCriteriaForm.get('education').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <select formControlName="education"
+                                                        class="custom-select d-block w-100" id="educationcustomSelect">
+                                                        <option selected value="Associate degree">Associate degree
+                                                        </option>
+                                                        <option value="Bachelor's degree">Bachelor's degree</option>
+                                                        <option value="Master's degree">Master's degree</option>
+                                                        <option value="Doctoral degree">Doctoral degree</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------Experience------------------------------- -->
+                                            <div class="col-lg-6">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': jobCriteriaForm.get('experience').errors && jobCriteriaForm.get('experience').touched }">
+                                                    <p>Experience</p>
+                                                    <div *ngIf="jobCriteriaForm.get('experience').errors && jobCriteriaForm.get('experience').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <select formControlName="experience"
+                                                        class="custom-select d-block w-100" id="experiencecustomSelect">
+                                                        <option selected value="0-2">0-2</option>
+                                                        <option value="2-5">2-5</option>
+                                                        <option value="5-10">5-10</option>
+                                                        <option value="greater than 10">greater than 10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------Language------------------------------- -->
+                                            <div class="col-lg-6">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': jobCriteriaForm.get('language').errors && jobCriteriaForm.get('language').touched }">
+                                                    <p>Language</p>
+                                                    <div *ngIf="jobCriteriaForm.get('language').errors && jobCriteriaForm.get('language').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <select formControlName="language"
+                                                        class="custom-select d-block w-100" id="languagecustomSelect">
+                                                        <option *ngFor="let language of languagesArray"
+                                                            [value]="language" class="form-dropdown__option"
+                                                            [selected]="selectedValue">
+                                                            {{ language.toUpperCase() }}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------Skills------------------------------- -->
+                                            <div class="col-lg-12">
+                                                <div class="form-group"
+                                                    [ngClass]="{'is-invalid': jobCriteriaForm.get('skill').errors && jobCriteriaForm.get('skill').touched }">
+                                                    <p>Skills</p>
+                                                    <div *ngIf="jobCriteriaForm.get('skill').errors && jobCriteriaForm.get('skill').touched"
+                                                        class="required-error">
+                                                        *Required</div>
+                                                    <mat-form-field class="example-chip-list">
+                                                        <mat-chip-list #chipList aria-label="skill selection">
+                                                            <mat-chip *ngFor="let skill of skills"
+                                                                [selectable]="selectable" [removable]="removable"
+                                                                (removed)="remove(skill)">
+                                                                {{skill}}
+                                                                <mat-icon matChipRemove *ngIf="removable">X</mat-icon>
+                                                            </mat-chip>
+                                                            <input formControlName="skill" 
+                                                                [matChipInputFor]="chipList"
+                                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                                [matChipInputAddOnBlur]="addOnBlur"
+                                                                (matChipInputTokenEnd)="add($event)">
+                                                        </mat-chip-list>
+                                                    </mat-form-field>
+                                                    <!-- <div style="text-align:center;">
+                                                        <tag-input formControlName="skill" id="skill" autocomplete="off"
+                                                            name="skill"></tag-input>
+                                                    </div> -->
+                                                    <!-- <input type="text" formControlName="skill" id="skill"
+                                                        autocomplete="off" name="skill" /> -->
+                                                </div>
+                                                <p class="notice">Press enter after each skill</p>
+                                            </div>
+                                        </div>
+                                        <div class="wizard-btn-wrapper">
+                                            <button type="button" class="btn previous-btn"></button>
+                                            <button type="button" class="btn current-btn"></button>
+                                        </div>
+                                        <div class="pt-4 modal-btn-wrapper">
+                                            <p class="info-text">step 2 of 2</p>
+                                            <button type="button" awPreviousStep class="btn backBtn mr-2">Back</button>
+                                            <button type="submit" class="btn saveBtn" awNextStep
+                                                [disabled]="jobCriteriaForm.invalid">Save</button>
+                                        </div>
+                                    </form>
+                                    <!----------------->
+                                    <!------ end------>
+                                    <!----------------->
+
+                                </aw-wizard-step>
+                            </aw-wizard>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>
+<!-----------------------------------------End create Modal------------------------------------>
+<!-----------------------------------------edit create Modal------------------------------------>
+<div class="card-content">
+    <div class="card-body">
+        <ng-template #editJob let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h3>Edit Job</h3>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <section id="filter">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form [formGroup]="jobEditForm" (ngSubmit)="onSubmitEdit(jobEditForm)">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobEditForm.get('Jobname').errors && jobEditForm.get('Jobname').touched }">
+                                            <span class="pf-title">Job name
+                                                <span class="danger">*</span>
+                                            </span>
+                                            <div *ngIf="jobEditForm.get('Jobname').errors && jobEditForm.get('Jobname').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <div class="pf-field">
+                                                <input type="text" formControlName="Jobname" id="Jobname"
+                                                    autocomplete="off" name="Jobname" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------title------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobEditForm.get('contract_type').errors && jobEditForm.get('contract_type').touched }">
+                                            <p>Contract Type</p>
+                                            <div *ngIf="jobEditForm.get('contract_type').errors && jobEditForm.get('contract_type').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select formControlName="contract_type" class="custom-select d-block w-100"
+                                                id="contractTypecustomSelect">
+                                                <option selected value="Full-time">Fulltime</option>
+                                                <option value="Part-Time">PartTime</option>
+                                                <option value="Remotly">Remotly</option>
+                                                <option value="InternShip">InternShip</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobEditForm.get('department').errors && jobEditForm.get('department').touched }">
+                                            <p class="pf-title">Department
+                                                <span class="danger">*</span>
+                                            </p>
+                                            <div *ngIf="jobEditForm.get('department').errors && jobEditForm.get('department').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select formControlName="department" class="custom-select d-block w-100"
+                                                formControlName="department" id="department" autocomplete="off"
+                                                name="department">                                                
+                                                <option selected disabled >
+                                                {{selectedjobData.name_department}}</option>
+                                                <option
+                                                *ngFor="let department of departmentList; let i = index"
+                                                value="{{department._id}}" #selectValue>
+                                                {{department.name}}</option>
+                                            </select>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobEditForm.get('salary_from').errors && jobEditForm.get('salary_from').touched }">
+                                            <span class="pf-title">Minimum Salary
+                                                <span class="danger">*</span>
+                                            </span>
+                                            <div *ngIf="jobEditForm.get('salary_from').errors && jobEditForm.get('salary_from').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <div class="pf-field">
+                                                <input type="text" formControlName="salary_from" id="salary_from"
+                                                    autocomplete="off" name="salary_from" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobEditForm.get('salary_to').errors && jobEditForm.get('salary_to').touched }">
+                                            <span class="pf-title">Maximum Salary
+                                                <span class="danger">*</span>
+                                            </span>
+                                            <div *ngIf="jobEditForm.get('salary_to').errors && jobEditForm.get('salary_to').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <div class="pf-field">
+                                                <input type="text" formControlName="salary_to" id="salary_to"
+                                                    autocomplete="off" name="salary_to" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------country------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobEditForm.get('country').errors && jobEditForm.get('country').touched }">
+                                            <p>Country</p>
+                                            <div *ngIf="jobEditForm.get('country').errors && jobEditForm.get('country').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select class="form-control" formControlName="country"
+                                                (change)="onChangeCountry($event.target.value , selectValue)">
+                                                <option *ngFor="let country of countryInfo; let i = index" value="{{i}}"
+                                                    #selectValue>{{country.CountryName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------city------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobEditForm.get('city').errors && jobEditForm.get('city').touched }">
+                                            <p>City</p>
+                                            <div *ngIf="jobEditForm.get('city').errors && jobEditForm.get('city').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select class="form-control" formControlName="city"
+                                                (change)="onChangeState($event.target.value)">
+                                                <option *ngIf="stateInfo == ''" value="-1" selected>{{selectedjobData.city}}</option>
+                                                <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">
+                                                    {{state.StateName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobEditForm.get('description').errors && jobEditForm.get('description').touched }">
+                                            <span class="pf-title">description
+                                                <span class="danger">*</span>
+                                            </span>
+                                            <div *ngIf="jobEditForm.get('description').errors && jobEditForm.get('description').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <div class="pf-field">
+                                                <textarea formControlName="description" name="description"
+                                                    id="description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-4 modal-btn-wrapper">
+                                    <button type="button" class="btn backBtn" aria-label="Close"
+                                        (click)="d('Cross click')">Cancel</button>
+                                    <button type="submit" class="btn saveBtn"
+                                        [disabled]="jobEditForm.invalid">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>
+<!-----------------------------------------End edit Modal------------------------------------>
+
+
+
+<!-- ----------------------------------------------------------------------- -->
+<!--                            create new criteria                          -->
+<!-- ----------------------------------------------------------------------- -->
+
+<div class="card-content">
+    <div class="card-body p-1">
+        <ng-template #createCriteria let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title">Create Job Criteria</h4>
+                <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+            </div>
+            <section id="filter">
+                <div class="modal-body">
+                    <div class="row content">
+                        <div class="col-12">
+                            <form (ngSubmit)="onSubmitJobCriteriaForm(jobCriteriaForm)" [formGroup]="jobCriteriaForm"
+                                class="form content">
+                                <div class="row">
+                                    <!-- ------------------------------Education Degree------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobCriteriaForm.get('education').errors && jobCriteriaForm.get('education').touched }">
+                                            <p>Education Degree</p>
+                                            <div *ngIf="jobCriteriaForm.get('education').errors && jobCriteriaForm.get('education').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select formControlName="education" class="custom-select d-block w-100"
+                                                id="educationcustomSelect">
+                                                <option selected value="Associate degree">Associate degree</option>
+                                                <option value="Bachelor's degree">Bachelor's degree</option>
+                                                <option value="Master's degree">Master's degree</option>
+                                                <option value="Doctoral degree">Doctoral degree</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Experience------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobCriteriaForm.get('experience').errors && jobCriteriaForm.get('experience').touched }">
+                                            <p>Experience</p>
+                                            <div *ngIf="jobCriteriaForm.get('experience').errors && jobCriteriaForm.get('experience').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select formControlName="experience" class="custom-select d-block w-100"
+                                                id="experiencecustomSelect">
+                                                <option selected value="0-2">0-2</option>
+                                                <option value="2-5">2-5</option>
+                                                <option value="5-10">5-10</option>
+                                                <option value="greater than 10">greater than 10</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Language------------------------------- -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobCriteriaForm.get('language').errors && jobCriteriaForm.get('language').touched }">
+                                            <p>Language</p>
+                                            <div *ngIf="jobCriteriaForm.get('language').errors && jobCriteriaForm.get('language').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <select formControlName="language" class="custom-select d-block w-100"
+                                                id="languagecustomSelect">
+                                                <option *ngFor="let language of languagesArray" [value]="language"
+                                                    class="form-dropdown__option" [selected]="selectedValue">
+                                                    {{ language.toUpperCase() }}</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- ------------------------------Skills------------------------------- -->
+                                    <div class="col-lg-12">
+                                        <div class="form-group"
+                                            [ngClass]="{'is-invalid': jobCriteriaForm.get('skill').errors && jobCriteriaForm.get('skill').touched }">
+                                            <p>Skills</p>
+                                            <div *ngIf="jobCriteriaForm.get('skill').errors && jobCriteriaForm.get('skill').touched"
+                                                class="required-error">
+                                                *Required</div>
+                                            <input type="text" formControlName="skill" id="skill" autocomplete="off"
+                                                name="skill" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-4 modal-btn-wrapper">
+                                    <button type="button" class="btn backBtn" aria-label="Close"
+                                        (click)="d('Cross click')">Cancel</button>
+                                    <button type="submit" class="btn saveBtn"
+                                        [disabled]="jobCriteriaForm.invalid">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+</div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

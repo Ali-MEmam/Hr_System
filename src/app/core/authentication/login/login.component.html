@@ -1,0 +1,106 @@
+<!-- ----------------------------------------------------------------------- -->
+<!--                           Login Component End                           -->
+<!-- ----------------------------------------------------------------------- -->
+<app-spinner *ngIf="isLoading"></app-spinner>
+<!--Login Page Starts-->
+<section id="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 d-flex flex-column">
+        <div class="logo-wrapper">
+          <img src="../../../../assets/img/logos/logo.svg" alt="" />
+        </div>
+        <div class="content-wrapper">
+          <h1>
+            Welcome to <span>master HR </span>
+          </h1>
+          <p>
+            Lorem ipsum dolor sit <br />
+            amet consectetur adipisicing elit.
+          </p>
+        </div>
+        <div class="d-block">
+          <div class="card-content text-center">
+            <div class="card-body login-img">
+              <!-- <h4 class="card-title mb-2">Login</h4> -->
+
+              <!-- <p class="card-text mb-2">
+                  </p> -->
+              <div class="select-user-tabs mb-3">
+                <span (click)="userCandiate(candiate, employer)" #candiate class="active">Candidate</span>
+                <span (click)="userEmployer(employer, candiate)" #employer>Employer</span>
+              </div>
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)" autocomplete="off">
+                <!-- ------------------------------ Username ------------------------------- -->
+                <div>
+                  <div class="form-group"
+                    [ngClass]="{'is-invalid': loginForm.get('username').errors && loginForm.get('username').touched }">
+                    <p>
+                      Username</p>
+                    <div *ngIf="loginForm.get('username').errors && loginForm.get('username').touched"
+                      class="required-error">
+                      *Required</div>
+                    <input type="text" placeholder="username" formControlName="username" class="form-control"
+                      id="username" au tocomplete="off" [(ngModel)]="registerUserName" />
+                  </div>
+                </div>
+                <!-- ------------------------------ Password ------------------------------- -->
+                <div class="form-group"
+                  [ngClass]="{'is-invalid': loginForm.get('password').errors && loginForm.get('password').touched }">
+                  <p>
+                    Password</p>
+                  <div *ngIf="loginForm.get('password').errors && loginForm.get('password').touched"
+                    class="required-error">
+                    *Required</div>
+                  <input type="password" placeholder="Password" formControlName="password" id="pwd"
+                    class="form-control mb-3" autocomplete="off" name="password"
+                    [type]="fieldTextType ? 'text' : 'password'" />
+                  <span>
+                    <i class="fa" [ngClass]="{
+                            'fa-eye-slash': !fieldTextType,
+                            'fa-eye': fieldTextType
+                          }" (click)="toggleFieldTextType()"></i>
+                  </span>
+                </div>
+
+                <!-- ----------------------------- Form Action ----------------------------- -->
+
+                <div class="d-flex justify-content-between mt-2">
+                  <div class="remember-me">
+                    <p class="remember-label">
+                      <input type="checkbox" name="customCheckboxInline1" id="cb1" />
+                      <label for="cb1">Remmember Me</label>
+                    </p>
+                  </div>
+
+                  <div class="forgot-password-option">
+                    <a [routerLink]="['/pages/forgotpassword']" class="text-decoration-none">Forgot Password ?</a>
+                  </div>
+                </div>
+                <div class="fg-actions">
+                  <div class="recover-pass">
+                    <button class="btn btn-primary d-block w-100">
+                      <a class="text-decoration-none text-white">Login</a>
+                    </button>
+                  </div>
+                </div>
+                <div class="fg-actions text-center">
+                  <p>
+                    Don't have an account ?
+                    <a [routerLink]="['/register', 'Recruiter']" class="text-decoration-none link-text">Register</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="img-wrapper">
+          <img src="../../../../assets/img/login/Interview-rafiki.svg" alt="" class="w-100" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Login Page Ends-->

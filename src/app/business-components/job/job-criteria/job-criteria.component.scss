@@ -1,0 +1,342 @@
+@import '../../../../variables';
+@import '../../../../general';
+
+
+.criteria-list_no-data {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 67vh;
+    &_icon {
+      font-size: 150px;
+      color: $tealish;
+    }
+    &_create-new {
+      width: 40%;
+      .btn {
+          border-color: $orange;
+        background-color: $orange;
+        color: $white;
+        width: 100%;
+      }
+    }
+    &_paragraph {
+      font-size: 20px;
+      font-weight: 500;
+    }
+}
+
+.profile {
+    &__summury-info {
+        position: relative;
+        &__details {
+     
+            i {
+                color         : $tealish;
+                vertical-align: middle;
+            }
+            li {
+                width      : 100%;
+                display    : flex;
+                align-items: center;
+                margin     : 0;
+                line-height: 1.8;
+            }
+        }
+        p {
+            margin : 0;
+            padding: 0;
+        }
+
+        &__img {
+            cursor: pointer;
+
+            img {
+                width        : 150px;
+                height       : 150px;
+                border-radius: 50%;
+                border       : solid 1.5px $tealish;
+            }
+        }
+
+        &__Edit {
+            text-align: center;
+            font-size : 17px;
+                        position: absolute;
+            right: 0;
+        }
+
+        &__Edit-link {
+            padding     : 5px;
+            font-size   : 20px;
+            background  : $warm-grey-two;
+            border-color: $warm-grey-two;
+            color       : white;
+
+            &:hover {
+                background-color: $orange;
+                border-color    : $orange;
+                color           : white;
+            }
+        }
+
+        .upload-info {
+            height     : 100%;
+            margin-left: auto;
+            display    : flex;
+            align-items: flex-start;
+        }
+
+    }
+
+
+    &__personal-info {
+        &__form {
+            margin-top   : 5%;
+            margin-bottom: 5%;
+
+            input {
+                margin-bottom: 10px;
+            }
+        }
+
+        .edu-history>i {
+            font-size: 40px;
+
+        }
+    }
+
+    .form {
+        margin-bottom: 2%;
+        padding-top  : 2%;
+        border-bottom: 1px solid #edeff7;
+        padding      : 4% 0% 4% 5%;
+    }
+
+    h3.subtitle {
+        color         : #009DA0;
+        text-transform: capitalize;
+    }
+
+    .pf-title {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+.pf-field {
+    & > i{
+        line-height: 40px !important;
+    }
+    > input{
+        padding: 8px 15px !important;
+    }
+}
+   
+
+
+    .saveBtn {
+        border     : 2px solid #009DA0;
+        color      : #009DA0;
+        margin-left: 15px;
+
+        &:hover {
+
+            color     : white;
+            background: #009DA0;
+        }
+
+        &:disabled {
+            opacity         : 0.6;
+            cursor          : not-allowed;
+            background-color: white;
+            color           : #009DA0;
+        }
+    }
+
+    .cancelBtn {
+        border     : 2px solid #f26956;
+        color      : #f26956;
+        margin-left: 15px;
+
+        &:hover {
+            color     : white;
+            background: #f26956;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor : not-allowed;
+        }
+    }
+
+    .title {
+        text-transform: capitalize;
+        font-family   : Quicksand;
+        font-size     : 20px;
+        font-weight   : bold;
+        color         : #202020;
+        margin        : 0;
+    }
+
+    .profile__summury-wrapper {
+        display    : flex;
+        align-items: center;
+
+        figure {
+            margin-bottom: 0;
+
+            @media(max-width:768px) {
+                margin-bottom: 20px;
+            }
+        }
+
+    }
+
+    .pf-field>input,
+    .pf-field>textarea {
+        width                : 100%;
+        border               : 2px solid #e8ecec;
+        -webkit-border-radius: 8px;
+        -moz-border-radius   : 8px;
+        -ms-border-radius    : 8px;
+        -o-border-radius     : 8px;
+        border-radius        : 8px;
+        padding              : 12px 45px 12px 15px;
+        background           : #ffffff;
+        font-size            : 13px;
+        line-height          : 24px;
+        margin-bottom        : 20px;
+        padding              : 4% 5%;
+    }
+
+    .job-overview {
+        ul {
+            padding: 0 !important;
+
+            li {
+
+                padding-right: 1%;
+
+                i {
+                    color: #009DA0;
+                }
+
+                &:hover {
+                    i {
+                        color: #f26956;
+                    }
+                }
+            }
+        }
+
+    }
+    .job-overview ul > li h3 {
+        float: left;
+        width: 100%;
+        font-size: 14px;
+        font-family: Open Sans;
+        margin: 0;
+        // font-family: Quicksand;
+        font-weight: 500;
+    }
+    .job-overview.style2 {
+        border        : none;
+        padding-right : 15px;
+        padding-left  : 15px;
+        padding-top   : 0;
+        padding-bottom: 0;
+
+        .wtabs {
+            padding: 5% 0% 0% 8%;
+
+        }
+
+
+
+        .job-title-sec {
+            .job-lctn {
+                display: flex;
+                width  : 100%;
+
+                .la-circle:before {
+                    content    : "\f18a";
+                    font-size  : 13px;
+                    font-weight: 900;
+                    color      : #f26956;
+                }
+            }
+
+            h3 {
+                display      : table;
+                font-size    : 16px;
+                font-family  : Quicksand;
+                color        : #009DA0;
+                font-weight  : 500;
+                margin       : 0;
+                margin-bottom: 0px;
+                margin-bottom: 7px;
+                margin-top   : 3px;
+            }
+        }
+    }
+}
+
+
+.job-overview.style2 ul > li{
+    width: 50%;
+    }
+
+    .contact-link{
+        li{
+            display: flex;
+            img{
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .edu-history-sec{
+        padding: 0 10px !important;
+        li{
+            padding: 0;
+        }
+    }
+
+label{
+    color: $dark-indigo;
+    font-size: 16px;
+    line-height: 1.35;
+    font-weight: 500;
+
+}
+.modal-btn-wrapper{
+    justify-content: flex-end;
+    .close{
+        margin-right: 15px;
+    }
+}
+.mat-form-field{
+    width:100%
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper{
+    padding: 0;
+  }
+  ::ng-deep .mat-form-field-underline{
+    display: none;
+  }
+  .skills-wrapper{
+      p{
+          margin-right: 10px;
+          &::before{
+              content: "-";
+              margin-right: 5px;
+          }
+          &:first-child{
+            &::before{
+            display: none;
+            }  
+          }
+      }
+  }
