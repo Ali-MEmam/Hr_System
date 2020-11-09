@@ -118,6 +118,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CategoryListComponent } from './business-components/test-managment/category-list/category-list.component';
 import { CreateHrTestComponent } from './business-components/test-managment/add-test/create-hr-test/create-hr-test.component';
 import { CreateTecnicalTestComponent } from './business-components/test-managment/add-test/create-tecnical-test/create-tecnical-test.component';
+import { GraphQLModule } from './graphql.module';
 // import { AssignProfileComponent } from './assign-profile/assign-profile.component';
 // import { CreateFirstContentComponent } from './business-components/test-managment/add-test/create-first-content/create-first-content.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -274,7 +275,8 @@ export function createTranslateLoader(http: HttpClient) {
       maxOpened: 1,
       preventDuplicates: false,
     }),
-    ArchwizardModule
+    ArchwizardModule,
+    GraphQLModule
   ],
   providers: [
     UserService,
